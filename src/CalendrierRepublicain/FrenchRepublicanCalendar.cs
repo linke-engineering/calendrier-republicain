@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Sinistrius.CalendrierRepublicain.Extensions;
+using System.Globalization;
 
 
 namespace Sinistrius.CalendrierRepublicain;
@@ -12,16 +13,6 @@ namespace Sinistrius.CalendrierRepublicain;
 /// </remarks>
 public class FrenchRepublicanCalendar : Calendar
 {
-
-    #region Local Fields
-
-    /// <summary>
-    /// A validator for date and time parts of the Republican calendar.
-    /// </summary>
-    private readonly RepublicanDateTimeValidator _validator = new();
-
-    #endregion
-
 
     #region Overridden Calendar Properties
 
@@ -40,11 +31,11 @@ public class FrenchRepublicanCalendar : Calendar
 
 
     /// <inheritdoc/>
-    public override DateTime MaxSupportedDateTime => Globals.MaxSupportedDateTime;
+    public override DateTime MaxSupportedDateTime => Constants.MaxSupportedDateTime;
 
 
     /// <inheritdoc/>
-    public override DateTime MinSupportedDateTime => Globals.MinSupportedDateTime;
+    public override DateTime MinSupportedDateTime => Constants.MinSupportedDateTime;
 
     #endregion
 
@@ -98,7 +89,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Validate the calculated date
-        _validator.ValidateMonth(repDateTime.Year, repDateTime.Month);
+        repDateTime.Month.ValidateMonth(repDateTime.Year);
 
         // Convert to Gregorian
         return repDateTime.ToGregorian();
@@ -128,7 +119,7 @@ public class FrenchRepublicanCalendar : Calendar
             repDateTime.Year += step;
 
             // Add one day if addition ended on invalid leap day.
-            if (!Globals.IsLeapYear(repDateTime.Year) && repDateTime.Month == 13 && repDateTime.Day == 6)
+            if (!repDateTime.Year.IsLeapYear() && repDateTime.Month == 13 && repDateTime.Day == 6)
             {
                 if (step < 0)
                 {
@@ -147,7 +138,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Validate the calculated date
-        _validator.ValidateMonth(repDateTime.Year, repDateTime.Month);
+        repDateTime.Month.ValidateMonth(repDateTime.Year);
 
         // Convert to Gregorian
         return repDateTime.ToGregorian();
@@ -229,10 +220,10 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapDay(int year, int month, int day, int era)
     {
-        _validator.ValidateEra(era);
-        _validator.ValidateYear(year);
-        _validator.ValidateMonth(year, month);
-        _validator.ValidateDay(year, month, day);
+        era.ValidateEra();
+        year.ValidateYear();
+        month.ValidateMonth(year);
+        day.ValidateDay(year, month);
 
         return IsLeapYear(year, era) && month == 13 && day == 6;
     }
@@ -248,9 +239,9 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapMonth(int year, int month, int era)
     {
-        _validator.ValidateEra(era);
-        _validator.ValidateYear(year);
-        _validator.ValidateMonth(year, month);
+        era.ValidateEra();
+        year.ValidateYear();
+        month.ValidateMonth(year);
 
         return false;
     }
@@ -266,23 +257,23 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapYear(int year, int era)
     {
-        _validator.ValidateEra(era);
-        _validator.ValidateYear(year);
+        era.ValidateEra();
+        year.ValidateYear();
 
-        return Globals.IsLeapYear(year);
+        return year.IsLeapYear();
     }
 
 
     /// <inheritdoc/>
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
     {
-        _validator.ValidateYear(year);
-        _validator.ValidateMonth(year, month);
-        _validator.ValidateDay(year, month, day);
-        _validator.ValidateHour(hour);
-        _validator.ValidateMinute(minute);
-        _validator.ValidateSecond(second);
-        _validator.ValidateMillisecond(millisecond);
+        year.ValidateYear();
+        month.ValidateMonth(year);
+        day.ValidateDay(year, month);
+        hour.ValidateHour();
+        minute.ValidateMinute();
+        second.ValidateSecond();
+        millisecond.ValidateMillisecond();
 
         // Create Republican date time
         RepublicanDateTime repDateTime = new(year, month, day, hour, minute, second, millisecond);
@@ -295,7 +286,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
     {
-        _validator.ValidateEra(era);
+        era.ValidateEra();
 
         return ToDateTime(year, month, day, hour, minute, second, millisecond);
     }

@@ -291,7 +291,7 @@ public class FrenchRepublicanCalendarTests
     {
         // Arrange
         FrenchRepublicanCalendar calendar = new();
-        GregorianDateTime date = Globals.MinSupportedDateTime;
+        GregorianDateTime date = Constants.MinSupportedDateTime;
 
         // Act
         _ = calendar.GetDayOfWeek(date);

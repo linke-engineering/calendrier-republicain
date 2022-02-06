@@ -1,4 +1,6 @@
-﻿namespace Sinistrius.CalendrierRepublicain;
+﻿using Sinistrius.CalendrierRepublicain.Extensions;
+
+namespace Sinistrius.CalendrierRepublicain;
 
 
 /// <summary>
@@ -6,16 +8,6 @@
 /// </summary>
 internal struct RepublicanDateTime
 {
-
-    #region Local Fields
-
-    /// <summary>
-    /// A validator for date and time parts of the Republican calendar.
-    /// </summary>
-    private readonly RepublicanDateTimeValidator _validator = new();
-
-    #endregion
-
 
     #region Constructors
 
@@ -25,7 +17,7 @@ internal struct RepublicanDateTime
     /// <param name="gregDateTime">A <see cref="DateTime"/> that represents a date and time in the Gregorian calendar.</param>
     internal RepublicanDateTime(DateTime gregDateTime)
     {
-        if ((gregDateTime < Globals.MinSupportedDateTime) || (gregDateTime > Globals.MaxSupportedDateTime))
+        if ((gregDateTime < Constants.MinSupportedDateTime) || (gregDateTime > Constants.MaxSupportedDateTime))
         {
             throw new ArgumentOutOfRangeException(nameof(gregDateTime));
         }
@@ -54,13 +46,13 @@ internal struct RepublicanDateTime
     /// <param name="millisecond">An integer that represents the millisecond.</param>
     internal RepublicanDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
     {
-        _validator.ValidateYear(year);
-        _validator.ValidateMonth(year, month);
-        _validator.ValidateDay(year, month, day);
-        _validator.ValidateHour(hour);
-        _validator.ValidateMinute(minute);
-        _validator.ValidateSecond(second);
-        _validator.ValidateMillisecond(millisecond);
+        year.ValidateYear();
+        month.ValidateMonth(year);
+        day.ValidateDay(year, month);
+        hour.ValidateHour();
+        minute.ValidateMinute();
+        second.ValidateSecond();
+        millisecond.ValidateMillisecond();
 
         Year = year;
         Month = month;

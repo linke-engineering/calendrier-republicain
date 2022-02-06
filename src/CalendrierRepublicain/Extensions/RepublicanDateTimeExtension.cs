@@ -1,7 +1,7 @@
 ﻿using GregorianDateTime = System.DateTime;
 
 
-namespace Sinistrius.CalendrierRepublicain;
+namespace Sinistrius.CalendrierRepublicain.Extensions;
 
 
 /// <summary>
@@ -36,7 +36,7 @@ internal static class RepublicanDateTimeExtension
                         (days - 1);          // days
 
         // Add passed days and time to the start date of the Republican calendar.
-        GregorianDateTime gregDateTime = Globals.MinSupportedDateTime.AddDays(totalDays)
+        GregorianDateTime gregDateTime = Constants.MinSupportedDateTime.AddDays(totalDays)
                                                                      .Add(repDateTime.TimeOfDay);
 
         return gregDateTime;

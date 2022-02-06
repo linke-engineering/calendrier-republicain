@@ -1,7 +1,8 @@
-﻿using GregorianDateTime = System.DateTime;
+﻿using static Sinistrius.CalendrierRepublicain.Constants;
+using GregorianDateTime = System.DateTime;
 
 
-namespace Sinistrius.CalendrierRepublicain;
+namespace Sinistrius.CalendrierRepublicain.Extensions;
 
 
 /// <summary>
@@ -18,11 +19,11 @@ internal static class GregorianDateTimeExtension
     internal static RepublicanDateTime ToRepublican(this GregorianDateTime gregDateTime)
     {
         // Calculate number of days since start of the Republican calendar.
-        int totalDays = (int)(gregDateTime - Globals.MinSupportedDateTime).TotalDays;
+        int totalDays = (int)(gregDateTime - MinSupportedDateTime).TotalDays;
 
         int year = (int)(totalDays / 365.25);
 
-        if (Globals.IsLeapYear(year))
+        if (year.IsLeapYear())
         {
             year--;
         }
@@ -30,7 +31,7 @@ internal static class GregorianDateTimeExtension
         int day = totalDays + 1 - (int)(365.25 * year) + (year + 1) / 100 - (year + 1) / 400;
         year++;
         int month = 1;
-        int complementaryDayCount = Globals.IsLeapYear(year) ? 6 : 5;
+        int complementaryDayCount = year.IsLeapYear() ? 6 : 5;
 
         while (day > 30)
         {
@@ -44,7 +45,7 @@ internal static class GregorianDateTimeExtension
                     day -= complementaryDayCount;
                     month = 1;
                     year++;
-                    complementaryDayCount = Globals.IsLeapYear(year) ? 6 : 5;
+                    complementaryDayCount = year.IsLeapYear() ? 6 : 5;
                 }
             }
         }

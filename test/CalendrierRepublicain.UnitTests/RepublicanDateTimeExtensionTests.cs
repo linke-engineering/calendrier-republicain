@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sinistrius.CalendrierRepublicain.Extensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using GregorianDateTime = System.DateTime;

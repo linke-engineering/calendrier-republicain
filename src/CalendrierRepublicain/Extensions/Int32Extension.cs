@@ -11,13 +11,10 @@ internal static class Int32Extension
     /// Determines whether the specified era is valid in the Republican calendar.
     /// </summary>
     /// <param name="era">An integer that represents the calendar era.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateEra(this int era)
+    /// <returns>True if the specified era is valid, otherwise false.</returns>
+    internal static bool IsValidRepublicanCalenderEra(this int era)
     {
-        if (era != 1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(era));
-        }
+        return era == 1;
     }
 
 
@@ -25,13 +22,10 @@ internal static class Int32Extension
     /// Determines whether the specified year is valid in the Republican calendar.
     /// </summary>
     /// <param name="year">An integer that represents the year.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateYear(this int year)
+    /// <returns>True if the specified year is valid, otherwise false.</returns>
+    internal static bool IsValidRepublicanYear(this int year)
     {
-        if (year < 1 || year > 14)
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
+        return year.IsInRange(1, 14);
     }
 
 
@@ -39,10 +33,11 @@ internal static class Int32Extension
     /// Determines whether the specified year in the Republican calendar is a leap year.
     /// </summary>
     /// <param name="year">An integer that represents the year .</param>
-    /// <returns>True if the year is a leap year, otherwise false.</returns>
-    internal static bool IsLeapYear(this int year)
+    /// <returns>True if the specified year is a leap year, otherwise false.</returns>
+    internal static bool IsRepublicanLeapYear(this int year)
     {
-        return (year + 1) % 4 == 0;
+        return year.IsValidRepublicanYear() &&
+               (year + 1) % 4 == 0;
     }
 
 
@@ -51,41 +46,36 @@ internal static class Int32Extension
     /// </summary>
     /// <param name="month">An integer that represents the month of the year.</param>
     /// <param name="year">An integer that represents the year.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateMonth(this int month, int year)
+    /// <returns>True if the specified month is valid, otherwise false.</returns>
+    internal static bool IsValidRepublicanMonth(this int month, int year)
     {
-        if ((month < 1) ||
-            // The complementary days at the end of each year are considered as 13th month
-            (month > 13) ||
-            // The Republican calender was abolished in the 4th month of the 14th year
-            ((year == 14) && (month > 4)))
-        {
-            throw new ArgumentOutOfRangeException(nameof(month));
-        }
+        return year.IsValidRepublicanYear() &&
+               // The complementary days at the end of each year are considered as 13th month;
+               month.IsInRange(1, 13) &&
+               // The Republican calender was abolished in the 4th month of the 14th year;
+               !(year == 14 && month > 4);
     }
 
 
     /// <summary>
-    /// Determines whether the specified day is valid in the Republican calendar.
+    /// Determines whether the specified day of month is valid in the Republican calendar.
     /// </summary>
     /// <param name="day">An integer that represents the day of the month.</param>
     /// <param name="year">An integer that represents the year.</param>
     /// <param name="month">An integer that represents the month of the year.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateDay(this int day, int year, int month)
+    /// <returns>True if the specified day is valid, otherwise false.</returns>
+    internal static bool IsValidRepublicanDay(this int day, int year, int month)
     {
-        if ((day < 1) ||
-            // Each month has 30 days
-            (day > 30) ||
-            // The Republican calender was abolished on the 10th day of the 4th month of the 14th year
-            ((year == 14) && (month == 4) && (day > 10)) ||
-            // In a non-leap year there are 5 complementary days in the assumed 13th month
-            (!year.IsLeapYear() && (month == 13) && (day > 5)) ||
-            // In a leap year there are 6 complementary days in the assumed 13th month
-            (year.IsLeapYear() && (month == 13) && (day > 6)))
-        {
-            throw new ArgumentOutOfRangeException(nameof(day));
-        }
+        return year.IsValidRepublicanYear() &&
+               month.IsValidRepublicanMonth(year) &&
+               // Each month has 30 days
+               day.IsInRange(1, 30) &&
+               // The Republican calender was abolished on the 10th day of the 4th month of the 14th year
+               !(year == 14 && month == 4 && day > 10) &&
+               // In a non-leap year there are 5 complementary days in the assumed 13th month
+               !(month == 13 && day > 5 && !year.IsRepublicanLeapYear()) &&
+               // In a leap year there are 6 complementary days in the assumed 13th month;
+               !(month == 13 && day > 6 && year.IsRepublicanLeapYear());
     }
 
 
@@ -93,13 +83,10 @@ internal static class Int32Extension
     /// Determines whether the specified hour is valid.
     /// </summary>
     /// <param name="hour">An integer that represents the hour of the day.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateHour(this int hour)
+    /// <returns>True if the specified hour is valid, otherwise false.</returns>
+    internal static bool IsValidHour(this int hour)
     {
-        if (hour < 0 || hour > 23)
-        {
-            throw new ArgumentOutOfRangeException(nameof(hour));
-        }
+        return hour.IsInRange(0, 23);
     }
 
 
@@ -107,13 +94,10 @@ internal static class Int32Extension
     /// Determines whether the specified minute is valid.
     /// </summary>
     /// <param name="minute">An integer that represents the minute.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateMinute(this int minute)
+    /// <returns>True if the specified minute is valid, otherwise false.</returns>
+    internal static bool IsValidMinute(this int minute)
     {
-        if (minute < 0 || minute > 59)
-        {
-            throw new ArgumentOutOfRangeException(nameof(minute));
-        }
+        return minute.IsInRange(0, 59);
     }
 
 
@@ -121,13 +105,10 @@ internal static class Int32Extension
     /// Determines whether the specified second is valid.
     /// </summary>
     /// <param name="second">An integer that represents the second.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateSecond(this int second)
+    /// <returns>True if the specified second is valid, otherwise false.</returns>
+    internal static bool IsValisSecond(this int second)
     {
-        if (second < 0 || second > 59)
-        {
-            throw new ArgumentOutOfRangeException(nameof(second));
-        }
+        return second.IsInRange(0, 59);
     }
 
 
@@ -135,13 +116,23 @@ internal static class Int32Extension
     /// Determines whether a specified millisecond is valid.
     /// </summary>
     /// <param name="millisecond">An integer that represents the millisecond.</param>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    internal static void ValidateMillisecond(this int millisecond)
+    /// <returns>True if the specified millisecond is valid, otherwise false.</returns>
+    internal static bool IsValidMillisecond(this int millisecond)
     {
-        if (millisecond < 0 || millisecond > 999)
-        {
-            throw new ArgumentOutOfRangeException(nameof(millisecond));
-        }
+        return millisecond.IsInRange(0, 999);
+    }
+
+
+    /// <summary>
+    /// Determines whether a specified value is inside the specified range.
+    /// </summary>
+    /// <param name="value">The value to be checked.</param>
+    /// <param name="lowerBound">The lower bound.</param>
+    /// <param name="upperBound">The upper bound.</param>
+    /// <returns></returns>
+    private static bool IsInRange(this int value, int lowerBound, int upperBound)
+    {
+        return value >= lowerBound && value <= upperBound;
     }
 
 }

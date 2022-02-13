@@ -46,21 +46,13 @@ internal struct RepublicanDateTime
     /// <param name="millisecond">An integer that represents the millisecond.</param>
     internal RepublicanDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
     {
-        year.ValidateYear();
-        month.ValidateMonth(year);
-        day.ValidateDay(year, month);
-        hour.ValidateHour();
-        minute.ValidateMinute();
-        second.ValidateSecond();
-        millisecond.ValidateMillisecond();
-
-        Year = year;
-        Month = month;
-        Day = day;
-        Hour = hour;
-        Minute = minute;
-        Second = second;
-        Millisecond = millisecond;
+        Year = year.IsValidRepublicanYear() ? year : throw new ArgumentOutOfRangeException(nameof(year));
+        Month = month.IsValidRepublicanMonth(year) ? month : throw new ArgumentOutOfRangeException(nameof(month));
+        Day = day.IsValidRepublicanDay(year, month) ? day : throw new ArgumentOutOfRangeException(nameof(day));
+        Hour = hour.IsValidHour() ? hour : throw new ArgumentOutOfRangeException(nameof(hour));
+        Minute = minute.IsValidMinute() ? minute : throw new ArgumentOutOfRangeException(nameof(minute));
+        Second = second.IsValisSecond() ? second : throw new ArgumentOutOfRangeException(nameof(second));
+        Millisecond = millisecond.IsValidMillisecond() ? millisecond : throw new ArgumentOutOfRangeException(nameof(millisecond));
     }
 
     #endregion

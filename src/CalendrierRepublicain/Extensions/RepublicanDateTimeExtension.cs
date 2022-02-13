@@ -42,4 +42,19 @@ internal static class RepublicanDateTimeExtension
         return gregDateTime;
     }
 
+
+    /// <summary>
+    /// Determines whether a <see cref="RepublicanDateTime"/> is valid in the Republican calendar
+    /// </summary>
+    /// <param name="time">The <see cref="RepublicanDateTime"/> to be validated.</param>
+    /// <returns>True if the specified <see cref="RepublicanDateTime"/> is valid, otherwise false.</returns>
+    internal static bool IsValid(this RepublicanDateTime time)
+    {
+        return time.Day.IsValidRepublicanDay(time.Year, time.Month) &&
+               time.Hour.IsValidHour() &&
+               time.Minute.IsValidMinute() &&
+               time.Second.IsValisSecond() &&
+               time.Millisecond.IsValidMillisecond();
+    }
+
 }

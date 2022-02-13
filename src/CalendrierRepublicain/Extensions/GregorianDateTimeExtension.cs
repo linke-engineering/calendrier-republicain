@@ -12,18 +12,24 @@ internal static class GregorianDateTimeExtension
 {
 
     /// <summary>
-    /// Converts a Gregorian to a Republican date time.
+    /// Converts a <see cref="GregorianDateTime"/> to a <see cref="RepublicanDateTime"/>.
     /// </summary>
-    /// <param name="gregDateTime">The Gregorian date time.</param>
-    /// <returns>The Republican date time.</returns>
+    /// <param name="gregDateTime">The <see cref="GregorianDateTime"/> to be converted.</param>
+    /// <returns>The resulting <see cref="RepublicanDateTime"/>.</returns>
     internal static RepublicanDateTime ToRepublican(this GregorianDateTime gregDateTime)
     {
+        // Validate input
+        if (!gregDateTime.IsValid())
+        {
+            throw new ArgumentOutOfRangeException(nameof(gregDateTime));
+        }
+
         // Calculate number of days since start of the Republican calendar.
         int totalDays = (int)(gregDateTime - MinSupportedDateTime).TotalDays;
 
         int year = (int)(totalDays / 365.25);
 
-        if (year.IsLeapYear())
+        if (year.IsRepublicanLeapYear())
         {
             year--;
         }
@@ -31,7 +37,7 @@ internal static class GregorianDateTimeExtension
         int day = totalDays + 1 - (int)(365.25 * year) + (year + 1) / 100 - (year + 1) / 400;
         year++;
         int month = 1;
-        int complementaryDayCount = year.IsLeapYear() ? 6 : 5;
+        int complementaryDayCount = year.IsRepublicanLeapYear() ? 6 : 5;
 
         while (day > 30)
         {
@@ -45,7 +51,7 @@ internal static class GregorianDateTimeExtension
                     day -= complementaryDayCount;
                     month = 1;
                     year++;
-                    complementaryDayCount = year.IsLeapYear() ? 6 : 5;
+                    complementaryDayCount = year.IsRepublicanLeapYear() ? 6 : 5;
                 }
             }
         }
@@ -53,6 +59,17 @@ internal static class GregorianDateTimeExtension
         RepublicanDateTime repDateTime = new(year, month, day, gregDateTime.Hour, gregDateTime.Minute, gregDateTime.Second, gregDateTime.Millisecond);
 
         return repDateTime;
+    }
+
+
+    /// <summary>
+    /// Determines whether a <see cref="GregorianDateTime"/> is valid in the Republican calendar
+    /// </summary>
+    /// <param name="time">The <see cref="GregorianDateTime"/> to be validated.</param>
+    /// <returns>True if the specified <see cref="GregorianDateTime"/> is valid, otherwise false.</returns>
+    internal static bool IsValid(this GregorianDateTime time)
+    {
+        return time >= MinSupportedDateTime && time <= MaxSupportedDateTime;
     }
 
 }

@@ -38,6 +38,7 @@ public class GregorianDateTimeExtensionTests
         int second = random.Next(60);
         int millisecond = random.Next(1000);
         GregorianDateTime gregDateTime = new(gregYear, gregMonth, gregDay, hour, minute, second, millisecond);
+        TimeSpan expectedTimeOfDay = gregDateTime.TimeOfDay;
 
         // Act
         RepublicanDateTime repDateTime = gregDateTime.ToRepublican();
@@ -46,10 +47,7 @@ public class GregorianDateTimeExtensionTests
         Assert.AreEqual(repYear, repDateTime.Year);
         Assert.AreEqual(repMonth, repDateTime.Month);
         Assert.AreEqual(repDay, repDateTime.Day);
-        Assert.AreEqual(hour, repDateTime.Hour);
-        Assert.AreEqual(minute, repDateTime.Minute);
-        Assert.AreEqual(second, repDateTime.Second);
-        Assert.AreEqual(millisecond, repDateTime.Millisecond);
+        Assert.AreEqual(expectedTimeOfDay, repDateTime.TimeOfDay);
     }
 
 }

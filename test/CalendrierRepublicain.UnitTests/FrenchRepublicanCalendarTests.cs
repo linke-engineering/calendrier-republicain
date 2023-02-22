@@ -18,8 +18,6 @@ public class FrenchRepublicanCalendarTests
 
     #region Property Tests
 
-    #region AlgorithmType
-
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanCalendar.AlgorithmType"/> property.
     /// </summary>
@@ -36,10 +34,6 @@ public class FrenchRepublicanCalendarTests
         Assert.AreEqual(CalendarAlgorithmType.SolarCalendar, type);
     }
 
-    #endregion
-
-
-    #region Eras
 
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanCalendar.Eras"/> property.
@@ -57,10 +51,6 @@ public class FrenchRepublicanCalendarTests
         CollectionAssert.AreEqual(new[] { 1 }, eras);
     }
 
-    #endregion
-
-
-    #region MaxSupportedDateTime
 
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanCalendar.MaxSupportedDateTime"/> property.
@@ -80,10 +70,6 @@ public class FrenchRepublicanCalendarTests
         Assert.AreEqual(31, date.Day);
     }
 
-    #endregion
-
-
-    #region MinSupportedDateTime
 
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanCalendar.MinSupportedDateTime"/> property.
@@ -103,12 +89,87 @@ public class FrenchRepublicanCalendarTests
         Assert.AreEqual(22, date.Day);
     }
 
-    #endregion
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.TwoDigitYearMax"/> property.
+    /// </summary>
+    [TestMethod]
+    public void TwoDigitYearMax_ReturnsNinetyNine()
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+
+        // Act
+        int year = calendar.TwoDigitYearMax;
+
+        // Act and assert
+        Assert.AreEqual(99, year);
+    }
 
     #endregion
 
 
     #region Region Method Tests
+
+    #region AddDays
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddDays(GregorianDateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    /// <param name="daysToAdd">An integer that represents the days to be added.</param>
+    /// <param name="expectedYear">An integer that represents the expected year in the Gregorian calendar after the addition.</param>
+    /// <param name="expectedMonth">An integer that represents the expected month in the Gregorian calendar after the addition.</param>
+    /// <param name="expectedDay">An integer that represents the expected day in the Gregorian calendar after the addition.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 22, 1, 1792, 9, 23)]
+    [DataRow(1793, 12, 26, -26, 1793, 11, 30)]
+    [DataRow(1795, 9, 16, 10, 1795, 9, 26)]
+    public void AddDays_ValidDate_ReturnsModifiedDate(int year, int month, int day, int daysToAdd, int expectedYear, int expectedMonth, int expectedDay)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        GregorianDateTime actualDate = calendar.AddDays(date, daysToAdd);
+
+        // Assert
+        Assert.AreEqual(expectedYear, actualDate.Year);
+        Assert.AreEqual(expectedMonth, actualDate.Month);
+        Assert.AreEqual(expectedDay, actualDate.Day);
+        Assert.AreEqual(date.Hour, actualDate.Hour);
+        Assert.AreEqual(date.Minute, actualDate.Minute);
+        Assert.AreEqual(date.Second, actualDate.Second);
+        Assert.AreEqual(date.Millisecond, actualDate.Millisecond);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddDays(GregorianDateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    /// <param name="daysToAdd">An integer that represents the days to be added.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 22, -1)]
+    [DataRow(1805, 1, 1, 365)]
+    [ExpectedException(typeof(ArgumentException))]
+    public void AddDays_AdditionExceedsValidity_ThrowsArgumentException(int year, int month, int day, int daysToAdd)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = calendar.AddDays(date, daysToAdd);
+    }
+
+    #endregion
+
 
     #region AddMonths
 
@@ -118,7 +179,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="monthsToAdd">An integer that represents the months to be added.</param>
+    /// <param name="daysToAdd">An integer that represents the months to be added.</param>
     /// <param name="expectedYear">An integer that represents the expected year in the Gregorian calendar after the addition.</param>
     /// <param name="expectedMonth">An integer that represents the expected month in the Gregorian calendar after the addition.</param>
     /// <param name="expectedDay">An integer that represents the expected day in the Gregorian calendar after the addition.</param>
@@ -126,14 +187,14 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1792, 9, 22, 1, 1792, 10, 22)]
     [DataRow(1793, 12, 26, -2, 1793, 10, 27)]
     [DataRow(1795, 9, 20, 20, 1797, 5, 20)]
-    public void AddMonths_ValidDate_ReturnsModifiedDate(int year, int month, int day, int monthsToAdd, int expectedYear, int expectedMonth, int expectedDay)
+    public void AddMonths_ValidDate_ReturnsModifiedDate(int year, int month, int day, int daysToAdd, int expectedYear, int expectedMonth, int expectedDay)
     {
         // Arrange
         FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        GregorianDateTime actualDate = calendar.AddMonths(date, monthsToAdd);
+        GregorianDateTime actualDate = calendar.AddMonths(date, daysToAdd);
 
         // Assert
         Assert.AreEqual(expectedYear, actualDate.Year);
@@ -177,7 +238,7 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1805, 1, 1, 12)]
-    [ExpectedException(typeof(InvalidOperationException))]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddMonths_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int monthsToAdd)
     {
         // Arrange
@@ -354,19 +415,18 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Republican calendar.</param>
     /// <param name="month">An integer that represents the month in the Republican calendar.</param>
     /// <param name="era">An integer that represents the era in the Republican calendar.</param>
-    /// <param name="expectedDays">An integer that represents the expected day of the year in the Republican calendar.</param>
+    /// <param name="expectedDays">An integer that represents the expected days in the specified month.</param>
     [TestMethod]
-    [DataRow(1792, 9, 22, 1)]
-    [DataRow(1799, 11, 9, 48)]
-    [DataRow(1805, 12, 31, 100)]
-    public void GetDaysInMonth_ValidRepublicanMonth_ReturnsDayCount(int year, int month, int era, int expectedDays)
+    [DataRow(1, 1, 30)]
+    [DataRow(8, 3, 30)]
+    [DataRow(14, 4, 10)]
+    public void GetDaysInMonth_ValidRepublicanMonth_ReturnsDayCount(int year, int month, int expectedDays)
     {
         // Arrange
         FrenchRepublicanCalendar calendar = new();
-        GregorianDateTime date = new(year, month, era);
 
         // Act
-        int actualDay = calendar.GetDayOfYear(date);
+        int actualDay = calendar.GetDaysInMonth(year, month);
 
         // Assert
         Assert.AreEqual(expectedDays, actualDay);

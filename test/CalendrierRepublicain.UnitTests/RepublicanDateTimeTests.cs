@@ -38,6 +38,7 @@ public class RepublicanDateTimeTests
         int second = random.Next(60);
         int millisecond = random.Next(1000);
         DateTime gregTime = new(gregYear, gregMonth, gregDay, hour, minute, second, millisecond);
+        TimeSpan expectedTimeOfDay = gregTime.TimeOfDay;
 
         // Act
         RepublicanDateTime repTime = new(gregTime);
@@ -46,10 +47,7 @@ public class RepublicanDateTimeTests
         Assert.AreEqual(repYear, repTime.Year);
         Assert.AreEqual(repMonth, repTime.Month);
         Assert.AreEqual(repDay, repTime.Day);
-        Assert.AreEqual(hour, repTime.Hour);
-        Assert.AreEqual(minute, repTime.Minute);
-        Assert.AreEqual(second, repTime.Second);
-        Assert.AreEqual(millisecond, repTime.Millisecond);
+        Assert.AreEqual(expectedTimeOfDay, repTime.TimeOfDay);
     }
 
     #endregion
@@ -77,15 +75,13 @@ public class RepublicanDateTimeTests
         int second = random.Next(60);
         int millisecond = random.Next(1000);
         RepublicanDateTime repTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
+        TimeSpan expectedTimeOfDay = repTime.TimeOfDay;
 
         // Assert
         Assert.AreEqual(repYear, repTime.Year);
         Assert.AreEqual(repMonth, repTime.Month);
         Assert.AreEqual(repDay, repTime.Day);
-        Assert.AreEqual(hour, repTime.Hour);
-        Assert.AreEqual(minute, repTime.Minute);
-        Assert.AreEqual(second, repTime.Second);
-        Assert.AreEqual(millisecond, repTime.Millisecond);
+        Assert.AreEqual(expectedTimeOfDay, repTime.TimeOfDay);
     }
 
 

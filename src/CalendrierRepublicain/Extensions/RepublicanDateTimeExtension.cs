@@ -10,6 +10,8 @@ namespace Sinistrius.CalendrierRepublicain.Extensions;
 internal static class RepublicanDateTimeExtension
 {
 
+    #region Conversion
+
     /// <summary>
     /// Converts a Republican to a Gregorian date time.
     /// </summary>
@@ -37,24 +39,11 @@ internal static class RepublicanDateTimeExtension
 
         // Add passed days and time to the start date of the Republican calendar.
         GregorianDateTime gregDateTime = Constants.MinSupportedDateTime.AddDays(totalDays)
-                                                                     .Add(repDateTime.TimeOfDay);
+                                                                       .Add(repDateTime.TimeOfDay);
 
         return gregDateTime;
     }
 
-
-    /// <summary>
-    /// Determines whether a <see cref="RepublicanDateTime"/> is valid in the Republican calendar
-    /// </summary>
-    /// <param name="time">The <see cref="RepublicanDateTime"/> to be validated.</param>
-    /// <returns>True if the specified <see cref="RepublicanDateTime"/> is valid, otherwise false.</returns>
-    internal static bool IsValid(this RepublicanDateTime time)
-    {
-        return time.Day.IsValidRepublicanDay(time.Year, time.Month) &&
-               time.Hour.IsValidHour() &&
-               time.Minute.IsValidMinute() &&
-               time.Second.IsValisSecond() &&
-               time.Millisecond.IsValidMillisecond();
-    }
+    #endregion
 
 }

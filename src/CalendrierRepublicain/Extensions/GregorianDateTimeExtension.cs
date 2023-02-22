@@ -63,7 +63,7 @@ internal static class GregorianDateTimeExtension
 
 
     /// <summary>
-    /// Determines whether a <see cref="GregorianDateTime"/> is valid in the Republican calendar
+    /// Determines whether a <see cref="GregorianDateTime"/> fits in the validity range of the Republican calendar
     /// </summary>
     /// <param name="time">The <see cref="GregorianDateTime"/> to be validated.</param>
     /// <returns>True if the specified <see cref="GregorianDateTime"/> is valid, otherwise false.</returns>

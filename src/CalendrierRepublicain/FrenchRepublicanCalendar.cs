@@ -241,11 +241,6 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetDaysInYear(int year)
     {
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
-
         return GetDaysInYear(year, 1);
     }
 
@@ -263,7 +258,18 @@ public class FrenchRepublicanCalendar : Calendar
             throw new ArgumentOutOfRangeException(nameof(year));
         }
 
-        return year.IsRepublicanLeapYear() ? 366 : 365;
+        if (year == Constants.LastRepublicanYear)
+        {
+            return 100;
+        }
+        else if (year.IsRepublicanLeapYear()) 
+        {
+            return 366;
+        }
+        else
+        {
+            return 365;
+        }
     }
 
 

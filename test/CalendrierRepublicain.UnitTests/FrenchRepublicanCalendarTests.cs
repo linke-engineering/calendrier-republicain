@@ -237,6 +237,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="monthsToAdd">An integer that represents the months to be added.</param>
     [TestMethod]
     [DataRow(1792, 9, 22, -1)]
+    [DataRow(1793, 9, 22, -12)]
     [DataRow(1805, 1, 1, 12)]
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddMonths_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int monthsToAdd)
@@ -287,13 +288,57 @@ public class FrenchRepublicanCalendarTests
         Assert.AreEqual(date.Millisecond, actualDate.Millisecond);
     }
 
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddWeeks(GregorianDateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 21)]
+    [DataRow(1806, 1, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void AddWeeks_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = calendar.AddWeeks(date, 1);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddWeeks(GregorianDateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    /// <param name="weeksToAdd">An integer that represents the weeks to be added.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 22, -1)]
+    [DataRow(1792, 10, 2, -2)]
+    [DataRow(1805, 12, 22, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void AddWeeks_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int weeksToAdd)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = calendar.AddWeeks(date, weeksToAdd);
+    }
+
     #endregion
 
 
     #region AddYears
 
     /// <summary>
-    /// Tests the addition of years to a date.
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddYears(GregorianDateTime, int)"/> method.
     /// </summary>
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
@@ -325,13 +370,58 @@ public class FrenchRepublicanCalendarTests
         Assert.AreEqual(date.Millisecond, actualDate.Millisecond);
     }
 
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddYears(GregorianDateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 21)]
+    [DataRow(1806, 1, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void AddYears_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = calendar.AddYears(date, 1);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddYears(GregorianDateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    /// <param name="yearsToAdd">An integer that represents the years to be added.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 22, -1)]
+    [DataRow(1793, 9, 21, -1)]
+    [DataRow(1805, 1, 1, 1)]
+    [DataRow(1805, 12, 31, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void AddYears_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int yearsToAdd)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = calendar.AddYears(date, yearsToAdd);
+    }
+
     #endregion
 
 
     #region GetDayOfMonth
 
     /// <summary>
-    /// Tests the retrieval of a day of month.
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetDayOfMonth(GregorianDateTime)"/> method.
     /// </summary>
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
@@ -353,6 +443,27 @@ public class FrenchRepublicanCalendarTests
 
         // Assert
         Assert.AreEqual(expectedDay, actualDay);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetDayOfMonth(GregorianDateTime)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 21)]
+    [DataRow(1806, 1, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void GetDayOfMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = calendar.GetDayOfMonth(date);
     }
 
     #endregion
@@ -391,7 +502,7 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1792, 9, 22, 1)]
     [DataRow(1799, 11, 9, 48)]
     [DataRow(1805, 12, 31, 100)]
-    public void GetDayOfYear_ValidGregorianDate_ReturnsRepublicanDayOfYear(int year, int month, int day, int expectedDays)
+    public void GetDayOfYear_ValidDate_ReturnsDay(int year, int month, int day, int expectedDays)
     {
         // Arrange
         FrenchRepublicanCalendar calendar = new();
@@ -404,6 +515,27 @@ public class FrenchRepublicanCalendarTests
         Assert.AreEqual(expectedDays, actualDay);
     }
 
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetDayOfYear(GregorianDateTime)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 21)]
+    [DataRow(1806, 1, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void GetDayOfYear_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = calendar.GetDayOfYear(date);
+    }
+
     #endregion
 
 
@@ -414,7 +546,6 @@ public class FrenchRepublicanCalendarTests
     /// </summary>
     /// <param name="year">An integer that represents the year in the Republican calendar.</param>
     /// <param name="month">An integer that represents the month in the Republican calendar.</param>
-    /// <param name="era">An integer that represents the era in the Republican calendar.</param>
     /// <param name="expectedDays">An integer that represents the expected days in the specified month.</param>
     [TestMethod]
     [DataRow(1, 1, 30)]
@@ -426,10 +557,31 @@ public class FrenchRepublicanCalendarTests
         FrenchRepublicanCalendar calendar = new();
 
         // Act
-        int actualDay = calendar.GetDaysInMonth(year, month);
+        int actualDays = calendar.GetDaysInMonth(year, month, 1);
 
         // Assert
-        Assert.AreEqual(expectedDays, actualDay);
+        Assert.AreEqual(expectedDays, actualDays);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetDaysInMonth(int, int, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="era">An integer that represents the era in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(1, 1, 0)]
+    [DataRow(3, 14, 1)]
+    [DataRow(14, 5, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void GetDaysInMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int era)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+
+        // Act
+        _ = calendar.GetDaysInMonth(year, month, era);
     }
 
     #endregion
@@ -441,24 +593,41 @@ public class FrenchRepublicanCalendarTests
     /// Tests the <see cref="FrenchRepublicanCalendar.GetDaysInYear(int, int)"/> method.
     /// </summary>
     /// <param name="year">An integer that represents the year in the Republican calendar.</param>
-    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
-    /// <param name="era">An integer that represents the era in the Republican calendar.</param>
-    /// <param name="expectedDays">An integer that represents the expected day of the year in the Republican calendar.</param>
+    /// <param name="expectedDays">An integer that represents the expected number of days in the specified year in the Republican calendar.</param>
     [TestMethod]
-    [DataRow(1792, 9, 22, 1)]
-    [DataRow(1799, 11, 9, 48)]
-    [DataRow(1805, 12, 31, 100)]
-    public void GetDaysInYear_ValidRepublicanMonth_ReturnsDayCount(int year, int month, int era, int expectedDays)
+    [DataRow(2, 365)]
+    [DataRow(7, 366)]
+    [DataRow(14, 100)]
+    public void GetDaysInYear_ValidRepublicanMonth_ReturnsDayCount(int year, int expectedDays)
     {
         // Arrange
         FrenchRepublicanCalendar calendar = new();
-        GregorianDateTime date = new(year, month, era);
 
         // Act
-        int actualDay = calendar.GetDayOfYear(date);
+        int actualDays = calendar.GetDaysInYear(year, 1);
 
         // Assert
-        Assert.AreEqual(expectedDays, actualDay);
+        Assert.AreEqual(expectedDays, actualDays);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetDaysInYear(int, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="era">An integer that represents the era in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(0, 1)]
+    [DataRow(1, 0)]
+    [DataRow(15, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void GetDaysInYear_YearOutOfRange_ThrowsArgumentOutOfRangeException(int year, int era)
+    {
+        // Arrange
+        FrenchRepublicanCalendar calendar = new();
+
+        // Act
+        _ = calendar.GetDaysInYear(year, era);
     }
 
     #endregion
@@ -469,7 +638,7 @@ public class FrenchRepublicanCalendarTests
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapYear(int, int)"/> method with leap years.
     /// </summary>
-    /// <param name="year">An integer representing the year to be tested.</param>
+    /// <param name="year">An integer representing the year in the Republican calendar.</param>
     [TestMethod]
     [DataRow(3)]
     [DataRow(7)]
@@ -490,7 +659,7 @@ public class FrenchRepublicanCalendarTests
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapYear(int, int)"/> method with non-leap years.
     /// </summary>
-    /// <param name="year">An integer representing the year to be tested.</param>
+    /// <param name="year">An integer representing the year in the Republican calendar.</param>
     [TestMethod]
     [DataRow(1)]
     [DataRow(2)]
@@ -511,49 +680,20 @@ public class FrenchRepublicanCalendarTests
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapYear(int, int)"/> method with a leap year, but invalid era.
     /// </summary>
+    /// <param name="year">An integer representing the year in the Republican calendar.</param>
+    /// <param name="year">An integer representing the era in the Republican calendar.</param>
     [TestMethod]
+    [DataRow(0, 1)]
+    [DataRow(1, 0)]
+    [DataRow(15, 1)]
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void IsLeapYear_LeapYearInvalidEra_Throws()
+    public void IsLeapYear_InvalidYear_Throws(int year, int era)
     {
         // Arrange
         FrenchRepublicanCalendar calendar = new();
 
         // Act and assert
-        _ = calendar.IsLeapYear(3, 0);
-    }
-
-
-    /// <summary>
-    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapYear(int, int)"/> method with a non-leap year, but invalid era.
-    /// </summary>
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void IsLeapYear_NonLeapYearInvalidEra_Throws()
-    {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
-        // Act and assert
-        _ = calendar.IsLeapYear(4, 0);
-    }
-
-
-    /// <summary>
-    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapYear(int, int)"/> method with an invalid year and valid era.
-    /// </summary>
-    /// <param name="year">An integer representing the year to be tested.</param>
-    [TestMethod]
-    [DataRow(-10)]
-    [DataRow(0)]
-    [DataRow(15)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void IsLeapYear_InvalidYearValidEra_Throws(int year)
-    {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
-        // Act and assert
-        _ = calendar.IsLeapYear(year, 1);
+        _ = calendar.IsLeapYear(year, era);
     }
 
     #endregion

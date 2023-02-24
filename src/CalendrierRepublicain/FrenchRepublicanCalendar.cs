@@ -101,7 +101,6 @@ public class FrenchRepublicanCalendar : Calendar
             return time;
         }
 
-
         // Initialize republican date
         RepublicanDateTime repTime = time.ToRepublican();
 
@@ -119,7 +118,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Calculate new republican date
-        int currentWeek = 3 * (repTime.Month - 1) + repTime.Day / 10 + 1;
+        int currentWeek = 3 * (repTime.Month - 1) + (repTime.Day - 1) / 10 + 1;
         int currentDayOfWeek = (repTime.Day - 1) % 10 + 1;
 
         int targetYear = repTime.Year + (currentWeek + weeks - (currentWeek + weeks > 0 ? 1 : 37)) / 36;
@@ -333,6 +332,14 @@ public class FrenchRepublicanCalendar : Calendar
         {
             return 13;
         }
+    }
+
+
+    /// <inheritdoc/>
+    public override int GetWeekOfYear(DateTime time, CalendarWeekRule rule, DayOfWeek firstDayOfWeek)
+    {
+        RepublicanDateTime repTime = time.ToRepublican();
+        return 3 * (repTime.Month - 1) + (repTime.Day - 1) / 10 + 1;
     }
 
 

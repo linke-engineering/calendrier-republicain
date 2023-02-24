@@ -16,6 +16,19 @@ namespace Sinistrius.CalendrierRepublicain.UnitTests;
 public class FrenchRepublicanCalendarTests
 {
 
+    #region Local Fields
+
+    /// <summary>
+    /// A Republican calendar object.
+    /// </summary>
+    /// <remarks>
+    /// This object will be initialized per each test method.
+    /// </remarks>
+    private readonly FrenchRepublicanCalendar _calendar = new();
+
+    #endregion
+
+
     #region Property Tests
 
     /// <summary>
@@ -24,11 +37,8 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     public void AlgorithmType_ReturnsSolarCalendar()
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        CalendarAlgorithmType type = calendar.AlgorithmType;
+        CalendarAlgorithmType type = _calendar.AlgorithmType;
 
         // Assert
         Assert.AreEqual(CalendarAlgorithmType.SolarCalendar, type);
@@ -58,11 +68,8 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     public void MaxSupportedDateTime_ReturnsLastDateGregorian()
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        GregorianDateTime date = calendar.MaxSupportedDateTime;
+        GregorianDateTime date = _calendar.MaxSupportedDateTime;
 
         // Assert
         Assert.AreEqual(1805, date.Year);
@@ -77,11 +84,8 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     public void MinSupportedDateTime_ReturnsFirstDateGregorian()
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        GregorianDateTime date = calendar.MinSupportedDateTime;
+        GregorianDateTime date = _calendar.MinSupportedDateTime;
 
         // Assert
         Assert.AreEqual(1792, date.Year);
@@ -96,11 +100,8 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     public void TwoDigitYearMax_ReturnsNinetyNine()
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        int year = calendar.TwoDigitYearMax;
+        int year = _calendar.TwoDigitYearMax;
 
         // Act and assert
         Assert.AreEqual(99, year);
@@ -130,11 +131,10 @@ public class FrenchRepublicanCalendarTests
     public void AddDays_ValidDate_ReturnsModifiedDate(int year, int month, int day, int daysToAdd, int expectedYear, int expectedMonth, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        GregorianDateTime actualDate = calendar.AddDays(date, daysToAdd);
+        GregorianDateTime actualDate = _calendar.AddDays(date, daysToAdd);
 
         // Assert
         Assert.AreEqual(expectedYear, actualDate.Year);
@@ -161,11 +161,10 @@ public class FrenchRepublicanCalendarTests
     public void AddDays_AdditionExceedsValidity_ThrowsArgumentException(int year, int month, int day, int daysToAdd)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.AddDays(date, daysToAdd);
+        _ = _calendar.AddDays(date, daysToAdd);
     }
 
     #endregion
@@ -190,11 +189,10 @@ public class FrenchRepublicanCalendarTests
     public void AddMonths_ValidDate_ReturnsModifiedDate(int year, int month, int day, int daysToAdd, int expectedYear, int expectedMonth, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        GregorianDateTime actualDate = calendar.AddMonths(date, daysToAdd);
+        GregorianDateTime actualDate = _calendar.AddMonths(date, daysToAdd);
 
         // Assert
         Assert.AreEqual(expectedYear, actualDate.Year);
@@ -220,11 +218,10 @@ public class FrenchRepublicanCalendarTests
     public void AddMonths_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.AddMonths(date, 1);
+        _ = _calendar.AddMonths(date, 1);
     }
 
 
@@ -243,11 +240,10 @@ public class FrenchRepublicanCalendarTests
     public void AddMonths_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int monthsToAdd)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.AddMonths(date, monthsToAdd);
+        _ = _calendar.AddMonths(date, monthsToAdd);
     }
 
     #endregion
@@ -272,11 +268,10 @@ public class FrenchRepublicanCalendarTests
     public void AddWeeks_ValidDate_ReturnsModifiedDate(int year, int month, int day, int weeksToAdd, int expectedYear, int expectedMonth, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        GregorianDateTime actualDate = calendar.AddWeeks(date, weeksToAdd);
+        GregorianDateTime actualDate = _calendar.AddWeeks(date, weeksToAdd);
 
         // Assert
         Assert.AreEqual(expectedYear, actualDate.Year);
@@ -302,11 +297,10 @@ public class FrenchRepublicanCalendarTests
     public void AddWeeks_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.AddWeeks(date, 1);
+        _ = _calendar.AddWeeks(date, 1);
     }
 
 
@@ -325,11 +319,10 @@ public class FrenchRepublicanCalendarTests
     public void AddWeeks_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int weeksToAdd)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.AddWeeks(date, weeksToAdd);
+        _ = _calendar.AddWeeks(date, weeksToAdd);
     }
 
     #endregion
@@ -354,11 +347,10 @@ public class FrenchRepublicanCalendarTests
     public void AddYear_ValidDate_ReturnsModifiedDate(int year, int month, int day, int yearsToAdd, int expectedYear, int expectedMonth, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        GregorianDateTime actualDate = calendar.AddYears(date, yearsToAdd);
+        GregorianDateTime actualDate = _calendar.AddYears(date, yearsToAdd);
 
         // Assert
         Assert.AreEqual(expectedYear, actualDate.Year);
@@ -384,11 +376,10 @@ public class FrenchRepublicanCalendarTests
     public void AddYears_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.AddYears(date, 1);
+        _ = _calendar.AddYears(date, 1);
     }
 
 
@@ -408,11 +399,10 @@ public class FrenchRepublicanCalendarTests
     public void AddYears_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int yearsToAdd)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.AddYears(date, yearsToAdd);
+        _ = _calendar.AddYears(date, yearsToAdd);
     }
 
     #endregion
@@ -435,11 +425,10 @@ public class FrenchRepublicanCalendarTests
     public void GetDayOfMonth_ValidDate_ReturnsDay(int year, int month, int day, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        int actualDay = calendar.GetDayOfMonth(date);
+        int actualDay = _calendar.GetDayOfMonth(date);
 
         // Assert
         Assert.AreEqual(expectedDay, actualDay);
@@ -459,11 +448,10 @@ public class FrenchRepublicanCalendarTests
     public void GetDayOfMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.GetDayOfMonth(date);
+        _ = _calendar.GetDayOfMonth(date);
     }
 
     #endregion
@@ -479,11 +467,10 @@ public class FrenchRepublicanCalendarTests
     public void GetDayOfWeek_ValidDate_ThrowsInvalidOperationException()
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = Constants.MinSupportedDateTime;
 
         // Act
-        _ = calendar.GetDayOfWeek(date);
+        _ = _calendar.GetDayOfWeek(date);
     }
 
     #endregion
@@ -505,11 +492,10 @@ public class FrenchRepublicanCalendarTests
     public void GetDayOfYear_ValidDate_ReturnsDay(int year, int month, int day, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        int actualDay = calendar.GetDayOfYear(date);
+        int actualDay = _calendar.GetDayOfYear(date);
 
         // Assert
         Assert.AreEqual(expectedDay, actualDay);
@@ -529,11 +515,10 @@ public class FrenchRepublicanCalendarTests
     public void GetDayOfYear_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.GetDayOfYear(date);
+        _ = _calendar.GetDayOfYear(date);
     }
 
     #endregion
@@ -553,11 +538,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(14, 4, 10)]
     public void GetDaysInMonth_ValidRepublicanMonth_ReturnsDayCount(int year, int month, int expectedDays)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        int actualDays = calendar.GetDaysInMonth(year, month, 1);
+        int actualDays = _calendar.GetDaysInMonth(year, month, 1);
 
         // Assert
         Assert.AreEqual(expectedDays, actualDays);
@@ -577,11 +559,8 @@ public class FrenchRepublicanCalendarTests
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetDaysInMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int era)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        _ = calendar.GetDaysInMonth(year, month, era);
+        _ = _calendar.GetDaysInMonth(year, month, era);
     }
 
     #endregion
@@ -600,11 +579,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(14, 100)]
     public void GetDaysInYear_ValidRepublicanMonth_ReturnsDayCount(int year, int expectedDays)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        int actualDays = calendar.GetDaysInYear(year, 1);
+        int actualDays = _calendar.GetDaysInYear(year, 1);
 
         // Assert
         Assert.AreEqual(expectedDays, actualDays);
@@ -623,11 +599,8 @@ public class FrenchRepublicanCalendarTests
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetDaysInYear_YearOutOfRange_ThrowsArgumentOutOfRangeException(int year, int era)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        _ = calendar.GetDaysInYear(year, era);
+        _ = _calendar.GetDaysInYear(year, era);
     }
 
     #endregion
@@ -649,11 +622,10 @@ public class FrenchRepublicanCalendarTests
     public void GetEra_ValidDate_ReturnsOne(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        int actualEra = calendar.GetEra(date);
+        int actualEra = _calendar.GetEra(date);
 
         // Assert
         Assert.AreEqual(1, actualEra);
@@ -673,11 +645,10 @@ public class FrenchRepublicanCalendarTests
     public void GetEra_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.GetEra(date);
+        _ = _calendar.GetEra(date);
     }
 
     #endregion
@@ -700,11 +671,10 @@ public class FrenchRepublicanCalendarTests
     public void GetMonth_ValidDate_ReturnsMonth(int year, int era, int day, int expectedMonth)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, era, day);
 
         // Act
-        int actualMonth = calendar.GetMonth(date);
+        int actualMonth = _calendar.GetMonth(date);
 
         // Assert
         Assert.AreEqual(expectedMonth, actualMonth);
@@ -724,11 +694,10 @@ public class FrenchRepublicanCalendarTests
     public void GetMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.GetMonth(date);
+        _ = _calendar.GetMonth(date);
     }
 
     #endregion
@@ -747,11 +716,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(14, 4)]
     public void GetMonthsInYear_ValidDate_ReturnsMonths(int year, int expectedMonths)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        int actualMonths = calendar.GetMonthsInYear(year, 1);
+        int actualMonths = _calendar.GetMonthsInYear(year, 1);
 
         // Assert
         Assert.AreEqual(expectedMonths, actualMonths);
@@ -770,11 +736,37 @@ public class FrenchRepublicanCalendarTests
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetMonthsInYear_YearOutOfRange_ThrowsArgumentOutOfRangeException(int year, int era)
     {
+        // Act
+        _ = _calendar.GetMonthsInYear(year, era);
+    }
+
+    #endregion
+
+
+    #region GetWeekOfYear
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetWeekOfYear(GregorianDateTime, CalendarWeekRule, DayOfWeek)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    /// <param name="expectedWeek">An integer that represents the expected week in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 22, 1)]
+    [DataRow(1799, 11, 9, 5)]
+    [DataRow(1800, 9, 22, 37)]
+    [DataRow(1805, 12, 31, 10)]
+    public void GetWeekOfYear(int year, int month, int day, int expectedWeek)
+    {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
+        GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.GetMonthsInYear(year, era);
+        int actualWeek = _calendar.GetWeekOfYear(date, 0, 0);
+
+        // Assert
+        Assert.AreEqual(expectedWeek, actualWeek);
     }
 
     #endregion
@@ -786,7 +778,7 @@ public class FrenchRepublicanCalendarTests
     /// Tests the <see cref="FrenchRepublicanCalendar.GetYear(GregorianDateTime)"/> method.
     /// </summary>
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
-    /// <param name="era">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
     /// <param name="expectedYear">An integer that represents the expected year in the Republican calendar.</param>
     [TestMethod]
@@ -794,14 +786,13 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1799, 11, 9, 8)]
     [DataRow(1800, 9, 22, 8)]
     [DataRow(1805, 12, 31, 14)]
-    public void GetYear_ValidDate_ReturnsMonth(int year, int era, int day, int expectedYear)
+    public void GetYear_ValidDate_ReturnsMonth(int year, int month, int day, int expectedYear)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
-        GregorianDateTime date = new(year, era, day);
+        GregorianDateTime date = new(year, month, day);
 
         // Act
-        int actualYear = calendar.GetYear(date);
+        int actualYear = _calendar.GetYear(date);
 
         // Assert
         Assert.AreEqual(expectedYear, actualYear);
@@ -821,11 +812,10 @@ public class FrenchRepublicanCalendarTests
     public void GetYear_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
-        FrenchRepublicanCalendar calendar = new();
         GregorianDateTime date = new(year, month, day);
 
         // Act
-        _ = calendar.GetYear(date);
+        _ = _calendar.GetYear(date);
     }
 
     #endregion
@@ -843,11 +833,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(11)]
     public void IsLeapYear_LeapDay_ReturnsTrue(int year)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        bool isLeapDay = calendar.IsLeapDay(year, 13, 6, 1);
+        bool isLeapDay = _calendar.IsLeapDay(year, 13, 6, 1);
 
         // Assert
         Assert.IsTrue(isLeapDay);
@@ -866,11 +853,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(3, 13, 5)]
     public void IsLeapDay_NonLeapDay_ReturnsFalse(int year, int month, int day)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        bool isLeapDay = calendar.IsLeapDay(year, month, day);
+        bool isLeapDay = _calendar.IsLeapDay(year, month, day);
 
         // Assert
         Assert.IsFalse(isLeapDay);
@@ -891,11 +875,8 @@ public class FrenchRepublicanCalendarTests
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void IsLeapDay_InvalidDate_ThrowsArgumentOutOfRangeException(int year, int month, int day, int era)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act and assert
-        _ = calendar.IsLeapDay(year, month, day, era);
+        _ = _calendar.IsLeapDay(year, month, day, era);
     }
 
     #endregion
@@ -913,11 +894,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(11)]
     public void IsLeapMonth_LeapMonth_ReturnsTrue(int year)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        bool isLeapMonth = calendar.IsLeapMonth(year, 13, 1);
+        bool isLeapMonth = _calendar.IsLeapMonth(year, 13, 1);
 
         // Assert
         Assert.IsTrue(isLeapMonth);
@@ -935,11 +913,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(3, 12)]
     public void IsLeapMonth_NonLeapMonth_ReturnsFalse(int year, int month)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        bool isLeapMonth = calendar.IsLeapMonth(year, month, 1);
+        bool isLeapMonth = _calendar.IsLeapMonth(year, month, 1);
 
         // Assert
         Assert.IsFalse(isLeapMonth);
@@ -959,11 +934,8 @@ public class FrenchRepublicanCalendarTests
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void IsLeapMonth_InvalidDate_ThrowsArgumentOutOfRangeException(int year, int month, int era)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act and assert
-        _ = calendar.IsLeapMonth(year, month, era);
+        _ = _calendar.IsLeapMonth(year, month, era);
     }
 
     #endregion
@@ -981,11 +953,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(11)]
     public void IsLeapYear_LeapYear_ReturnsTrue(int year)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        bool isLeapYear = calendar.IsLeapYear(year, 1);
+        bool isLeapYear = _calendar.IsLeapYear(year, 1);
 
         // Assert
         Assert.IsTrue(isLeapYear);
@@ -1002,11 +971,8 @@ public class FrenchRepublicanCalendarTests
     [DataRow(10)]
     public void IsLeapYear_NonLeapYear_ReturnsFalse(int year)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act
-        bool isLeapYear = calendar.IsLeapYear(year);
+        bool isLeapYear = _calendar.IsLeapYear(year);
 
         // Assert
         Assert.IsFalse(isLeapYear);
@@ -1025,11 +991,8 @@ public class FrenchRepublicanCalendarTests
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void IsLeapYear_InvalidYear_Throws(int year, int era)
     {
-        // Arrange
-        FrenchRepublicanCalendar calendar = new();
-
         // Act and assert
-        _ = calendar.IsLeapYear(year, era);
+        _ = _calendar.IsLeapYear(year, era);
     }
 
     #endregion

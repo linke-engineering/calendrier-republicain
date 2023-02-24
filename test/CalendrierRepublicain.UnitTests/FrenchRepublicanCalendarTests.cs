@@ -757,7 +757,7 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1799, 11, 9, 5)]
     [DataRow(1800, 9, 22, 37)]
     [DataRow(1805, 12, 31, 10)]
-    public void GetWeekOfYear(int year, int month, int day, int expectedWeek)
+    public void GetWeekOfYear_ValidDate_ReturnsWeek(int year, int month, int day, int expectedWeek)
     {
         // Arrange
         GregorianDateTime date = new(year, month, day);
@@ -767,6 +767,27 @@ public class FrenchRepublicanCalendarTests
 
         // Assert
         Assert.AreEqual(expectedWeek, actualWeek);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetWeekOfYear(GregorianDateTime, CalendarWeekRule, DayOfWeek)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
+    /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
+    /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
+    /// <param name="expectedWeek">An integer that represents the expected week in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(1792, 9, 21)]
+    [DataRow(1806, 1, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void GetWeekOfYear_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
+    {
+        // Arrange
+        GregorianDateTime date = new(year, month, day);
+
+        // Act
+        _ = _calendar.GetWeekOfYear(date, 0, 0);
     }
 
     #endregion

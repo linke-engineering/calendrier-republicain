@@ -12,11 +12,11 @@ internal static class GregorianDateTimeExtension
 {
 
     /// <summary>
-    /// Converts a <see cref="GregorianDateTime"/> to a <see cref="RepublicanDateTime"/>.
+    /// Converts a <see cref="GregorianDateTime"/> to a <see cref="FrenchRepublicanDateTime"/>.
     /// </summary>
     /// <param name="gregDateTime">The <see cref="GregorianDateTime"/> to be converted.</param>
-    /// <returns>The resulting <see cref="RepublicanDateTime"/>.</returns>
-    internal static RepublicanDateTime ToRepublican(this GregorianDateTime gregDateTime)
+    /// <returns>The resulting <see cref="FrenchRepublicanDateTime"/>.</returns>
+    internal static FrenchRepublicanDateTime ToRepublican(this GregorianDateTime gregDateTime)
     {
         // Validate input
         gregDateTime.Validate();
@@ -54,7 +54,7 @@ internal static class GregorianDateTimeExtension
             }
         }
 
-        RepublicanDateTime repDateTime = new(year, month, day, gregDateTime.Hour, gregDateTime.Minute, gregDateTime.Second, gregDateTime.Millisecond);
+        FrenchRepublicanDateTime repDateTime = new(year, month, day, gregDateTime.Hour, gregDateTime.Minute, gregDateTime.Second, gregDateTime.Millisecond);
 
         return repDateTime;
     }

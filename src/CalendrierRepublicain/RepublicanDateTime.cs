@@ -1,5 +1,5 @@
 ﻿using Sinistrius.CalendrierRepublicain.Extensions;
-using System.Globalization;
+
 
 namespace Sinistrius.CalendrierRepublicain;
 
@@ -7,7 +7,7 @@ namespace Sinistrius.CalendrierRepublicain;
 /// <summary>
 /// Represents an instance in time expressed in the Republican calendar.
 /// </summary>
-internal class RepublicanDateTime
+internal class FrenchRepublicanDateTime
 {
 
     #region Local Fields
@@ -23,14 +23,14 @@ internal class RepublicanDateTime
     #region Constructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RepublicanDateTime"/> class from a Gregorian <see cref="DateTime"/>.
+    /// Initializes a new instance of the <see cref="FrenchRepublicanDateTime"/> class from a Gregorian <see cref="DateTime"/>.
     /// </summary>
     /// <param name="gregDateTime">A <see cref="DateTime"/> that represents a date and time in the Gregorian calendar.</param>
-    internal RepublicanDateTime(DateTime gregDateTime)
+    internal FrenchRepublicanDateTime(DateTime gregDateTime)
     {
         gregDateTime.Validate();
 
-        RepublicanDateTime repDateTime = gregDateTime.ToRepublican();
+        FrenchRepublicanDateTime repDateTime = gregDateTime.ToRepublican();
 
         Year = 
             repDateTime.Year;
@@ -41,12 +41,12 @@ internal class RepublicanDateTime
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RepublicanDateTime"/> class to the specified Republican year, month and day.
+    /// Initializes a new instance of the <see cref="FrenchRepublicanDateTime"/> class to the specified Republican year, month and day.
     /// </summary>
     /// <param name="year">An integer that represents the year.</param>
     /// <param name="month">An integer that represents the month.</param>
     /// <param name="day">An integer that represents the day.</param>
-    private RepublicanDateTime(int year, int month, int day)
+    private FrenchRepublicanDateTime(int year, int month, int day)
     {
         _calendar.ValidateDay(year, month, day);
 
@@ -57,7 +57,7 @@ internal class RepublicanDateTime
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RepublicanDateTime"/> class to the specified Republican year, month, day, hour, minute, second and millisecond.
+    /// Initializes a new instance of the <see cref="FrenchRepublicanDateTime"/> class to the specified Republican year, month, day, hour, minute, second and millisecond.
     /// </summary>
     /// <param name="year">An integer that represents the year.</param>
     /// <param name="month">An integer that represents the month.</param>
@@ -66,7 +66,7 @@ internal class RepublicanDateTime
     /// <param name="minute">An integer that represents the minute.</param>
     /// <param name="second">An integer that represents the second.</param>
     /// <param name="millisecond">An integer that represents the millisecond.</param>
-    internal RepublicanDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond) : this(year, month, day)
+    internal FrenchRepublicanDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond) : this(year, month, day)
     {
         _calendar.ValidateTime(hour, minute, second, millisecond);
 
@@ -79,13 +79,13 @@ internal class RepublicanDateTime
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RepublicanDateTime"/> class to the specified Republican year, month, day and time span.
+    /// Initializes a new instance of the <see cref="FrenchRepublicanDateTime"/> class to the specified Republican year, month, day and time span.
     /// </summary>
     /// <param name="year">An integer that represents the year.</param>
     /// <param name="month">An integer that represents the month.</param>
     /// <param name="day">An integer that represents the day.</param>
     /// <param name="timeOfDay">A time span that represents the time of the day.</param>
-    internal RepublicanDateTime(int year, int month, int day, TimeSpan timeOfDay) : this(year, month, day)
+    internal FrenchRepublicanDateTime(int year, int month, int day, TimeSpan timeOfDay) : this(year, month, day)
     {
         TimeOfDay = timeOfDay;
         Hour = timeOfDay.Hours;
@@ -154,13 +154,13 @@ internal class RepublicanDateTime
 
 
     /// <summary>
-    /// Determines whether this <see cref="RepublicanDateTime"/> is in the complementary days section.
+    /// Determines whether this <see cref="FrenchRepublicanDateTime"/> is in the complementary days section.
     /// </summary>
     internal bool IsComplementaryDays => Month == 13;
 
 
     /// <summary>
-    /// Determines whether this <see cref="RepublicanDateTime"/> is Jour de la Révolution, the additional complementary day of a leap year.
+    /// Determines whether this <see cref="FrenchRepublicanDateTime"/> is Jour de la Révolution, the additional complementary day of a leap year.
     /// </summary>
     internal bool IsJourDeLaRevolution => _calendar.IsLeapDay(Year, Month, Day);
 
@@ -173,9 +173,9 @@ internal class RepublicanDateTime
     /// Gets the last day of the previous month.
     /// </summary>
     /// <returns></returns>
-    internal RepublicanDateTime EndOfPreviousMonth()
+    internal FrenchRepublicanDateTime EndOfPreviousMonth()
     {
-        RepublicanDateTime repTime = this;
+        FrenchRepublicanDateTime repTime = this;
         repTime.Month--;
 
         if (Month == 0)
@@ -193,9 +193,9 @@ internal class RepublicanDateTime
     /// Gets the first day of the following year.
     /// </summary>
     /// <returns></returns>
-    internal RepublicanDateTime StartOfNextYear()
+    internal FrenchRepublicanDateTime StartOfNextYear()
     {
-        RepublicanDateTime repTime = this;
+        FrenchRepublicanDateTime repTime = this;
         repTime.Year++;
         repTime.Month = 1;
         repTime.Day = 1;

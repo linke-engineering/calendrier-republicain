@@ -7,17 +7,17 @@ namespace Sinistrius.CalendrierRepublicain.UnitTests;
 
 
 /// <summary>
-/// Tests the <see cref="RepublicanDateTime"/> class.
+/// Tests the <see cref="FrenchRepublicanDateTime"/> class.
 /// </summary>
 [TestClass]
 [ExcludeFromCodeCoverage]
-public class RepublicanDateTimeTests
+public class FrenchRepublicanDateTimeTests
 {
 
     #region DateTime Parameter Constructor
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(DateTime)"/> constructor with valid input.
+    /// Tests the <see cref="FrenchRepublicanDateTime(DateTime)"/> constructor with valid input.
     /// </summary>
     /// <param name="gregYear">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="gregMonth">An integer that represents the month in the Gregorian calendar.</param>
@@ -41,7 +41,7 @@ public class RepublicanDateTimeTests
         TimeSpan expectedTimeOfDay = gregTime.TimeOfDay;
 
         // Act
-        RepublicanDateTime repTime = new(gregTime);
+        FrenchRepublicanDateTime repTime = new(gregTime);
 
         // Assert
         Assert.AreEqual(repYear, repTime.Year);
@@ -56,7 +56,7 @@ public class RepublicanDateTimeTests
     #region Integer Parameter Constructor
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with valid input.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with valid input.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
@@ -74,7 +74,7 @@ public class RepublicanDateTimeTests
         int minute = random.Next(60);
         int second = random.Next(60);
         int millisecond = random.Next(1000);
-        RepublicanDateTime repTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
+        FrenchRepublicanDateTime repTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
         TimeSpan expectedTimeOfDay = repTime.TimeOfDay;
 
         // Assert
@@ -86,7 +86,7 @@ public class RepublicanDateTimeTests
 
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid year parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid year parameter.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     [TestMethod]
@@ -97,12 +97,12 @@ public class RepublicanDateTimeTests
     public void Initialize_InvalidRepublicanYear_ThrowsArgumentOutOfRangeException(int repYear)
     {
         // Act
-        _ = new RepublicanDateTime(repYear, 1, 1, 0, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(repYear, 1, 1, 0, 0, 0, 0);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid month parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid month parameter.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
@@ -115,12 +115,12 @@ public class RepublicanDateTimeTests
     public void Initialize_InvalidRepublicanMonth_ThrowsArgumentOutOfRangeException(int repYear, int repMonth)
     {
         // Act
-        _ = new RepublicanDateTime(repYear, repMonth, 1, 0, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(repYear, repMonth, 1, 0, 0, 0, 0);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid day parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid day parameter.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
@@ -135,12 +135,12 @@ public class RepublicanDateTimeTests
     public void Initialize_InvalidRepublicanDay_ThrowsArgumentOutOfRangeException(int repYear, int repMonth, int repDay)
     {
         // Act
-        _ = new RepublicanDateTime(repYear, repMonth, repDay, 0, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(repYear, repMonth, repDay, 0, 0, 0, 0);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid hour parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid hour parameter.
     /// </summary>
     /// <param name="hour">An integer that represents the hour in the Republican calendar.</param>
     [TestMethod]
@@ -150,12 +150,12 @@ public class RepublicanDateTimeTests
     public void Initialize_InvalidHour_ThrowsArgumentOutOfRangeException(int hour)
     {
         // Act
-        _ = new RepublicanDateTime(1, 1, 1, hour, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, hour, 0, 0, 0);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid minute parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid minute parameter.
     /// </summary>
     /// <param name="minute">An integer that represents the minute in the Republican calendar.</param>
     [TestMethod]
@@ -165,12 +165,12 @@ public class RepublicanDateTimeTests
     public void Initialize_InvalidMinute_ThrowsArgumentOutOfRangeException(int minute)
     {
         // Act
-        _ = new RepublicanDateTime(1, 1, 1, 0, minute, 0, 0);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, 0, minute, 0, 0);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid second parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid second parameter.
     /// </summary>
     /// <param name="second">An integer that represents the second in the Republican calendar.</param>
     [TestMethod]
@@ -180,12 +180,12 @@ public class RepublicanDateTimeTests
     public void Initialize_InvalidSecond_ThrowsArgumentOutOfRangeException(int second)
     {
         // Act
-        _ = new RepublicanDateTime(1, 1, 1, 0, 0, second, 0);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, 0, 0, second, 0);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid millisecond parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid millisecond parameter.
     /// </summary>
     /// <param name="millisecond">An integer that represents the second in the Republican calendar.</param>
     [TestMethod]
@@ -195,7 +195,7 @@ public class RepublicanDateTimeTests
     public void Initialize_InvalidMillisecond_ThrowsArgumentOutOfRangeException(int millisecond)
     {
         // Act
-        _ = new RepublicanDateTime(1, 1, 1, 0, 0, 0, millisecond);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, 0, 0, 0, millisecond);
     }
 
     #endregion

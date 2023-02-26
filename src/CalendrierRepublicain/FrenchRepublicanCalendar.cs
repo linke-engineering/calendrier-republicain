@@ -54,7 +54,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize republican date
-        RepublicanDateTime repTime = time.ToRepublican();
+        FrenchRepublicanDateTime repTime = time.ToRepublican();
 
         // If within the complementary days, move to begin resp. end of the next month
         if (repTime.IsComplementaryDays)
@@ -73,7 +73,7 @@ public class FrenchRepublicanCalendar : Calendar
         int targetYear = repTime.Year + (repTime.Month + months - (repTime.Month + months > 0 ? 1 : 13)) / 12;
         int targetMonth = ((repTime.Month + months) % 12 <= 0 ? 12 : 0) + (repTime.Month + months) % 12;
 
-        RepublicanDateTime newRepTime = new(targetYear, targetMonth, repTime.Day, repTime.TimeOfDay);
+        FrenchRepublicanDateTime newRepTime = new(targetYear, targetMonth, repTime.Day, repTime.TimeOfDay);
 
         // Convert result to Gregorian date.
         return newRepTime.ToGregorian();
@@ -95,7 +95,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize republican date
-        RepublicanDateTime repTime = time.ToRepublican();
+        FrenchRepublicanDateTime repTime = time.ToRepublican();
 
         // If within the complementary days, move to begin resp. end of the next month
         if (repTime.IsComplementaryDays)
@@ -119,7 +119,7 @@ public class FrenchRepublicanCalendar : Calendar
         int targetMonth = (targetWeek - 1) / 3 + 1;
         int targetDay = 10 * ((targetWeek - 1) % 3) + currentDayOfWeek;
 
-        RepublicanDateTime newRepTime = new(targetYear, targetMonth, targetDay, repTime.TimeOfDay);
+        FrenchRepublicanDateTime newRepTime = new(targetYear, targetMonth, targetDay, repTime.TimeOfDay);
 
         // Convert result to Gregorian date
         return newRepTime.ToGregorian();
@@ -138,7 +138,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize Republican date
-        RepublicanDateTime repTime = time.ToRepublican();
+        FrenchRepublicanDateTime repTime = time.ToRepublican();
 
         // Calculate new republican date
         int targetYear = repTime.Year + years;
@@ -152,7 +152,7 @@ public class FrenchRepublicanCalendar : Calendar
             targetDay = 1;
         }
 
-        RepublicanDateTime newRepTime = new(targetYear, targetMonth, targetDay, repTime.TimeOfDay);
+        FrenchRepublicanDateTime newRepTime = new(targetYear, targetMonth, targetDay, repTime.TimeOfDay);
 
         // Convert result to Gregorian date
         return newRepTime.ToGregorian();
@@ -164,7 +164,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        RepublicanDateTime repDateTime = time.ToRepublican();
+        FrenchRepublicanDateTime repDateTime = time.ToRepublican();
         return repDateTime.Day;
     }
 
@@ -181,7 +181,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        RepublicanDateTime repDateTime = time.ToRepublican();
+        FrenchRepublicanDateTime repDateTime = time.ToRepublican();
         return 30 * (repDateTime.Month - 1) + repDateTime.Day;
     }
 
@@ -254,7 +254,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        RepublicanDateTime repTime = time.ToRepublican();
+        FrenchRepublicanDateTime repTime = time.ToRepublican();
         return repTime.Month;
     }
 
@@ -285,7 +285,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetWeekOfYear(DateTime time, CalendarWeekRule rule, DayOfWeek firstDayOfWeek)
     {
-        RepublicanDateTime repTime = time.ToRepublican();
+        FrenchRepublicanDateTime repTime = time.ToRepublican();
         return 3 * (repTime.Month - 1) + (repTime.Day - 1) / 10 + 1;
     }
 
@@ -295,7 +295,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        RepublicanDateTime repTime = time.ToRepublican();
+        FrenchRepublicanDateTime repTime = time.ToRepublican();
         return repTime.Year;
     }
 
@@ -356,7 +356,7 @@ public class FrenchRepublicanCalendar : Calendar
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
     {
         // Create Republican date time
-        RepublicanDateTime repDateTime = new(year, month, day, hour, minute, second, millisecond);
+        FrenchRepublicanDateTime repDateTime = new(year, month, day, hour, minute, second, millisecond);
 
         // Convert to Gregorian date time
         return repDateTime.ToGregorian();

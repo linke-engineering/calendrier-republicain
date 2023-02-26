@@ -9,15 +9,15 @@ namespace Sinistrius.CalendrierRepublicain.UnitTests;
 
 
 /// <summary>
-/// Tests the <see cref="RepublicanDateTimeExtension"/> class.
+/// Tests the <see cref="FrenchRepublicanDateTimeExtension"/> class.
 /// </summary>
 [TestClass]
 [ExcludeFromCodeCoverage]
-public class RepublicanDateTimeExtensionTests
+public class FrenchRepublicanDateTimeExtensionTests
 {
 
     /// <summary>
-    /// Tests the <see cref="RepublicanDateTimeExtension.ToGregorian(RepublicanDateTime)"/> method.
+    /// Tests the <see cref="FrenchRepublicanDateTimeExtension.ToGregorian(FrenchRepublicanDateTime)"/> method.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
@@ -37,7 +37,7 @@ public class RepublicanDateTimeExtensionTests
         int minute = random.Next(60);
         int second = random.Next(60);
         int millisecond = random.Next(1000);
-        RepublicanDateTime repDateTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
+        FrenchRepublicanDateTime repDateTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
 
         // Act
         GregorianDateTime gregDateTime = repDateTime.ToGregorian();

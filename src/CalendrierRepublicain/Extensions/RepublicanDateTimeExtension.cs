@@ -5,9 +5,9 @@ namespace Sinistrius.CalendrierRepublicain.Extensions;
 
 
 /// <summary>
-/// Extends the <see cref="RepublicanDateTime"/> struct.
+/// Extends the <see cref="FrenchRepublicanDateTime"/> struct.
 /// </summary>
-internal static class RepublicanDateTimeExtension
+internal static class FrenchRepublicanDateTimeExtension
 {
 
     #region Conversion
@@ -17,7 +17,7 @@ internal static class RepublicanDateTimeExtension
     /// </summary>
     /// <param name="repDateTime">The Republican date time.</param>
     /// <returns>The Gregorian date time.</returns>
-    internal static GregorianDateTime ToGregorian(this RepublicanDateTime repDateTime)
+    internal static GregorianDateTime ToGregorian(this FrenchRepublicanDateTime repDateTime)
     {
         // Extract date parts.
         int years = repDateTime.Year;

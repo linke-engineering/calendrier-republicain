@@ -41,7 +41,7 @@ public class GregorianDateTimeExtensionTests
         TimeSpan expectedTimeOfDay = gregDateTime.TimeOfDay;
 
         // Act
-        RepublicanDateTime repDateTime = gregDateTime.ToRepublican();
+        FrenchRepublicanDateTime repDateTime = gregDateTime.ToRepublican();
 
         // Assert
         Assert.AreEqual(repYear, repDateTime.Year);

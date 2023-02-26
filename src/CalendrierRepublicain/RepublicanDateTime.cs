@@ -1,5 +1,5 @@
 ﻿using Sinistrius.CalendrierRepublicain.Extensions;
-
+using System.Globalization;
 
 namespace Sinistrius.CalendrierRepublicain;
 
@@ -10,6 +10,16 @@ namespace Sinistrius.CalendrierRepublicain;
 internal class RepublicanDateTime
 {
 
+    #region Local Fields
+
+    /// <summary>
+    /// A Republican calendar object.
+    /// </summary>
+    private readonly FrenchRepublicanCalendar _calendar = new();
+
+    #endregion
+
+
     #region Constructors
 
     /// <summary>
@@ -18,10 +28,7 @@ internal class RepublicanDateTime
     /// <param name="gregDateTime">A <see cref="DateTime"/> that represents a date and time in the Gregorian calendar.</param>
     internal RepublicanDateTime(DateTime gregDateTime)
     {
-        if (!gregDateTime.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(gregDateTime));
-        }
+        gregDateTime.Validate();
 
         RepublicanDateTime repDateTime = gregDateTime.ToRepublican();
 
@@ -41,20 +48,7 @@ internal class RepublicanDateTime
     /// <param name="day">An integer that represents the day.</param>
     private RepublicanDateTime(int year, int month, int day)
     {
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
-
-        if (!month.IsValidRepublicanMonth(year))
-        {
-            throw new ArgumentOutOfRangeException(nameof(month));
-        }
-
-        if (!day.IsValidRepublicanDay(year, month))
-        {
-            throw new ArgumentOutOfRangeException(nameof(day));
-        }
+        _calendar.ValidateDay(year, month, day);
 
         Year = year;
         Month = month;
@@ -74,25 +68,7 @@ internal class RepublicanDateTime
     /// <param name="millisecond">An integer that represents the millisecond.</param>
     internal RepublicanDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond) : this(year, month, day)
     {
-        if (!hour.IsValidHour())
-        {
-            throw new ArgumentOutOfRangeException(nameof(hour));
-        }
-
-        if (!minute.IsValidMinute())
-        {
-            throw new ArgumentOutOfRangeException(nameof(minute));
-        }
-
-        if (!second.IsValisSecond())
-        {
-            throw new ArgumentOutOfRangeException(nameof(second));
-        }
-
-        if (!millisecond.IsValidMillisecond())
-        {
-            throw new ArgumentOutOfRangeException(nameof(millisecond));
-        }
+        _calendar.ValidateTime(hour, minute, second, millisecond);
 
         Hour = hour;
         Minute = minute;
@@ -186,7 +162,7 @@ internal class RepublicanDateTime
     /// <summary>
     /// Determines whether this <see cref="RepublicanDateTime"/> is Jour de la Révolution, the additional complementary day of a leap year.
     /// </summary>
-    internal bool IsJourDeLaRevolution => Year.IsRepublicanLeapYear() && Month == 13 && Day == 6;
+    internal bool IsJourDeLaRevolution => _calendar.IsLeapDay(Year, Month, Day);
 
     #endregion
 

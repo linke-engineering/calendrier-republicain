@@ -46,11 +46,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// </remarks>
     public override DateTime AddMonths(DateTime time, int months)
     {
-        // Validate parameters
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
+        time.Validate();
 
         if (months == 0)
         {
@@ -91,10 +87,7 @@ public class FrenchRepublicanCalendar : Calendar
     public override DateTime AddWeeks(DateTime time, int weeks)
     {
         // Validate parameters
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
+        time.Validate();
 
         if (weeks == 0)
         {
@@ -136,10 +129,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override DateTime AddYears(DateTime time, int years)
     {
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
+        time.Validate();
 
         // Nothing to add
         if (years == 0)
@@ -155,7 +145,7 @@ public class FrenchRepublicanCalendar : Calendar
         int targetMonth = repTime.Month;
         int targetDay = repTime.Day;
 
-        if (repTime.IsJourDeLaRevolution && !targetYear.IsRepublicanLeapYear())
+        if (repTime.IsJourDeLaRevolution && !IsLeapYear(targetYear))
         {
             targetYear++;
             targetMonth = 1;
@@ -172,10 +162,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetDayOfMonth(DateTime time)
     {
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
+        time.Validate();
 
         RepublicanDateTime repDateTime = time.ToRepublican();
         return repDateTime.Day;
@@ -192,10 +179,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetDayOfYear(DateTime time)
     {
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
+        time.Validate();
 
         RepublicanDateTime repDateTime = time.ToRepublican();
         return 30 * (repDateTime.Month - 1) + repDateTime.Day;
@@ -212,25 +196,11 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetDaysInMonth(int year, int month, int era)
     {
-        if (!era.IsValidRepublicanCalenderEra())
-        {
-            throw new ArgumentOutOfRangeException(nameof(era));
-        }
+        this.ValidateMonth(year,month, era);
 
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
-
-        if (!month.IsValidRepublicanMonth(year))
-        {
-            throw new ArgumentOutOfRangeException(nameof(month));
-        }
-
-        // TODO: Are complementary days considered as a regular month in this method?
         if (month == 13)
         {
-            return year.IsRepublicanLeapYear() ? 6 : 5;
+            return this.IsLeapYear(year) ? 6 : 5;
         }
 
         // The Republican calendar was abolished after the 10th of Nivôse XIV.
@@ -254,21 +224,13 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetDaysInYear(int year, int era)
     {
-        if (!era.IsValidRepublicanCalenderEra())
-        {
-            throw new ArgumentOutOfRangeException(nameof(era));
-        }
-
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
+        this.ValidateYear(year, era);
 
         if (year == Constants.LastRepublicanYear)
         {
             return 100;
         }
-        else if (year.IsRepublicanLeapYear())
+        else if (IsLeapYear(year))
         {
             return 366;
         }
@@ -282,11 +244,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetEra(DateTime time)
     {
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
-
+        time.Validate();
         return 1;
     }
 
@@ -294,10 +252,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetMonth(DateTime time)
     {
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
+        time.Validate();
 
         RepublicanDateTime repTime = time.ToRepublican();
         return repTime.Month;
@@ -314,15 +269,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetMonthsInYear(int year, int era)
     {
-        if (!era.IsValidRepublicanCalenderEra())
-        {
-            throw new ArgumentOutOfRangeException(nameof(era));
-        }
-
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
+        this.ValidateYear(year, era);
 
         if (year == Constants.LastRepublicanYear)
         {
@@ -346,10 +293,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetYear(DateTime time)
     {
-        if (!time.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(time));
-        }
+        time.Validate();
 
         RepublicanDateTime repTime = time.ToRepublican();
         return repTime.Year;
@@ -366,26 +310,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapDay(int year, int month, int day, int era)
     {
-        if (!era.IsValidRepublicanCalenderEra())
-        {
-            throw new ArgumentOutOfRangeException(nameof(era));
-        }
-
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
-
-        if (!month.IsValidRepublicanMonth(year))
-        {
-            throw new ArgumentOutOfRangeException(nameof(month));
-        }
-
-        if (!day.IsValidRepublicanDay(year, month))
-        {
-            throw new ArgumentOutOfRangeException(nameof(day));
-        }
-
+        this.ValidateDay(year, month, day, era);
         return IsLeapMonth(year, month, era) && day == 6;
     }
 
@@ -400,22 +325,8 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapMonth(int year, int month, int era)
     {
-        if (!era.IsValidRepublicanCalenderEra())
-        {
-            throw new ArgumentOutOfRangeException(nameof(era));
-        }
-
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
-
-        if (!month.IsValidRepublicanMonth(year))
-        {
-            throw new ArgumentOutOfRangeException(nameof(month));
-        }
-
-        return IsLeapYear(year, era) && month == 13;
+        this.ValidateMonth(year, month, era);
+        return IsLeapYear(year) && month == 13;
     }
 
 
@@ -429,17 +340,8 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapYear(int year, int era)
     {
-        if (!era.IsValidRepublicanCalenderEra())
-        {
-            throw new ArgumentOutOfRangeException(nameof(era));
-        }
-
-        if (!year.IsValidRepublicanYear())
-        {
-            throw new ArgumentOutOfRangeException(nameof(year));
-        }
-
-        return year.IsRepublicanLeapYear();
+        this.ValidateYear(year, era);
+        return (year + 1) % 4 == 0;
     }
 
 

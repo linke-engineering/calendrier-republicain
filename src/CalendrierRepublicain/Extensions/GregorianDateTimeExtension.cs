@@ -19,17 +19,15 @@ internal static class GregorianDateTimeExtension
     internal static RepublicanDateTime ToRepublican(this GregorianDateTime gregDateTime)
     {
         // Validate input
-        if (!gregDateTime.IsValid())
-        {
-            throw new ArgumentOutOfRangeException(nameof(gregDateTime));
-        }
+        gregDateTime.Validate();
 
         // Calculate number of days since start of the Republican calendar.
         int totalDays = (int)(gregDateTime - MinSupportedDateTime).TotalDays;
 
         int year = (int)(totalDays / 365.25);
+        bool isRepLeapYear = year > 0 && new FrenchRepublicanCalendar().IsLeapYear(year);
 
-        if (year.IsRepublicanLeapYear())
+        if (isRepLeapYear)
         {
             year--;
         }
@@ -37,7 +35,7 @@ internal static class GregorianDateTimeExtension
         int day = totalDays + 1 - (int)(365.25 * year) + (year + 1) / 100 - (year + 1) / 400;
         year++;
         int month = 1;
-        int complementaryDayCount = year.IsRepublicanLeapYear() ? 6 : 5;
+        int complementaryDayCount =isRepLeapYear ? 6 : 5;
 
         while (day > 30)
         {
@@ -51,7 +49,7 @@ internal static class GregorianDateTimeExtension
                     day -= complementaryDayCount;
                     month = 1;
                     year++;
-                    complementaryDayCount = year.IsRepublicanLeapYear() ? 6 : 5;
+                    complementaryDayCount = isRepLeapYear ? 6 : 5;
                 }
             }
         }
@@ -66,10 +64,13 @@ internal static class GregorianDateTimeExtension
     /// Determines whether a <see cref="GregorianDateTime"/> fits in the validity range of the Republican calendar
     /// </summary>
     /// <param name="time">The <see cref="GregorianDateTime"/> to be validated.</param>
-    /// <returns>True if the specified <see cref="GregorianDateTime"/> is valid, otherwise false.</returns>
-    internal static bool IsValid(this GregorianDateTime time)
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if the <see cref="GregorianDateTime"/> is invalid.</exception>
+    internal static void Validate(this GregorianDateTime time)
     {
-        return time >= MinSupportedDateTime && time <= MaxSupportedDateTime;
+        if (time < MinSupportedDateTime || time > MaxSupportedDateTime)
+        {
+            throw new ArgumentOutOfRangeException(nameof(time));
+        }
     }
 
 }

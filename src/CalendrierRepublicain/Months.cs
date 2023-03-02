@@ -11,39 +11,40 @@ internal enum Months
 {
 
     [Description("Vendémiaire")]
-    Vendemiaire,
+    Vendemiaire = 1,
 
     [Description("Brumaire")]
-    Brumaire,
+    Brumaire = 2,
 
     [Description("Frimaire")]
-    Frimaire,
+    Frimaire = 3,
 
     [Description("Nivôse")]
-    Nivose,
+    Nivose = 4,
 
     [Description("Pluviôse")]
-    Pluviose,
+    Pluviose = 5,
 
     [Description("Ventôse")]
-    Ventose,
+    Ventose = 6,
 
     [Description("Germinal")]
-    Germinal,
+    Germinal = 7,
 
     [Description("Floréal")]
-    Floreal,
+    Floreal = 8,
 
     [Description("Prairial")]
-    Prairial,
+    Prairial = 9,
 
     [Description("Messidor")]
-    Messidor,
+    Messidor = 10,
 
     [Description("Thermidor")]
-    Thermidor,
+    Thermidor = 11,
 
     [Description("Fructidor")]
-    Fructidor,
+    Fructidor = 12
+
 
 }

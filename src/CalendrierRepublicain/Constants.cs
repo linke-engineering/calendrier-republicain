@@ -42,4 +42,10 @@ internal static class Constants
     /// </summary>
     internal static int TwoDigitYearMax = 99;
 
+
+    internal static string[] Months = { "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor" };
+
+
+    internal static string[] ComplementaryDays = { "Jour de la vertu", "Jour du génie", "Jour du travail", "Jour de l’opinion", "Jour des récompenses", "Jour de la révolution" };
+
 }

@@ -5,11 +5,19 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AssemblyName>Sinistrius.$(MSBuildProjectName)</AssemblyName>
-		<RootNamespace>Sinistrius.$(MSBuildProjectName)</RootNamespace>
+		<RootNamespace>Sinistrius.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="$(AssemblyName).UnitTests" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Sinistrius.NumeriRomani" Version="0.1.0" />
 	</ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
 		<AssemblyName>Sinistrius.$(MSBuildProjectName)</AssemblyName>
-		<RootNamespace>Sinistrius.$(MSBuildProjectName)</RootNamespace>
+		<RootNamespace>Sinistrius.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<Configurations>Debug</Configurations>
 	</PropertyGroup>
 

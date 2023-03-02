@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 
 namespace Sinistrius.CalendrierRepublicain.UnitTests;
@@ -14,46 +15,7 @@ namespace Sinistrius.CalendrierRepublicain.UnitTests;
 public class FrenchRepublicanDateTimeTests
 {
 
-    #region DateTime Parameter Constructor
-
-    /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(DateTime)"/> constructor with valid input.
-    /// </summary>
-    /// <param name="gregYear">An integer that represents the year in the Gregorian calendar.</param>
-    /// <param name="gregMonth">An integer that represents the month in the Gregorian calendar.</param>
-    /// <param name="gregDay">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="repYear">An integer that represents the expected year in the Republican calendar.</param>
-    /// <param name="repMonth">An integer that represents the expected month in the Republican calendar.</param>
-    /// <param name="repDay">An integer that represents the expected day in the Republican calendar.</param>
-    [TestMethod]
-    [DataRow(1792, 9, 22, 1, 1, 1)]
-    [DataRow(1799, 11, 9, 8, 2, 18)]
-    [DataRow(1805, 12, 31, 14, 4, 10)]
-    public void Initialize_ValidGregorianTime_CreatesRepublicanTime(int gregYear, int gregMonth, int gregDay, int repYear, int repMonth, int repDay)
-    {
-        // Arrange
-        Random random = new();
-        int hour = random.Next(24);
-        int minute = random.Next(60);
-        int second = random.Next(60);
-        int millisecond = random.Next(1000);
-        DateTime gregTime = new(gregYear, gregMonth, gregDay, hour, minute, second, millisecond);
-        TimeSpan expectedTimeOfDay = gregTime.TimeOfDay;
-
-        // Act
-        FrenchRepublicanDateTime repTime = new(gregTime);
-
-        // Assert
-        Assert.AreEqual(repYear, repTime.Year);
-        Assert.AreEqual(repMonth, repTime.Month);
-        Assert.AreEqual(repDay, repTime.Day);
-        Assert.AreEqual(expectedTimeOfDay, repTime.TimeOfDay);
-    }
-
-    #endregion
-
-
-    #region Integer Parameter Constructor
+    #region Constructor
 
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with valid input.
@@ -67,21 +29,23 @@ public class FrenchRepublicanDateTimeTests
     [DataRow(14, 4, 10)]
     public void Initialize_ValidRepublicanTime_CreatesRepublicanTime(int repYear, int repMonth, int repDay)
     {
-        // Act
         // Arrange
-        Random random = new();
-        int hour = random.Next(24);
-        int minute = random.Next(60);
-        int second = random.Next(60);
-        int millisecond = random.Next(1000);
-        FrenchRepublicanDateTime repTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
-        TimeSpan expectedTimeOfDay = repTime.TimeOfDay;
+        int hour = 13;
+        int minute = 14;
+        int second = 15;
+        int millisecond = 160;
+
+        // Act
+        FrenchRepublicanDateTime actualTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
 
         // Assert
-        Assert.AreEqual(repYear, repTime.Year);
-        Assert.AreEqual(repMonth, repTime.Month);
-        Assert.AreEqual(repDay, repTime.Day);
-        Assert.AreEqual(expectedTimeOfDay, repTime.TimeOfDay);
+        Assert.AreEqual(repYear, actualTime.Year);
+        Assert.AreEqual(repMonth, actualTime.Month);
+        Assert.AreEqual(repDay, actualTime.Day);
+        Assert.AreEqual(hour, actualTime.Hour);
+        Assert.AreEqual(minute, actualTime.Minute);
+        Assert.AreEqual(second, actualTime.Second);
+        Assert.AreEqual(millisecond, actualTime.Millisecond);
     }
 
 
@@ -196,6 +160,249 @@ public class FrenchRepublicanDateTimeTests
     {
         // Act
         _ = new FrenchRepublicanDateTime(1, 1, 1, 0, 0, 0, millisecond);
+    }
+
+    #endregion
+
+
+    #region AddMonths
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanDateTime.AddMonths(int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="months">An integer that represents the months to be added.</param>
+    /// <param name="expectedYear">An integer that represents the expected year in the Republican calendar after the addition.</param>
+    /// <param name="expectedMonth">An integer that represents the expected month in the Republican calendar after the addition.</param>
+    /// <param name="expectedDay">An integer that represents the expected day in the Republican calendar after the addition.</param>
+    [TestMethod]
+    [DataRow(1, 1, 1, 0, 1, 1, 1)]
+    [DataRow(1, 1, 1, 23, 2, 12, 1)]
+    [DataRow(1, 1, 1, 24, 3, 1, 1)]
+    [DataRow(1, 1, 1, 25, 3, 2, 1)]
+    [DataRow(2, 12, 1, -23, 1, 1, 1)]
+    [DataRow(3, 1, 1, -24, 1, 1, 1)]
+    [DataRow(3, 2, 1, -25, 1, 1, 1)]
+    public void AddMonths_ValidDate_ReturnsModifiedDate(int year, int month, int day, int months, int expectedYear, int expectedMonth, int expectedDay)
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(year, month, day);
+
+        // Act
+        FrenchRepublicanDateTime actualTime = time.AddMonths(months);
+
+        // Assert
+        Assert.AreEqual(expectedYear, actualTime.Year);
+        Assert.AreEqual(expectedMonth, actualTime.Month);
+        Assert.AreEqual(expectedDay, actualTime.Day);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddMonths(DateTime, int)"/> method.
+    /// </summary>
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void AddMonths_DateOutOfRange_ThrowsInvalidOperationException()
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(1, 13, 1);
+
+        // Act
+        _ = time.AddMonths(1);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddMonths(DateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="months">An integer that represents the months to be added.</param>
+    [TestMethod]
+    [DataRow(1, 1, 1, -1)]
+    [DataRow(1, 12, 1, -12)]
+    [DataRow(14, 3, 11, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void AddMonths_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int months)
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(year, month,day);
+
+        // Act
+        _ = time.AddMonths(months);
+    }
+
+    #endregion
+
+
+    #region AddWeeks
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddWeeks(DateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="weeks">An integer that represents the weeks to be added.</param>
+    /// <param name="expectedYear">An integer that represents the expected year in the Republican calendar after the addition.</param>
+    /// <param name="expectedMonth">An integer that represents the expected month in the Republican calendar after the addition.</param>
+    /// <param name="expectedDay">An integer that represents the expected day in the Republican calendar after the addition.</param>
+    [TestMethod]
+    [DataRow(1, 1, 1, 0, 1, 1, 1)]
+    [DataRow(1, 1, 1, 2, 1, 1, 21)]
+    [DataRow(1, 1, 1, 6, 1, 3, 1)]
+    [DataRow(1, 1, 1, 35, 1, 12, 21)]
+    [DataRow(1, 1, 1, 71, 2, 12, 21)]
+    [DataRow(2, 12, 21, -71, 1, 1, 1)]
+    [DataRow(1, 12, 21, -35, 1, 1, 1)]
+    [DataRow(1, 3, 1, -6, 1, 1, 1)]
+
+    public void AddWeeks_ValidDate_ReturnsModifiedDate(int year, int month, int day, int weeks, int expectedYear, int expectedMonth, int expectedDay)
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(year, month, day);
+
+        // Act
+        FrenchRepublicanDateTime actualTime = time.AddWeeks(weeks);
+
+        // Assert
+        Assert.AreEqual(expectedYear, actualTime.Year);
+        Assert.AreEqual(expectedMonth, actualTime.Month);
+        Assert.AreEqual(expectedDay, actualTime.Day);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddWeeks(DateTime, int)"/> method.
+    /// </summary>
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void AddWeeks_DateOutOfRange_ThrowsInvalidOperationException()
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(1, 13, 1);
+
+        // Act
+        _ = time.AddWeeks(1);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddWeeks(DateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="weeks">An integer that represents the weeks to be added.</param>
+    [TestMethod]
+    [DataRow(1, 1, 1, -1)]
+    [DataRow(1, 12, 1, -36)]
+    [DataRow(14, 4, 1, 1)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void AddWeeks_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int weeks)
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(year, month, day);
+
+        // Act
+        _ = time.AddWeeks(weeks);
+    }
+
+    #endregion
+
+
+    #region AddYears
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddYears(DateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="years">An integer that represents the years to be added.</param>
+    /// <param name="expectedYear">An integer that represents the expected year in the Republican calendar after the addition.</param>
+    [TestMethod]
+    [DataRow(1, 1, 1, 1, 2)]
+    [DataRow(1, 2, 1, 13, 14)]
+    [DataRow(14, 2, 1, -13, 1)]
+    public void AddYear_ValidDate_ReturnsModifiedDate(int year, int month, int day, int years, int expectedYear)
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(year, month, day);
+
+        // Act
+        FrenchRepublicanDateTime actualTime = time.AddYears(years);
+
+        // Assert
+        Assert.AreEqual(expectedYear, actualTime.Year);
+        Assert.AreEqual(month, actualTime.Month);
+        Assert.AreEqual(day, actualTime.Day);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.AddYears(DateTime, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="years">An integer that represents the years to be added.</param>
+    [TestMethod]
+    [DataRow(1, 1, 1, -1)]
+    [DataRow(13, 4, 11, 1)]
+    [DataRow(14, 4, 10, -14)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void AddYears_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int years)
+    {
+        // Arrange
+        FrenchRepublicanDateTime time = new(year, month, day);
+
+        // Act
+        _ = time.AddYears(years);
+    }
+
+    #endregion
+
+
+    #region GetGregorianDateTime
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanDateTime.GetGregorianDateTime()"/> method.
+    /// </summary>
+    /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="repDay">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="expectedGregYear">An integer that represents the expected year in the Republican calendar.</param>
+    /// <param name="expectedGregMonth">An integer that represents the expected month in the Republican calendar.</param>
+    /// <param name="expectedGregDay">An integer that represents the expected day in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(1, 1, 1, 1792, 9, 22)]
+    [DataRow(8, 2, 18, 1799, 11, 9)]
+    [DataRow(14, 4, 10, 1805, 12, 31)]
+    public void GetGregorianDateTime_RepublicanDateTime_ReturnsGregorianDateTime(int repYear, int repMonth, int repDay, int expectedGregYear, int expectedGregMonth, int expectedGregDay)
+    {
+        // Arrange
+        int hour = 13;
+        int minute = 14;
+        int second = 15;
+        int millisecond = 160;
+        FrenchRepublicanDateTime repTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
+
+        // Act
+        DateTime actualGregTime = repTime.GetGregorianDateTime();
+
+        // Assert
+        Assert.AreEqual(expectedGregYear, actualGregTime.Year);
+        Assert.AreEqual(expectedGregMonth, actualGregTime.Month);
+        Assert.AreEqual(expectedGregDay, actualGregTime.Day);
+        Assert.AreEqual(hour, actualGregTime.Hour);
+        Assert.AreEqual(minute, actualGregTime.Minute);
+        Assert.AreEqual(second, actualGregTime.Second);
+        Assert.AreEqual(millisecond, actualGregTime.Millisecond);
     }
 
     #endregion

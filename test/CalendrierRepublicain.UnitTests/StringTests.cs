@@ -11,6 +11,11 @@ public class StringTests
     /// <summary>
     /// Tests the <see cref="String.Format(IFormatProvider?, string, object?[])"/> method.
     /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
+    /// <param name="format">A string that represents the format specifier.</param>
+    /// <param name="expectedString">A string that represents the expected output.</param>
     [TestMethod]
     [DataRow(1, 1, 1, "D", "Primidi, 1. Vendémiaire I")]
     [DataRow(1, 1, 1, "d. MMMM yyyy", "1. Vendémiaire I")]

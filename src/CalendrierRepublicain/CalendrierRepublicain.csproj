@@ -9,6 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="C:\Users\carst\.nuget\packages\sinistrius.numeriromani\0.1.2\contentFiles\any\net6.0\NumeriRomani.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<InternalsVisibleTo Include="$(AssemblyName).UnitTests" />
 	</ItemGroup>
 

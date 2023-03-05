@@ -40,18 +40,4 @@ internal class JulianDayNumber
 
     #endregion
 
-
-    #region Methods
-
-    /// <summary>
-    /// Converts the Julian day number into a Gregorian time.
-    /// </summary>
-    /// <returns>The Gregorian time.</returns>
-    internal DateTime ToGregorianTime()
-    {
-        return DateTime.FromOADate(Value - 2415018.5);
-    }
-
-    #endregion
-
 }

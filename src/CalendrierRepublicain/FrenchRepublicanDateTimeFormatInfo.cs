@@ -1,9 +1,13 @@
-﻿namespace Sinistrius.CalendrierRepublicain;
+﻿using System.Diagnostics.CodeAnalysis;
+
+
+namespace Sinistrius.CalendrierRepublicain;
 
 
 /// <summary>
 /// Provides some date/time format infos, based on <see cref="System.Globalization.DateTimeFormatInfo"/>.
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal class FrenchRepublicanDateTimeFormatInfo
 {
 

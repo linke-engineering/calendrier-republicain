@@ -12,7 +12,7 @@ Use the NuGet package manager to install the package.
 
 ### Restrictions
 
-The calender only handles dates within the its official validity period between 1 Vendemiaire I (i.e. September 22, 1792) and 10 Nivôse XIV (i.e. December 31, 1805).
+The calender only handles dates within the its official validity period between 1 Vendémiaire I (i.e. September 22, 1792) and 10 Nivôse XIV (i.e. December 31, 1805).
 
 
 ### Creating Dates
@@ -31,7 +31,7 @@ Console.WriteLine(date.ToString("d", DateTimeFormatInfo.InvariantInfo));
 
 ### Writing Dates
 
-Get a string representation of a Republican date by using the String.Format() method with a format provider and format string. Please note that only the short and long date patterns are supported.
+Get a string representation of a Republican date by using the String.Format() method with a format provider and format string. Please note that only a few date and time patterns are supported.
 
 ```cs
 using Sinistrius.CalendrierRepublicain;
@@ -58,7 +58,7 @@ FrenchRepublicanCalendar calendar = new();
 FrenchRepublicanDateTimeFormatter provider = new();
 
 DateTime date = new(8, 2, 18, calendar);  // 18 Brumaire VIII
-int weeks = 3                             // 4 Republican weeks (40 days) to be added
+int weeks = 4;                            // 4 Republican weeks (40 days) to be added
 
 date = calendar.AddWeeks(date, weeks);
 Console.WriteLine(String.Format(provider, "{0:d MMMM yyyy}", date));

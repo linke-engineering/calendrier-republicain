@@ -21,6 +21,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\CalendrierRepublicain\CalendrierRepublicain.csproj" />
+		<AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage" />
 	</ItemGroup>
 
 </Project>

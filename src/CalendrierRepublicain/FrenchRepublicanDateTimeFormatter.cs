@@ -9,7 +9,7 @@ namespace Sinistrius.CalendrierRepublicain;
 /// <summary>
 /// A formatter for a <see cref="FrenchRepublicanDateTime"/>.
 /// </summary>
-internal class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatter
+public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatter
 {
 
     /// <inheritdoc/>
@@ -81,18 +81,20 @@ internal class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomForma
     /// <returns>The time string.</returns>
     private static string FillPattern(string pattern, FrenchRepublicanDateTime time)
     {
+        FrenchRepublicanDateTimeFormatInfo formatInfo = new();
+
         Dictionary<string, string> replacements = new();
 
         if (FrenchRepublicanDateTime.IsLeapMonth(time.Year, time.Month, time.Era))
         {
-            replacements.Add(@"(\b(d|dddd|MMMM?)\b)?(d|dddd|MMMM?|[ .,-])*\b(d|dddd|MMMM?)\b[.,-]?", Constants.ComplementaryDayNames[time.Day - 1]);
+            replacements.Add(@"(\b(d|dddd|MMMM?)\b)?(d|dddd|MMMM?|[ .,-])*\b(d|dddd|MMMM?)\b[.,-]?", formatInfo.ComplementaryDayNames[time.Day - 1]);
         }
         else
         {
-            replacements.Add(@"\bdddd\b", Constants.DayOfWeekNames[(time.Day - 1) % 10]);
+            replacements.Add(@"\bdddd\b", formatInfo.DayNames[(time.Day - 1) % 10]);
             replacements.Add(@"\bd\b", time.Day.ToString());
-            replacements.Add(@"\bMMMM\b", Constants.MonthNames[time.Month - 1]);
-            replacements.Add(@"\bMMM\b", Constants.AbbreviatedMonthNames[time.Month - 1]);
+            replacements.Add(@"\bMMMM\b", formatInfo.MonthNames[time.Month - 1]);
+            replacements.Add(@"\bMMM\b", formatInfo.AbbreviatedMonthNames[time.Month - 1]);
         }
 
         replacements.Add(@"\byyyy\b", time.Year.ToRoman());

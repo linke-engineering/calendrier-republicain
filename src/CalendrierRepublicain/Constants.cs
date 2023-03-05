@@ -5,7 +5,7 @@ namespace Sinistrius.CalendrierRepublicain;
 
 
 /// <summary>
-/// Defines common functions or immutable values.
+/// Defines common immutable calendar values.
 /// </summary>
 [ExcludeFromCodeCoverage]
 internal static class Constants
@@ -35,23 +35,5 @@ internal static class Constants
     /// The last month in the last year of the Republican calendar.
     /// </summary>
     internal static int LastRepublicanMonth = 4;
-
-
-    /// <summary>
-    /// The last year of a 100-year range that can be represented by a 2-digit year.
-    /// </summary>
-    internal static int TwoDigitYearMax = 99;
-
-
-    internal static string[] DayOfWeekNames = { "Primidi", "Duodi", "Tridi", "Quartidi", "Quintidi", "Sextiti", "Septidi", "Octidi", "Nonidi", "Décadi" };
-
-
-    internal static string[] MonthNames = { "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor" };
-
-
-    internal static string[] AbbreviatedMonthNames = { "Vend", "Brum", "Frim", "Niv", "Pluv", "Vent", "Germ", "Flor", "Prair", "Mess", "Therm", "Fruct" };
-
-
-    internal static string[] ComplementaryDayNames = { "Jour de la vertu", "Jour du génie", "Jour du travail", "Jour de l’opinion", "Jour des récompenses", "Jour de la révolution" };
 
 }

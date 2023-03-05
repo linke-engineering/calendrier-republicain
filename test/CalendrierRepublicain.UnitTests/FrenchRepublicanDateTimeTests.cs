@@ -1,9 +1,3 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-
-
 namespace Sinistrius.CalendrierRepublicain.UnitTests;
 
 
@@ -11,7 +5,6 @@ namespace Sinistrius.CalendrierRepublicain.UnitTests;
 /// Tests the <see cref="FrenchRepublicanDateTime"/> class.
 /// </summary>
 [TestClass]
-[ExcludeFromCodeCoverage]
 public class FrenchRepublicanDateTimeTests
 {
 

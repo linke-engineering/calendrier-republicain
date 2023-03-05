@@ -1,17 +1,10 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Threading;
-
-namespace Sinistrius.CalendrierRepublicain.UnitTests;
+namespace Sinistrius.CalendrierRepublicain.IntegrationTests;
 
 
 /// <summary>
 /// Tests the <see cref="DateTime"/> class.
 /// </summary>
 [TestClass]
-[ExcludeFromCodeCoverage]
 public class DateTimeTests
 {
 

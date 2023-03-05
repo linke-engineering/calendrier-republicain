@@ -1,17 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 
-namespace Sinistrius.CalendrierRepublicain.UnitTests;
+namespace Sinistrius.CalendrierRepublicain.IntegrationTests;
 
 
 /// <summary>
 /// Tests the <see cref="FrenchRepublicanCalendar"/> class.
 /// </summary>
 [TestClass]
-[ExcludeFromCodeCoverage]
 public class FrenchRepublicanCalendarTests
 {
 
@@ -488,7 +484,7 @@ public class FrenchRepublicanCalendarTests
     public void GetDayOfWeek_ValidDate_ThrowsInvalidOperationException()
     {
         // Arrange
-        DateTime time = Constants.MinSupportedDateTime;
+        DateTime time = new(1792, 9, 22);
 
         // Act
         _ = _calendar.GetDayOfWeek(time);

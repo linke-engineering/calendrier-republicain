@@ -43,7 +43,7 @@ public class FrenchRepublicanCalendar : Calendar
 
 
     /// <inheritdoc/>
-    public override int TwoDigitYearMax => Constants.TwoDigitYearMax;
+    public override int TwoDigitYearMax => 99;
 
     #endregion
 

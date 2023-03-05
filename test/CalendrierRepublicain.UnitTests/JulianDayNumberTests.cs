@@ -1,8 +1,3 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Diagnostics.CodeAnalysis;
-
-
 namespace Sinistrius.CalendrierRepublicain.UnitTests;
 
 
@@ -10,7 +5,6 @@ namespace Sinistrius.CalendrierRepublicain.UnitTests;
 /// Tests the <see cref="JulianDayNumber"/> class.
 /// </summary>
 [TestClass]
-[ExcludeFromCodeCoverage]
 public class JulianDayNumberTests
 {
 

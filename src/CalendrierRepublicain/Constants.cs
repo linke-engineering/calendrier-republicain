@@ -43,9 +43,15 @@ internal static class Constants
     internal static int TwoDigitYearMax = 99;
 
 
-    internal static string[] Months = { "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor" };
+    internal static string[] DayOfWeekNames = { "Primidi", "Duodi", "Tridi", "Quartidi", "Quintidi", "Sextiti", "Septidi", "Octidi", "Nonidi", "Décadi" };
 
 
-    internal static string[] ComplementaryDays = { "Jour de la vertu", "Jour du génie", "Jour du travail", "Jour de l’opinion", "Jour des récompenses", "Jour de la révolution" };
+    internal static string[] MonthNames = { "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor" };
+
+
+    internal static string[] AbbreviatedMonthNames = { "Vend", "Brum", "Frim", "Niv", "Pluv", "Vent", "Germ", "Flor", "Prair", "Mess", "Therm", "Fruct" };
+
+
+    internal static string[] ComplementaryDayNames = { "Jour de la vertu", "Jour du génie", "Jour du travail", "Jour de l’opinion", "Jour des récompenses", "Jour de la révolution" };
 
 }

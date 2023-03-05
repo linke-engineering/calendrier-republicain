@@ -16,10 +16,11 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="month">An integer that represents the month.</param>
     /// <param name="day">An integer that represents the day.</param>
     /// <param name="era">An integer that represents the era.</param>
-    internal FrenchRepublicanDateTime(int year, int month, int day, int era = 1)
+    internal FrenchRepublicanDateTime(int year, int month, int day, int era)
     {
         ValidateDay(year, month, day, era);
 
+        Era = era;
         Year = year;
         Month = month;
         Day = day;
@@ -37,7 +38,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="second">An integer that represents the second.</param>
     /// <param name="millisecond">An integer that represents the millisecond.</param>
     /// <param name="era">An integer that represents the era.</param>
-    internal FrenchRepublicanDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era = 1) : this(year, month, day, era)
+    internal FrenchRepublicanDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era) : this(year, month, day, era)
     {
         ValidateTime(hour, minute, second, millisecond);
 
@@ -57,7 +58,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="day">An integer that represents the day.</param>
     /// <param name="era">An integer that represents the era.</param>
     /// <param name="timeOfDay">The time of the day.</param>
-    internal FrenchRepublicanDateTime(int year, int month, int day, TimeSpan timeOfDay, int era = 1) : this(year, month, day, era)
+    internal FrenchRepublicanDateTime(int year, int month, int day, TimeSpan timeOfDay, int era) : this(year, month, day, era)
     {
         ValidateTime(timeOfDay);
 
@@ -76,7 +77,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <summary>
     /// The era.
     /// </summary>
-    internal int Era { get; } = 1;
+    internal int Era { get; }
 
 
     /// <summary>
@@ -151,7 +152,7 @@ internal class FrenchRepublicanDateTime : IFormattable
         int newYear = Year + (Month + months - (months > 0 ? 1 : 12)) / 12;
         int newMonth = ((Month + months) % 12 <= 0 ? 12 : 0) + (Month + months) % 12;
 
-        return new FrenchRepublicanDateTime(newYear, newMonth, Day, TimeOfDay);
+        return new FrenchRepublicanDateTime(newYear, newMonth, Day, TimeOfDay, Era);
     }
 
 
@@ -179,7 +180,7 @@ internal class FrenchRepublicanDateTime : IFormattable
         int newMonth = (newWeekOfYear - 1) / 3 + 1;
         int newDay = 10 * ((newWeekOfYear - 1) % 3) + currentDayOfWeek;
 
-        return new FrenchRepublicanDateTime(newYear, newMonth, newDay, TimeOfDay);
+        return new FrenchRepublicanDateTime(newYear, newMonth, newDay, TimeOfDay, Era);
     }
 
 
@@ -199,14 +200,14 @@ internal class FrenchRepublicanDateTime : IFormattable
         int newMonth = Month;
         int newDay = Day;
 
-        if (newMonth == 13 && newDay == 6 && !IsLeapYear(newYear))
+        if (newMonth == 13 && newDay == 6 && !IsLeapYear(newYear, Era))
         {
             newYear++;
             newMonth = 1;
             newDay = 1;
         }
 
-        return new FrenchRepublicanDateTime(newYear, newMonth, newDay, TimeOfDay);
+        return new FrenchRepublicanDateTime(newYear, newMonth, newDay, TimeOfDay, Era);
     }
 
 
@@ -218,10 +219,10 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="day">An integer that represents a day in the Republican calendar.</param>
     /// <param name="era">An integer that represents an era in the Republican calendar.</param>
     /// <returns>True if the day is a leap day, otherwise false.</returns>
-    internal static bool IsLeapDay(int year, int month, int day, int era = 1)
+    internal static bool IsLeapDay(int year, int month, int day, int era)
     {
         ValidateDay(year, month, day, era);
-        return IsLeapMonth(year, month) && day == 6;
+        return IsLeapMonth(year, month, era) && day == 6;
     }
 
 
@@ -232,10 +233,10 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="month">An integer that represents a month in the Republican calendar.</param>
     /// <param name="era">An integer that represents an era in the Republican calendar.</param>
     /// <returns>True if the month is a leap month, otherwise false.</returns>
-    internal static bool IsLeapMonth(int year, int month, int era = 1)
+    internal static bool IsLeapMonth(int year, int month, int era)
     {
         ValidateMonth(year, month, era);
-        return IsLeapYear(year) && month == 13;
+        return IsLeapYear(year, era) && month == 13;
     }
 
 
@@ -245,7 +246,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="year">An integer that represents a year in the Republican calendar.</param>
     /// <param name="era">An integer that represents an era in the Republican calendar.</param>
     /// <returns>True if the year is a leap year, otherwise false.</returns>
-    internal static bool IsLeapYear(int year, int era = 1)
+    internal static bool IsLeapYear(int year, int era)
     {
         ValidateYear(year, era);
         return (year + 1) % 4 == 0;
@@ -256,7 +257,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// Converts the <see cref="FrenchRepublicanDateTime"/> to a <see cref="DateTime"/> in the Gregorian calendar.
     /// </summary>
     /// <returns>The <see cref="DateTime"/> in the Gregorian Calendar.</returns>
-    internal DateTime GetGregorianDateTime()
+    internal DateTime ToGregorianDateTime()
     {
         int daysSinceEpoch = 365 * (Year - 1) + Year / 4 + 30 * Month + Day - 31;
         TimeSpan timeSpan = new(daysSinceEpoch, Hour, Minute, Second, Millisecond);
@@ -271,7 +272,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <exception cref="ArgumentOutOfRangeException">The era is invalid.</exception>
     internal static void ValidateEra(int era)
     {
-        ValidateValueInsideRange(nameof(era), era, 1, 1);
+        ValidateValueInsideRange(nameof(era), era, FrenchRepublicanCalendar.FrenchRepublicanEra, FrenchRepublicanCalendar.FrenchRepublicanEra);
     }
 
 
@@ -281,7 +282,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="year">An integer that represents the year.</param>
     /// <param name="era">An integer that represents the era.</param>
     /// <exception cref="ArgumentOutOfRangeException">The year is invalid.</exception>
-    internal static void ValidateYear(int year, int era = 1)
+    internal static void ValidateYear(int year, int era)
     {
         ValidateEra(era);
         ValidateValueInsideRange(nameof(year), year, 1, 14);
@@ -295,7 +296,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="month">An integer that represents the month.</param>
     /// <param name="era">An integer that represents the era.</param>
     /// <exception cref="ArgumentOutOfRangeException">The month is invalid.</exception>
-    internal static void ValidateMonth(int year, int month, int era = 1)
+    internal static void ValidateMonth(int year, int month, int era)
     {
         ValidateYear(year, era);
 
@@ -318,11 +319,11 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <param name="day">An integer that represents the day.</param>
     /// <param name="era">An integer that represents the era.</param>
     /// <exception cref="ArgumentOutOfRangeException">The day is invalid.</exception>
-    internal static void ValidateDay(int year, int month, int day, int era = 1)
+    internal static void ValidateDay(int year, int month, int day, int era)
     {
         ValidateMonth(year, month, era);
 
-        if (IsLeapMonth(year, month))
+        if (IsLeapMonth(year, month, era))
         {
             ValidateValueInsideRange(nameof(day), day, 1, 6);
         }

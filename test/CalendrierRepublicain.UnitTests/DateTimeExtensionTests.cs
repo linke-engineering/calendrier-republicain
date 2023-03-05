@@ -15,7 +15,7 @@ public class DateTimeExtensionTests
 {
 
     /// <summary>
-    /// Tests the <see cref="DateTimeExtension.GetFrenchRepublicanTime(DateTime)"/> method.
+    /// Tests the <see cref="DateTimeExtension.ToFrenchRepublicanTime(DateTime)"/> method.
     /// </summary>
     /// <param name="gregYear">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="gregMonth">An integer that represents the month in the Gregorian calendar.</param>
@@ -27,7 +27,7 @@ public class DateTimeExtensionTests
     [DataRow(1792, 9, 22, 1, 1, 1)]
     [DataRow(1799, 11, 9, 8, 2, 18)]
     [DataRow(1805, 12, 31, 14, 4, 10)]
-    public void GetFrenchRepublicanDateTime_GregorianDateTime_ReturnsRepublicanDateTime(int gregYear, int gregMonth, int gregDay, int expectedRepYear, int expectedRepMonth, int expectedRepDay)
+    public void ToFrenchRepublicanDateTime_GregorianDateTime_ReturnsRepublicanDateTime(int gregYear, int gregMonth, int gregDay, int expectedRepYear, int expectedRepMonth, int expectedRepDay)
     {
         // Arrange
         int hour = 13;
@@ -37,7 +37,7 @@ public class DateTimeExtensionTests
         DateTime gregTime = new(gregYear, gregMonth, gregDay, hour, minute, second, millisecond);
 
         // Act
-        FrenchRepublicanDateTime actualRepTime = gregTime.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime actualRepTime = gregTime.ToFrenchRepublicanTime();
 
         // Assert
         Assert.AreEqual(expectedRepYear, actualRepTime.Year);

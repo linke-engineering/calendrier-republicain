@@ -43,7 +43,7 @@ internal static class DateTimeExtension
     /// </summary>
     /// <param name="gregTime">The <see cref="DateTime"/> to be converted.</param>
     /// <returns>The resulting <see cref="FrenchRepublicanDateTime"/>.</returns>
-    internal static FrenchRepublicanDateTime GetFrenchRepublicanTime(this DateTime gregTime)
+    internal static FrenchRepublicanDateTime ToFrenchRepublicanTime(this DateTime gregTime)
     {
         // Validate input
         gregTime.Validate();
@@ -63,7 +63,7 @@ internal static class DateTimeExtension
         int month = dayOfYear / 30 + 1;
         int day = dayOfYear % 30 + 1;
 
-        return new FrenchRepublicanDateTime(year, month, day, gregTime.TimeOfDay);
+        return new FrenchRepublicanDateTime(year, month, day, gregTime.TimeOfDay, FrenchRepublicanCalendar.FrenchRepublicanEra);
     }
 
 

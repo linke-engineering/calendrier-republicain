@@ -15,7 +15,18 @@ namespace Sinistrius.CalendrierRepublicain.UnitTests;
 public class FrenchRepublicanDateTimeTests
 {
 
-    #region Constructor
+    #region Local Fields
+
+    private const int Era = 1;
+    private const int Hour = 22;
+    private const int Minute = 33;
+    private const int Second = 44;
+    private const int Millisecond = 555;
+
+    #endregion
+
+
+    #region Initialization
 
     /// <summary>
     /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with valid input.
@@ -29,28 +40,22 @@ public class FrenchRepublicanDateTimeTests
     [DataRow(14, 4, 10)]
     public void Initialize_ValidRepublicanTime_CreatesRepublicanTime(int repYear, int repMonth, int repDay)
     {
-        // Arrange
-        int hour = 13;
-        int minute = 14;
-        int second = 15;
-        int millisecond = 160;
-
         // Act
-        FrenchRepublicanDateTime actualTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
+        FrenchRepublicanDateTime actualTime = new(repYear, repMonth, repDay, Hour, Minute, Second, Millisecond, Era);
 
         // Assert
         Assert.AreEqual(repYear, actualTime.Year);
         Assert.AreEqual(repMonth, actualTime.Month);
         Assert.AreEqual(repDay, actualTime.Day);
-        Assert.AreEqual(hour, actualTime.Hour);
-        Assert.AreEqual(minute, actualTime.Minute);
-        Assert.AreEqual(second, actualTime.Second);
-        Assert.AreEqual(millisecond, actualTime.Millisecond);
+        Assert.AreEqual(Hour, actualTime.Hour);
+        Assert.AreEqual(Minute, actualTime.Minute);
+        Assert.AreEqual(Second, actualTime.Second);
+        Assert.AreEqual(Millisecond, actualTime.Millisecond);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid year parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid year parameter.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     [TestMethod]
@@ -61,12 +66,12 @@ public class FrenchRepublicanDateTimeTests
     public void Initialize_InvalidRepublicanYear_ThrowsArgumentOutOfRangeException(int repYear)
     {
         // Act
-        _ = new FrenchRepublicanDateTime(repYear, 1, 1, 0, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(repYear, 1, 1, Hour, Minute, Second, Millisecond, Era);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid month parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid month parameter.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
@@ -79,12 +84,12 @@ public class FrenchRepublicanDateTimeTests
     public void Initialize_InvalidRepublicanMonth_ThrowsArgumentOutOfRangeException(int repYear, int repMonth)
     {
         // Act
-        _ = new FrenchRepublicanDateTime(repYear, repMonth, 1, 0, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(repYear, repMonth, 1, Hour, Minute, Second, Millisecond, Era);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid day parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid day parameter.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
@@ -99,12 +104,12 @@ public class FrenchRepublicanDateTimeTests
     public void Initialize_InvalidRepublicanDay_ThrowsArgumentOutOfRangeException(int repYear, int repMonth, int repDay)
     {
         // Act
-        _ = new FrenchRepublicanDateTime(repYear, repMonth, repDay, 0, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(repYear, repMonth, repDay, Hour, Minute, Second, Millisecond, Era);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid hour parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid hour parameter.
     /// </summary>
     /// <param name="hour">An integer that represents the hour in the Republican calendar.</param>
     [TestMethod]
@@ -114,12 +119,12 @@ public class FrenchRepublicanDateTimeTests
     public void Initialize_InvalidHour_ThrowsArgumentOutOfRangeException(int hour)
     {
         // Act
-        _ = new FrenchRepublicanDateTime(1, 1, 1, hour, 0, 0, 0);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, hour, Minute, Second, Millisecond, Era);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid minute parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid minute parameter.
     /// </summary>
     /// <param name="minute">An integer that represents the minute in the Republican calendar.</param>
     [TestMethod]
@@ -129,12 +134,12 @@ public class FrenchRepublicanDateTimeTests
     public void Initialize_InvalidMinute_ThrowsArgumentOutOfRangeException(int minute)
     {
         // Act
-        _ = new FrenchRepublicanDateTime(1, 1, 1, 0, minute, 0, 0);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, Hour, minute, Second, Millisecond, Era);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid second parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid second parameter.
     /// </summary>
     /// <param name="second">An integer that represents the second in the Republican calendar.</param>
     [TestMethod]
@@ -144,14 +149,14 @@ public class FrenchRepublicanDateTimeTests
     public void Initialize_InvalidSecond_ThrowsArgumentOutOfRangeException(int second)
     {
         // Act
-        _ = new FrenchRepublicanDateTime(1, 1, 1, 0, 0, second, 0);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, Hour, Minute, second, Millisecond, Era);
     }
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int)"/> constructor with an invalid millisecond parameter.
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid millisecond parameter.
     /// </summary>
-    /// <param name="millisecond">An integer that represents the second in the Republican calendar.</param>
+    /// <param name="millisecond">An integer that represents the millisecond in the Republican calendar.</param>
     [TestMethod]
     [DataRow(-1)]
     [DataRow(1000)]
@@ -159,7 +164,22 @@ public class FrenchRepublicanDateTimeTests
     public void Initialize_InvalidMillisecond_ThrowsArgumentOutOfRangeException(int millisecond)
     {
         // Act
-        _ = new FrenchRepublicanDateTime(1, 1, 1, 0, 0, 0, millisecond);
+        _ = new FrenchRepublicanDateTime(1, 1, 1, Hour, Minute, Second, millisecond, Era);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanDateTime(int, int, int, int, int, int, int, int)"/> constructor with an invalid era parameter.
+    /// </summary>
+    /// <param name="era">An integer that represents the era in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(0)]
+    [DataRow(2)]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void Initialize_InvalidEra_ThrowsArgumentOutOfRangeException(int era)
+    {
+        // Act
+        _ = new FrenchRepublicanDateTime(1, 1, 1, Hour, Minute, Second, Millisecond, era);
     }
 
     #endregion
@@ -188,7 +208,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddMonths_ValidDate_ReturnsModifiedDate(int year, int month, int day, int months, int expectedYear, int expectedMonth, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(year, month, day);
+        FrenchRepublicanDateTime time = new(year, month, day, Era);
 
         // Act
         FrenchRepublicanDateTime actualTime = time.AddMonths(months);
@@ -208,7 +228,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddMonths_DateOutOfRange_ThrowsInvalidOperationException()
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(1, 13, 1);
+        FrenchRepublicanDateTime time = new(1, 13, 1, Era);
 
         // Act
         _ = time.AddMonths(1);
@@ -230,8 +250,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddMonths_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int months)
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(year, month,day);
-
+        FrenchRepublicanDateTime time = new(year, month, day, Era);
         // Act
         _ = time.AddMonths(months);
     }
@@ -264,7 +283,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddWeeks_ValidDate_ReturnsModifiedDate(int year, int month, int day, int weeks, int expectedYear, int expectedMonth, int expectedDay)
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(year, month, day);
+        FrenchRepublicanDateTime time = new(year, month, day, Era);
 
         // Act
         FrenchRepublicanDateTime actualTime = time.AddWeeks(weeks);
@@ -284,7 +303,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddWeeks_DateOutOfRange_ThrowsInvalidOperationException()
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(1, 13, 1);
+        FrenchRepublicanDateTime time = new(1, 13, 1, Era);
 
         // Act
         _ = time.AddWeeks(1);
@@ -306,7 +325,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddWeeks_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int weeks)
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(year, month, day);
+        FrenchRepublicanDateTime time = new(year, month, day, Era);
 
         // Act
         _ = time.AddWeeks(weeks);
@@ -332,7 +351,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddYear_ValidDate_ReturnsModifiedDate(int year, int month, int day, int years, int expectedYear)
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(year, month, day);
+        FrenchRepublicanDateTime time = new(year, month, day, Era);
 
         // Act
         FrenchRepublicanDateTime actualTime = time.AddYears(years);
@@ -359,7 +378,7 @@ public class FrenchRepublicanDateTimeTests
     public void AddYears_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int years)
     {
         // Arrange
-        FrenchRepublicanDateTime time = new(year, month, day);
+        FrenchRepublicanDateTime time = new(year, month, day, Era);
 
         // Act
         _ = time.AddYears(years);
@@ -368,10 +387,10 @@ public class FrenchRepublicanDateTimeTests
     #endregion
 
 
-    #region GetGregorianDateTime
+    #region ToGregorianDateTime
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanDateTime.GetGregorianDateTime()"/> method.
+    /// Tests the <see cref="FrenchRepublicanDateTime.ToGregorianDateTime()"/> method.
     /// </summary>
     /// <param name="repYear">An integer that represents the year in the Republican calendar.</param>
     /// <param name="repMonth">An integer that represents the month in the Republican calendar.</param>
@@ -383,26 +402,22 @@ public class FrenchRepublicanDateTimeTests
     [DataRow(1, 1, 1, 1792, 9, 22)]
     [DataRow(8, 2, 18, 1799, 11, 9)]
     [DataRow(14, 4, 10, 1805, 12, 31)]
-    public void GetGregorianDateTime_RepublicanDateTime_ReturnsGregorianDateTime(int repYear, int repMonth, int repDay, int expectedGregYear, int expectedGregMonth, int expectedGregDay)
+    public void ToGregorianDateTime_RepublicanDateTime_ReturnsGregorianDateTime(int repYear, int repMonth, int repDay, int expectedGregYear, int expectedGregMonth, int expectedGregDay)
     {
         // Arrange
-        int hour = 13;
-        int minute = 14;
-        int second = 15;
-        int millisecond = 160;
-        FrenchRepublicanDateTime repTime = new(repYear, repMonth, repDay, hour, minute, second, millisecond);
+        FrenchRepublicanDateTime repTime = new(repYear, repMonth, repDay, Hour, Minute, Second, Millisecond, Era);
 
         // Act
-        DateTime actualGregTime = repTime.GetGregorianDateTime();
+        DateTime actualGregTime = repTime.ToGregorianDateTime();
 
         // Assert
         Assert.AreEqual(expectedGregYear, actualGregTime.Year);
         Assert.AreEqual(expectedGregMonth, actualGregTime.Month);
         Assert.AreEqual(expectedGregDay, actualGregTime.Day);
-        Assert.AreEqual(hour, actualGregTime.Hour);
-        Assert.AreEqual(minute, actualGregTime.Minute);
-        Assert.AreEqual(second, actualGregTime.Second);
-        Assert.AreEqual(millisecond, actualGregTime.Millisecond);
+        Assert.AreEqual(Hour, actualGregTime.Hour);
+        Assert.AreEqual(Minute, actualGregTime.Minute);
+        Assert.AreEqual(Second, actualGregTime.Second);
+        Assert.AreEqual(Millisecond, actualGregTime.Millisecond);
     }
 
     #endregion

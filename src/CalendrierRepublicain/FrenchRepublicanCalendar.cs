@@ -14,6 +14,16 @@ namespace Sinistrius.CalendrierRepublicain;
 public class FrenchRepublicanCalendar : Calendar
 {
 
+    #region Properties
+
+    /// <summary>
+    /// Represents the current era.
+    /// </summary>
+    public static readonly int FrenchRepublicanEra = 1;
+
+    #endregion
+
+
     #region Overridden Properties of the Calendar Class
 
     /// <inheritdoc/>
@@ -21,7 +31,7 @@ public class FrenchRepublicanCalendar : Calendar
 
 
     /// <inheritdoc/>
-    public override int[] Eras => new[] { 1 };
+    public override int[] Eras => new[] { FrenchRepublicanEra };
 
 
     /// <inheritdoc/>
@@ -61,7 +71,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize republican date
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
 
         // Reject addition from complementary days
         if (repTime.Month == 13)
@@ -89,7 +99,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize republican date
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
 
         // Reject addition from complementary days
         if (repTime.Month == 13)
@@ -115,7 +125,7 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize Republican date
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
 
         // Calculate new republican date
         FrenchRepublicanDateTime newRepTime = repTime.AddYears(years);
@@ -130,7 +140,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
         return repTime.Day;
     }
 
@@ -147,7 +157,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
         return 30 * (repTime.Month - 1) + repTime.Day;
     }
 
@@ -155,7 +165,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetDaysInMonth(int year, int month)
     {
-        return GetDaysInMonth(year, month, 1);
+        return GetDaysInMonth(year, month, FrenchRepublicanEra);
     }
 
 
@@ -183,7 +193,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetDaysInYear(int year)
     {
-        return GetDaysInYear(year, 1);
+        return GetDaysInYear(year, FrenchRepublicanEra);
     }
 
 
@@ -211,7 +221,7 @@ public class FrenchRepublicanCalendar : Calendar
     public override int GetEra(DateTime time)
     {
         time.Validate();
-        return 1;
+        return FrenchRepublicanEra;
     }
 
 
@@ -220,7 +230,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
         return repTime.Month;
     }
 
@@ -228,7 +238,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetMonthsInYear(int year)
     {
-        return GetMonthsInYear(year, 1);
+        return GetMonthsInYear(year, FrenchRepublicanEra);
     }
 
 
@@ -251,7 +261,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetWeekOfYear(DateTime time, CalendarWeekRule rule, DayOfWeek firstDayOfWeek)
     {
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
         return 3 * (repTime.Month - 1) + (repTime.Day - 1) / 10 + 1;
     }
 
@@ -261,7 +271,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.GetFrenchRepublicanTime();
+        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
         return repTime.Year;
     }
 
@@ -269,7 +279,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapDay(int year, int month, int day)
     {
-        return IsLeapDay(year, month, day, 1);
+        return IsLeapDay(year, month, day, FrenchRepublicanEra);
     }
 
 
@@ -283,7 +293,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapMonth(int year, int month)
     {
-        return IsLeapMonth(year, month, 1);
+        return IsLeapMonth(year, month, FrenchRepublicanEra);
     }
 
 
@@ -297,7 +307,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapYear(int year)
     {
-        return IsLeapYear(year, 1);
+        return IsLeapYear(year, FrenchRepublicanEra);
     }
 
 
@@ -311,7 +321,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
     {
-        return ToDateTime(year, month, day, hour, minute, second, millisecond, 1);
+        return ToDateTime(year, month, day, hour, minute, second, millisecond, FrenchRepublicanEra);
     }
 
 
@@ -319,7 +329,7 @@ public class FrenchRepublicanCalendar : Calendar
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
     {
         FrenchRepublicanDateTime time = new(year, month, day, hour, minute, second, millisecond, era);
-        return time.GetGregorianDateTime();
+        return time.ToGregorianDateTime();
     }
 
     #endregion
@@ -334,10 +344,10 @@ public class FrenchRepublicanCalendar : Calendar
     /// <param name="month">An integer that represents the month in the Republican calendar.</param>
     /// <param name="day">An integer that represents the day in the Republican calendar.</param>
     /// <param name="timeOfDay">The time of the day.</param>
-    /// <returns></returns>
+    /// <returns>The <see cref="DateTime"/> that is set to the specified date and time in the current era.</returns>
     private DateTime ToDateTime(int year, int month, int day, TimeSpan timeOfDay)
     {
-        return ToDateTime(year, month, day, timeOfDay.Hours, timeOfDay.Minutes, timeOfDay.Seconds, timeOfDay.Milliseconds, 1);
+        return ToDateTime(year, month, day, timeOfDay.Hours, timeOfDay.Minutes, timeOfDay.Seconds, timeOfDay.Milliseconds, FrenchRepublicanEra);
     }
 
     #endregion

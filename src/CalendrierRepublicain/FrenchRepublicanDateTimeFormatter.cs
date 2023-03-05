@@ -1,17 +1,13 @@
 ﻿using Sinistrius.NumeriRomani;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 
 namespace Sinistrius.CalendrierRepublicain;
 
 
 /// <summary>
-/// A formatter 
-/// for a <see cref="FrenchRepublicanDateTime"/>.
+/// A formatter for a <see cref="FrenchRepublicanDateTime"/>.
 /// </summary>
 internal class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatter
 {
@@ -44,16 +40,16 @@ internal class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomForma
             throw new ArgumentNullException(nameof(arg));
         }
 
-        // Convert to Republican date
-        FrenchRepublicanDateTime repTime;
+        // Check value and convert it to a Republican date.
+        FrenchRepublicanDateTime time;
 
         if (arg.GetType() == typeof(FrenchRepublicanDateTime))
         {
-            repTime = (FrenchRepublicanDateTime)arg;
+            time = (FrenchRepublicanDateTime)arg;
         }
         else if (arg.GetType() == typeof(DateTime))
         {
-            repTime = ((DateTime)arg).GetFrenchRepublicanTime();
+            time = ((DateTime)arg).ToFrenchRepublicanTime();
         }
         else
         {
@@ -61,18 +57,58 @@ internal class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomForma
         }
 
         // Format date according to format string
+        DateTimeFormatInfo standardFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
+
         switch (format)
         {
             case "D":
-                string year = repTime.Year.ToRoman();
-                string day = repTime.Day.ToString();
-                break;
+                return FillPattern(standardFormatInfo.LongDatePattern, time);
+
+            case "d":
+                return FillPattern(standardFormatInfo.ShortDatePattern, time);
 
             default:
-                throw new NotSupportedException($"The format string \"{format}\" is not supported.");
+                return FillPattern(format, time);
+        }
+    }
+
+
+    /// <summary>
+    /// Replaces date and time patterns by actual values.
+    /// </summary>
+    /// <param name="pattern">The pattern</param>
+    /// <param name="time">The time in the Republican calendar.</param>
+    /// <returns>The time string.</returns>
+    private static string FillPattern(string pattern, FrenchRepublicanDateTime time)
+    {
+        Dictionary<string, string> replacements = new();
+
+        if (FrenchRepublicanDateTime.IsLeapMonth(time.Year, time.Month, time.Era))
+        {
+            replacements.Add(@"(\b(d|dddd|MMMM?)\b)?(d|dddd|MMMM?|[ .,-])*\b(d|dddd|MMMM?)\b[.,-]?", Constants.ComplementaryDayNames[time.Day - 1]);
+        }
+        else
+        {
+            replacements.Add(@"\bdddd\b", Constants.DayOfWeekNames[(time.Day - 1) % 10]);
+            replacements.Add(@"\bd\b", time.Day.ToString());
+            replacements.Add(@"\bMMMM\b", Constants.MonthNames[time.Month - 1]);
+            replacements.Add(@"\bMMM\b", Constants.AbbreviatedMonthNames[time.Month - 1]);
         }
 
-        throw new NotImplementedException();
+        replacements.Add(@"\byyyy\b", time.Year.ToRoman());
+        replacements.Add(@"\bHH\b", time.Hour.ToString("00"));
+        replacements.Add(@"\bH\b", time.Hour.ToString());
+        replacements.Add(@"\bmm\b", time.Minute.ToString("00"));
+        replacements.Add(@"\bss\b", time.Second.ToString("00"));
+
+        string result = pattern;
+
+        foreach (KeyValuePair<string, string> replacement in replacements)
+        {
+            result = Regex.Replace(result, replacement.Key, replacement.Value);
+        }
+
+        return result;
     }
 
 }

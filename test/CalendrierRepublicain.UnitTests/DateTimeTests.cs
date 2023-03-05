@@ -1,7 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
-
+using System.Globalization;
+using System.Threading;
 
 namespace Sinistrius.CalendrierRepublicain.UnitTests;
 
@@ -32,12 +33,13 @@ public class DateTimeTests
 
         // Act
         DateTime repDate = new(repYear, repMonth, repDay, repCalendar);
-        //repDate = repCalendar.ToDateTime(repYear, repMonth, repDay, 0, 0, 0, 0);
+        int actualEra = repCalendar.GetEra(repDate);
         int actualYear = repCalendar.GetYear(repDate);
         int actualMonth = repCalendar.GetMonth(repDate);
         int actualDay = repCalendar.GetDayOfMonth(repDate);
 
         // Assert
+        Assert.AreEqual(1, actualEra);
         Assert.AreEqual(repYear, actualYear);
         Assert.AreEqual(repMonth, actualMonth);
         Assert.AreEqual(repDay, actualDay);

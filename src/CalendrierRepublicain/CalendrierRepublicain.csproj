@@ -17,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Sinistrius.NumeriRomani" Version="0.1.0" />
+	  <PackageReference Include="Sinistrius.NumeriRomani" Version="0.1.2" />
 	</ItemGroup>
 
 </Project>

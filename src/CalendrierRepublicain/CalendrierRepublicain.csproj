@@ -6,10 +6,25 @@
 		<Nullable>enable</Nullable>
 		<AssemblyName>Sinistrius.$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>Sinistrius.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>Calendrier républicain</Title>
+		<Version>0.1.0</Version>
+		<Authors>Sinistrius</Authors>
+		<Company>Carsten Linke</Company>
+		<Description>A .NET library which integrates the French Republican calendar</Description>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/Sinistrius/CalendrierRepublicain.git</RepositoryUrl>
+		<PackageTags>calendar; French; Republican; Revolutionary</PackageTags>
+		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
+		<ApplicationIcon>CalendrierRepublicain.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <Content Remove="C:\Users\carst\.nuget\packages\sinistrius.numeriromani\0.1.2\contentFiles\any\net6.0\NumeriRomani.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="CalendrierRepublicain.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -18,6 +33,14 @@
 
 	<ItemGroup>
 	  <None Include="..\..\.editorconfig" Link=".editorconfig" />
+	  <None Include="..\..\CalendrierRepublicain.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\Readme.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>

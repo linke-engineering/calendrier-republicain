@@ -18,6 +18,7 @@
 		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
 		<ApplicationIcon>CalendrierRepublicain.ico</ApplicationIcon>
 		<PackageLicenseFile>legalcode.txt</PackageLicenseFile>
+		<Copyright>Copyright (c) Carsten Linke 2022-2023</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>

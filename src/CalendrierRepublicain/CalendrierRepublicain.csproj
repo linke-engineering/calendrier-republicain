@@ -17,6 +17,7 @@
 		<PackageTags>calendar; French; Republican; Revolutionary</PackageTags>
 		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
 		<ApplicationIcon>CalendrierRepublicain.ico</ApplicationIcon>
+		<PackageLicenseFile>legalcode.txt</PackageLicenseFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,6 +33,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="..\..\legalcode.txt">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	  <None Include="..\..\.editorconfig" Link=".editorconfig" />
 	  <None Include="..\..\CalendrierRepublicain.png">
 	    <Pack>True</Pack>

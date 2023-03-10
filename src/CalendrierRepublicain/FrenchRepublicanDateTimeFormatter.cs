@@ -97,7 +97,7 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
             replacements.Add(@"\bMMM\b", formatInfo.AbbreviatedMonthNames[time.Month - 1]);
         }
 
-        replacements.Add(@"\byyyy\b", time.Year.ToRoman());
+        replacements.Add(@"\byyyy\b", String.Format(new RomanNumeralsFormatter(), "{0:R}", time.Year));
         replacements.Add(@"\bHH\b", time.Hour.ToString("00"));
         replacements.Add(@"\bH\b", time.Hour.ToString());
         replacements.Add(@"\bmm\b", time.Minute.ToString("00"));

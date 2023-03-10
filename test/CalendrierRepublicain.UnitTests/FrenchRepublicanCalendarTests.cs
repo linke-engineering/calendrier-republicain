@@ -1,7 +1,7 @@
 using System.Globalization;
 
 
-namespace Sinistrius.CalendrierRepublicain.IntegrationTests;
+namespace Sinistrius.CalendrierRepublicain.UnitTests;
 
 
 /// <summary>

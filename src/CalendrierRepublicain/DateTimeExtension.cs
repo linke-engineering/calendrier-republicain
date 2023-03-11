@@ -13,7 +13,7 @@ internal static class DateTimeExtension
     #region Local Fields
 
     /// <summary>
-    /// Array of JDNs of the first day of each Republican year.
+    /// Array containing the JDN of the first day of each Republican year.
     /// </summary>
     private static readonly int[] firstDayOfYearJdns = new int[LastRepublicanYear];
 

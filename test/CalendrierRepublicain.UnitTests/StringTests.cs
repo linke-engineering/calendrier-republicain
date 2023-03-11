@@ -24,7 +24,7 @@ public class StringTests
     [DataRow(1799, 11, 9, "D", "Octidi, 18. Brumaire VIII")]
     [DataRow(1805, 12, 31, "D", "Décadi, 10. Nivôse XIV")]
     [DataRow(1805, 12, 31, "d. MMM. yyyy", "10. Niv. XIV")]
-    public void Format_GeorgianDate_LongDatePattern_ReturnsFormattedString(int year, int month, int day, string format, string expectedString)
+    public void Format_GeorgianDate_ReturnsFormattedString(int year, int month, int day, string format, string expectedString)
     {
         // Arrange
         FrenchRepublicanDateTimeFormatter provider = new();

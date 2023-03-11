@@ -12,7 +12,7 @@ public class FrenchRepublicanDateTimeFormatterTests
     /// Tests the <see cref="FrenchRepublicanDateTimeFormatter.GetFormat(Type?)"/> method.
     /// </summary>
     [TestMethod]
-    [Ignore]
+    [Ignore("Not sure what to expect here")]
     [DataRow(typeof(FrenchRepublicanDateTimeFormatter))]
     public void GetFormat_ICustomFormatter_ReturnsProvider(Type type)
     {

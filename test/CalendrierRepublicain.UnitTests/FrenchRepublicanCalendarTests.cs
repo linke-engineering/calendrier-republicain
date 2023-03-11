@@ -511,13 +511,9 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1795, 9, 22, 366)]
     [DataRow(1799, 11, 9, 48)]
     [DataRow(1805, 12, 31, 100)]
-    public void GetDayOfYear_ValidDate_ReturnsDay(params int[] data)
+    public void GetDayOfYear_ValidDate_ReturnsDay(int year, int month, int day, int expectedDay)
     {
         // Arrange
-        int year = data[0];
-        int month = data[1];
-        int day = data[2];
-        int expectedDay = data[6];
         DateTime time = new(year, month, day);
 
         // Act

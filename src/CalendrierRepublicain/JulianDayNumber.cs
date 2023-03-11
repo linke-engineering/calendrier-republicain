@@ -18,16 +18,6 @@ internal class JulianDayNumber
         Value = (int)(time.Date.ToOADate() + 2415018.5);
     }
 
-
-    /// <summary>
-    /// Initializes a <see cref="JulianDayNumber"/>.
-    /// </summary>
-    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
-    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
-    /// <param name="day">An integer that represents the day in the Republican calendar.</param>
-    internal JulianDayNumber(int year, int month, int day) : this(new DateTime(year, month, day, new FrenchRepublicanCalendar()))
-    { }
-
     #endregion
 
 

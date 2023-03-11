@@ -436,8 +436,10 @@ public class FrenchRepublicanCalendarTests
     /// <param name="expectedDay">An integer that represents the expected day of the month in the Republican calendar.</param>
     [TestMethod]
     [DataRow(1792, 9, 22, 1)]
+    [DataRow(1793, 9, 21, 5)]
+    [DataRow(1793, 9, 22, 1)]
+    [DataRow(1795, 9, 22, 6)]
     [DataRow(1799, 11, 9, 18)]
-    [DataRow(1800, 9, 22, 5)]
     [DataRow(1805, 12, 31, 10)]
     public void GetDayOfMonth_ValidDate_ReturnsDay(int year, int month, int day, int expectedDay)
     {
@@ -504,11 +506,18 @@ public class FrenchRepublicanCalendarTests
     /// <param name="expectedDay">An integer that represents the expected day of the year in the Republican calendar.</param>
     [TestMethod]
     [DataRow(1792, 9, 22, 1)]
+    [DataRow(1793, 9, 21, 365)]
+    [DataRow(1793, 9, 22, 1)]
+    [DataRow(1795, 9, 22, 366)]
     [DataRow(1799, 11, 9, 48)]
     [DataRow(1805, 12, 31, 100)]
-    public void GetDayOfYear_ValidDate_ReturnsDay(int year, int month, int day, int expectedDay)
+    public void GetDayOfYear_ValidDate_ReturnsDay(params int[] data)
     {
         // Arrange
+        int year = data[0];
+        int month = data[1];
+        int day = data[2];
+        int expectedDay = data[6];
         DateTime time = new(year, month, day);
 
         // Act

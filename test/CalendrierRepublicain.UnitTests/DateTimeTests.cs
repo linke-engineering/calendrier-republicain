@@ -16,7 +16,9 @@ public class DateTimeTests
     /// <param name="repDay">An integer that represents the day in the Republican calendar.</param>
     [TestMethod]
     [DataRow(1, 1, 1)]
-    [DataRow(3, 13, 5)]
+    [DataRow(1, 13, 5)]
+    [DataRow(2, 1, 1)]
+    [DataRow(3, 13, 6)]
     [DataRow(8, 2, 18)]
     [DataRow(14, 4, 10)]
     public void Constructor_ValidRepublicanDate_CreatesDate(int repYear, int repMonth, int repDay)
@@ -25,11 +27,11 @@ public class DateTimeTests
         FrenchRepublicanCalendar repCalendar = new();
 
         // Act
-        DateTime repDate = new(repYear, repMonth, repDay, repCalendar);
-        int actualEra = repCalendar.GetEra(repDate);
-        int actualYear = repCalendar.GetYear(repDate);
-        int actualMonth = repCalendar.GetMonth(repDate);
-        int actualDay = repCalendar.GetDayOfMonth(repDate);
+        DateTime date = new(repYear, repMonth, repDay, repCalendar);
+        int actualEra = repCalendar.GetEra(date);
+        int actualYear = repCalendar.GetYear(date);
+        int actualMonth = repCalendar.GetMonth(date);
+        int actualDay = repCalendar.GetDayOfMonth(date);
 
         // Assert
         Assert.AreEqual(1, actualEra);

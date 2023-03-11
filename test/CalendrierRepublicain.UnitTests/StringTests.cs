@@ -61,7 +61,7 @@ public class StringTests
     {
         // Arrange
         FrenchRepublicanDateTimeFormatter provider = new();
-        FrenchRepublicanDateTime time = new(year, month, day, 1);
+        DateTime time = new(year, month, day, new FrenchRepublicanCalendar());
         format = $"{{0:{format}}}";
 
         // Act

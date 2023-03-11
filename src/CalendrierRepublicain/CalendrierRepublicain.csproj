@@ -8,7 +8,7 @@
 		<RootNamespace>Sinistrius.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Calendrier républicain</Title>
-		<Version>0.1.0</Version>
+		<Version>0.1.1</Version>
 		<Authors>Sinistrius</Authors>
 		<Company>Carsten Linke</Company>
 		<Description>A .NET library which integrates the French Republican calendar</Description>
@@ -27,10 +27,6 @@
 
 	<ItemGroup>
 	  <Content Include="CalendrierRepublicain.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<InternalsVisibleTo Include="$(AssemblyName).UnitTests" />
 	</ItemGroup>
 
 	<ItemGroup>

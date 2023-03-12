@@ -12,7 +12,7 @@ Use the NuGet package manager to install the package.
 
 ### Restrictions
 
-The library sticks with the features that were officially adopted in France between 1 Vendémiaire I (i.e. September 22, 1792) and 10 Nivôse XIV (i.e. December 31, 1805). It therefore doesn't work for dates beyond that validity period, and likewise it doesn't support decimal time.
+The library sticks with the features that were officially adopted in France between 1 VendÃ©miaire I (i.e. September 22, 1792) and 10 NivÃ´se XIV (i.e. December 31, 1805). It therefore doesn't work for dates beyond that validity period, and likewise it doesn't support decimal time.
 
 
 ### Creating Dates

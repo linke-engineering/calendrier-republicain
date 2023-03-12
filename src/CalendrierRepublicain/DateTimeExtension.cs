@@ -41,7 +41,7 @@ internal static class DateTimeExtension
     /// <summary>
     /// Converts a <see cref="DateTime"/> to a <see cref="FrenchRepublicanDateTime"/>.
     /// </summary>
-    /// <param name="gregTime">The <see cref="DateTime"/> to be converted.</param>
+    /// <param name="gregTime">The <see cref="DateTime"/> to convert.</param>
     /// <returns>The resulting <see cref="FrenchRepublicanDateTime"/>.</returns>
     internal static FrenchRepublicanDateTime ToFrenchRepublicanTime(this DateTime gregTime)
     {
@@ -70,7 +70,7 @@ internal static class DateTimeExtension
     /// <summary>
     /// Determines whether a <see cref="DateTime"/> fits in the validity range of the Republican calendar
     /// </summary>
-    /// <param name="time">The <see cref="DateTime"/> to be validated.</param>
+    /// <param name="time">The <see cref="DateTime"/> to validate.</param>
     /// <exception cref="ArgumentOutOfRangeException">The <see cref="DateTime"/> is invalid.</exception>
     internal static void Validate(this DateTime time)
     {

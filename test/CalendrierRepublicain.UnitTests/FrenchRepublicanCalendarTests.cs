@@ -115,7 +115,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="days">An integer that represents the days to be added.</param>
+    /// <param name="days">An integer that represents the days to add.</param>
     /// <param name="expectedYear">An integer that represents the expected year in the Gregorian calendar after the addition.</param>
     /// <param name="expectedMonth">An integer that represents the expected month in the Gregorian calendar after the addition.</param>
     /// <param name="expectedDay">An integer that represents the expected day in the Gregorian calendar after the addition.</param>
@@ -168,7 +168,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="daysToAdd">An integer that represents the days to be added.</param>
+    /// <param name="daysToAdd">An integer that represents the days to add.</param>
     [TestMethod]
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1805, 1, 1, 365)]
@@ -193,7 +193,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="months">An integer that represents the months to be added.</param>
+    /// <param name="months">An integer that represents the months to add.</param>
     /// <param name="expectedYear">An integer that represents the expected year in the Gregorian calendar after the addition.</param>
     /// <param name="expectedMonth">An integer that represents the expected month in the Gregorian calendar after the addition.</param>
     /// <param name="expectedDay">An integer that represents the expected day in the Gregorian calendar after the addition.</param>
@@ -247,7 +247,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="months">An integer that represents the months to be added.</param>
+    /// <param name="months">An integer that represents the months to add.</param>
     [TestMethod]
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1793, 9, 21, -12)]
@@ -273,7 +273,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="weeks">An integer that represents the weeks to be added.</param>
+    /// <param name="weeks">An integer that represents the weeks to add.</param>
     /// <param name="expectedYear">An integer that represents the expected year in the Gregorian calendar after the addition.</param>
     /// <param name="expectedMonth">An integer that represents the expected month in the Gregorian calendar after the addition.</param>
     /// <param name="expectedDay">An integer that represents the expected day in the Gregorian calendar after the addition.</param>
@@ -327,7 +327,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="weeks">An integer that represents the weeks to be added.</param>
+    /// <param name="weeks">An integer that represents the weeks to add.</param>
     [TestMethod]
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1792, 10, 2, -2)]
@@ -353,7 +353,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="years">An integer that represents the years to be added.</param>
+    /// <param name="years">An integer that represents the years to add.</param>
     /// <param name="expectedYear">An integer that represents the expected year in the Gregorian calendar after the addition.</param>
     /// <param name="expectedMonth">An integer that represents the expected month in the Gregorian calendar after the addition.</param>
     /// <param name="expectedDay">An integer that represents the expected day in the Gregorian calendar after the addition.</param>
@@ -406,7 +406,7 @@ public class FrenchRepublicanCalendarTests
     /// <param name="year">An integer that represents the year in the Gregorian calendar.</param>
     /// <param name="month">An integer that represents the month in the Gregorian calendar.</param>
     /// <param name="day">An integer that represents the day in the Gregorian calendar.</param>
-    /// <param name="years">An integer that represents the years to be added.</param>
+    /// <param name="years">An integer that represents the years to add.</param>
     [TestMethod]
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1793, 9, 21, -1)]

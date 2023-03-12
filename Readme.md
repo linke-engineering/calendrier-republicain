@@ -58,7 +58,7 @@ FrenchRepublicanCalendar calendar = new();
 FrenchRepublicanDateTimeFormatter provider = new();
 
 DateTime date = new(8, 2, 18, calendar);  // 18 Brumaire VIII
-int weeks = 4;                            // 4 Republican weeks (40 days) to be added
+int weeks = 4;                            // 4 Republican weeks (40 days) to add
 
 date = calendar.AddWeeks(date, weeks);
 Console.WriteLine(String.Format(provider, "{0:d MMMM yyyy}", date));

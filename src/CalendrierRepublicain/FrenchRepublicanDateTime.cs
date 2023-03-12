@@ -135,7 +135,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <summary>
     /// Adds months to the current <see cref="FrenchRepublicanDateTime"/>.
     /// </summary>
-    /// <param name="months">An integer that represents the number of months to be added.</param>
+    /// <param name="months">An integer that represents the number of months to add.</param>
     /// <returns>The <see cref="FrenchRepublicanDateTime"/> after the addition.</returns>
     internal FrenchRepublicanDateTime AddMonths(int months)
     {
@@ -159,7 +159,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <summary>
     /// Adds weeks to the current <see cref="FrenchRepublicanDateTime"/>.
     /// </summary>
-    /// <param name="weeks">An integer that represents the number of weeks to be added.</param>
+    /// <param name="weeks">An integer that represents the number of weeks to add.</param>
     /// <returns>The <see cref="FrenchRepublicanDateTime"/> after the addition.</returns>
     internal FrenchRepublicanDateTime AddWeeks(int weeks)
     {
@@ -187,7 +187,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <summary>
     /// Adds years to the current <see cref="FrenchRepublicanDateTime"/>.
     /// </summary>
-    /// <param name="years">An integer that represents the number of years to be added.</param>
+    /// <param name="years">An integer that represents the number of years to add.</param>
     /// <returns>The <see cref="FrenchRepublicanDateTime"/> after the addition.</returns>
     internal FrenchRepublicanDateTime AddYears(int years)
     {
@@ -373,8 +373,8 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <summary>
     /// Determines whether a specified value is within the specified range.
     /// </summary>
-    /// <param name="paramName">A string that represents the name of the parameter to be checked.</param>
-    /// <param name="value">An integer that represents the value to be checked.</param>
+    /// <param name="paramName">A string that represents the name of the parameter to check.</param>
+    /// <param name="value">An integer that represents the value to check.</param>
     /// <param name="lowerBound">An integer that represents the lower bound.</param>
     /// <param name="upperBound">An integer that represents the upper bound.</param>
     /// <exception cref="ArgumentOutOfRangeException">The value is not within the specified range.</exception>

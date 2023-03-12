@@ -23,6 +23,7 @@
 
 	<ItemGroup>
 	  <Content Remove="C:\Users\carst\.nuget\packages\sinistrius.numeriromani\0.1.2\contentFiles\any\net6.0\NumeriRomani.ico" />
+	  <Content Remove="C:\Users\carst\.nuget\packages\sinistrius.numeriromani\1.0.0\contentFiles\any\net6.0\NumeriRomani.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

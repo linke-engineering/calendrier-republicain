@@ -7,7 +7,7 @@
 		<AssemblyName>Sinistrius.$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>Sinistrius.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Calendrier républicain</Title>
+		<Title>$(AssemblyName)</Title>
 		<Version>1.0.0</Version>
 		<Authors>Sinistrius</Authors>
 		<Company>Carsten Linke</Company>

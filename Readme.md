@@ -1,4 +1,4 @@
-# Calendrier républicain
+# Sinistrius.CalendrierRepublicain
 
 A .NET library which integrates the French Republican calendar
 
@@ -12,12 +12,12 @@ Use the NuGet package manager to install the package.
 
 ### Restrictions
 
-The calender only handles dates within the its official validity period between 1 Vendémiaire I (i.e. September 22, 1792) and 10 Nivôse XIV (i.e. December 31, 1805).
+The library sticks with the features that were officially adopted in France between 1 Vendémiaire I (i.e. September 22, 1792) and 10 Nivôse XIV (i.e. December 31, 1805). It therefore doesn't work for dates beyond that validity period, and likewise it doesn't support decimal time.
 
 
 ### Creating Dates
 
-Instantiate a DateTime object with Republican date values using the calendar object:
+Instantiate a *DateTime* object with Republican date values using the calendar object:
 
 ```cs
 using Sinistrius.CalendrierRepublicain;
@@ -31,7 +31,7 @@ Console.WriteLine(date.ToString("d", DateTimeFormatInfo.InvariantInfo));
 
 ### Writing Dates
 
-Get a string representation of a Republican date by using the String.Format() method with a format provider and format string. Please note that only a few date and time patterns are supported.
+Get a string representation of a Republican date by using the *String.Format()* method with a format provider and format string. Please note that only a few date and time patterns are supported.
 
 ```cs
 using Sinistrius.CalendrierRepublicain;
@@ -42,14 +42,14 @@ DateTime date = new(8, 2, 18, repCalendar);
 Console.WriteLine(String.Format(provider, "{0:D}", date));
 // Displays Octidi, Brumaire 18, VIII
 
-Console.WriteLine(String.Format(provider, "{0:d MMM. an yyyy}", date));
+Console.WriteLine(String.Format(provider, "{0:d MMM. 'an' yyyy}", date));
 // Displays 18 Brum. an VIII
 ```
 
 
 ### Working with the Calendar
 
-The FrenchRepublicanCalendar class provides the same methods as the System.Globalization.Calendar.
+The *FrenchRepublicanCalendar* class is derived from *System.Globalization.Calendar* and provides the same functionality.
 
 ```cs
 using Sinistrius.CalendrierRepublicain;

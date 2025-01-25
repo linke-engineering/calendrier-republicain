@@ -548,7 +548,27 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1, 1, 30)]
     [DataRow(8, 3, 30)]
     [DataRow(14, 4, 10)]
-    public void GetDaysInMonth_ValidRepublicanMonth_ReturnsDayCount(int year, int month, int expectedDays)
+    public void GetDaysInMonth_ValidRepublicanMonthWithoutEra_ReturnsDayCount(int year, int month, int expectedDays)
+    {
+        // Act
+        int actualDays = _calendar.GetDaysInMonth(year, month);
+
+        // Assert
+        Assert.AreEqual(expectedDays, actualDays);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetDaysInMonth(int, int, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="month">An integer that represents the month in the Republican calendar.</param>
+    /// <param name="expectedDays">An integer that represents the expected number of days in the specified month.</param>
+    [TestMethod]
+    [DataRow(1, 1, 30)]
+    [DataRow(8, 3, 30)]
+    [DataRow(14, 4, 10)]
+    public void GetDaysInMonth_ValidRepublicanMonthWithEra_ReturnsDayCount(int year, int month, int expectedDays)
     {
         // Act
         int actualDays = _calendar.GetDaysInMonth(year, month, 1);
@@ -588,7 +608,26 @@ public class FrenchRepublicanCalendarTests
     [DataRow(2, 365)]
     [DataRow(7, 366)]
     [DataRow(14, 100)]
-    public void GetDaysInYear_ValidRepublicanMonth_ReturnsDayCount(int year, int expectedDays)
+    public void GetDaysInYear_ValidRepublicanMonthWithoutEra_ReturnsDayCount(int year, int expectedDays)
+    {
+        // Act
+        int actualDays = _calendar.GetDaysInYear(year);
+
+        // Assert
+        Assert.AreEqual(expectedDays, actualDays);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetDaysInYear(int, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="expectedDays">An integer that represents the expected number of days in the specified year.</param>
+    [TestMethod]
+    [DataRow(2, 365)]
+    [DataRow(7, 366)]
+    [DataRow(14, 100)]
+    public void GetDaysInYear_ValidRepublicanMonthWithEra_ReturnsDayCount(int year, int expectedDays)
     {
         // Act
         int actualDays = _calendar.GetDaysInYear(year, 1);
@@ -722,7 +761,26 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1, 13)]
     [DataRow(3, 13)]
     [DataRow(14, 4)]
-    public void GetMonthsInYear_ValidDate_ReturnsMonths(int year, int expectedMonths)
+    public void GetMonthsInYear_ValidYearWithoutEra_ReturnsMonths(int year, int expectedMonths)
+    {
+        // Act
+        int actualMonths = _calendar.GetMonthsInYear(year);
+
+        // Assert
+        Assert.AreEqual(expectedMonths, actualMonths);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.GetMonthsInYear(int, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer that represents the year in the Republican calendar.</param>
+    /// <param name="expectedMonths">An integer that represents the expected number of months in the specified year.</param>
+    [TestMethod]
+    [DataRow(1, 13)]
+    [DataRow(3, 13)]
+    [DataRow(14, 4)]
+    public void GetMonthsInYear_ValidYearWithEra_ReturnsMonths(int year, int expectedMonths)
     {
         // Act
         int actualMonths = _calendar.GetMonthsInYear(year, 1);
@@ -916,7 +974,25 @@ public class FrenchRepublicanCalendarTests
     [DataRow(3)]
     [DataRow(7)]
     [DataRow(11)]
-    public void IsLeapMonth_LeapMonth_ReturnsTrue(int year)
+    public void IsLeapMonth_LeapMonthWithoutEra_ReturnsTrue(int year)
+    {
+        // Act
+        bool isLeapMonth = _calendar.IsLeapMonth(year, 13);
+
+        // Assert
+        Assert.IsTrue(isLeapMonth);
+    }
+
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapMonth(int, int, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer representing the year in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(3)]
+    [DataRow(7)]
+    [DataRow(11)]
+    public void IsLeapMonth_LeapMonthWithEra_ReturnsTrue(int year)
     {
         // Act
         bool isLeapMonth = _calendar.IsLeapMonth(year, 13, 1);

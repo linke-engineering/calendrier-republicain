@@ -8,17 +8,17 @@
 		<RootNamespace>LinkeEngineering.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Title>$(AssemblyName)</Title>
-		<Version>1.0.1</Version>
 		<Authors>linke-engineering</Authors>
 		<Company>Linke Genealogical Engineering</Company>
+		<Version>1.0.1</Version>
 		<Description>A .NET library which integrates the French Republican calendar</Description>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/linke-engineering/calendrier-republicain.git</RepositoryUrl>
 		<PackageTags>calendar; French; Republican; Revolutionary</PackageTags>
-		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
 		<ApplicationIcon>CalendrierRepublicain.ico</ApplicationIcon>
+		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
 		<PackageLicenseFile>legalcode.txt</PackageLicenseFile>
-		<Copyright>Copyright (c) Carsten Linke 2023</Copyright>
+		<Copyright>Copyright (c) Linke Genealogical Engineering 2023-2025</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,9 +26,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\..\assets\legalcode.txt" Pack="true" PackagePath="legalcode.txt" />
-		<None Include="..\..\assets\CalendrierRepublicain.png" Pack="true" PackagePath="NumeriRomani.png" />
-		<None Include="..\..\Readme.md" Pack="true" PackagePath="Readme.md" />
+		<None Include="../../assets/legalcode.txt" Pack="true" PackagePath="legalcode.txt" />
+		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="NumeriRomani.png" />
+		<None Include="../../Readme.md" Pack="true" PackagePath="Readme.md" />
 	</ItemGroup>
 
 	<ItemGroup>

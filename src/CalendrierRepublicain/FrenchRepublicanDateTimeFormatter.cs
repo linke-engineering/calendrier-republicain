@@ -29,16 +29,9 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
     /// <inheritdoc/>
     public string Format(string? format, object? arg, IFormatProvider? formatProvider)
     {
-        // Validate arguments
-        if (format == null)
-        {
-            throw new ArgumentNullException(nameof(format));
-        }
-
-        if (arg == null)
-        {
-            throw new ArgumentNullException(nameof(arg));
-        }
+        // Validate arguments.
+        ArgumentNullException.ThrowIfNull(format, nameof(format));
+        ArgumentNullException.ThrowIfNull(arg, nameof(arg));
 
         // Check value and convert it to a Republican date.
         FrenchRepublicanDateTime time;
@@ -59,17 +52,12 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
         // Format date according to format string
         DateTimeFormatInfo standardFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
 
-        switch (format)
+        return format switch
         {
-            case "D":
-                return FillPattern(standardFormatInfo.LongDatePattern, time);
-
-            case "d":
-                return FillPattern(standardFormatInfo.ShortDatePattern, time);
-
-            default:
-                return FillPattern(format, time);
-        }
+            "D" => FillPattern(standardFormatInfo.LongDatePattern, time),
+            "d" => FillPattern(standardFormatInfo.ShortDatePattern, time),
+            _ => FillPattern(format, time),
+        };
     }
 
 
@@ -83,7 +71,7 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
     {
         FrenchRepublicanDateTimeFormatInfo formatInfo = new();
 
-        Dictionary<string, string> replacements = new();
+        Dictionary<string, string> replacements = [];
 
         if (FrenchRepublicanDateTime.IsLeapMonth(time.Year, time.Month, time.Era))
         {

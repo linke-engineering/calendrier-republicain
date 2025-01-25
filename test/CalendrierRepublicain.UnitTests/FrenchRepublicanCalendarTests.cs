@@ -48,12 +48,13 @@ public class FrenchRepublicanCalendarTests
     {
         // Arrange
         FrenchRepublicanCalendar calendar = new();
+        int[] expected = [1];
 
         // Act
         int[] eras = calendar.Eras;
 
         // Assert
-        CollectionAssert.AreEqual(new[] { 1 }, eras);
+        CollectionAssert.AreEqual(expected, eras);
     }
 
 
@@ -105,7 +106,7 @@ public class FrenchRepublicanCalendarTests
     #endregion
 
 
-    #region Region Method Tests
+    #region Method Tests
 
     #region AddDays
 
@@ -151,14 +152,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddDays_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddDays(time, 1);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _calendar.AddDays(time, 1));
     }
 
 
@@ -172,14 +172,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1805, 1, 1, 365)]
-    [ExpectedException(typeof(ArgumentException))]
     public void AddDays_AdditionExceedsValidity_ThrowsArgumentException(int year, int month, int day, int daysToAdd)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddDays(time, daysToAdd);
+        // Act and assert
+        Assert.ThrowsException<ArgumentException>(() => _calendar.AddDays(time, daysToAdd));
     }
 
     #endregion
@@ -230,14 +229,13 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
     [DataRow(1793, 9, 17)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddMonths_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddMonths(time, 1);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.AddMonths(time, 1));
     }
 
 
@@ -252,14 +250,13 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1793, 9, 21, -12)]
     [DataRow(1805, 1, 1, 12)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddMonths_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int months)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddMonths(time, months);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _calendar.AddMonths(time, months));
     }
 
     #endregion
@@ -310,14 +307,13 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
     [DataRow(1793, 9, 17)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddWeeks_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddWeeks(time, 1);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.AddWeeks(time, 1));
     }
 
 
@@ -332,14 +328,13 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1792, 9, 22, -1)]
     [DataRow(1792, 10, 2, -2)]
     [DataRow(1805, 12, 22, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddWeeks_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int weeks)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddWeeks(time, weeks);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.AddWeeks(time, weeks));
     }
 
     #endregion
@@ -389,14 +384,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddYears_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddYears(time, 1);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.AddYears(time, 1));
     }
 
 
@@ -412,14 +406,13 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1793, 9, 21, -1)]
     [DataRow(1805, 1, 1, 1)]
     [DataRow(1805, 12, 31, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void AddYears_AdditionExceedsValidity_ThrowsArgumentOutOfRangeException(int year, int month, int day, int years)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.AddYears(time, years);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.AddYears(time, years));
     }
 
     #endregion
@@ -463,14 +456,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetDayOfMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.GetDayOfMonth(time);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetDayOfMonth(time));
     }
 
     #endregion
@@ -482,14 +474,13 @@ public class FrenchRepublicanCalendarTests
     /// Tests the <see cref="FrenchRepublicanCalendar.GetDayOfWeek(DateTime)"/> method.
     /// </summary>
     [TestMethod]
-    [ExpectedException(typeof(InvalidOperationException))]
     public void GetDayOfWeek_ValidDate_ThrowsInvalidOperationException()
     {
         // Arrange
         DateTime time = new(1792, 9, 22);
 
-        // Act
-        _ = _calendar.GetDayOfWeek(time);
+        // Act and assert
+        Assert.ThrowsException<InvalidOperationException>(() => _ = _calendar.GetDayOfWeek(time));
     }
 
     #endregion
@@ -533,14 +524,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetDayOfYear_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
         // Act
-        _ = _calendar.GetDayOfYear(time);
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetDayOfYear(time));
     }
 
     #endregion
@@ -578,11 +568,10 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1, 1, 0)]
     [DataRow(3, 14, 1)]
     [DataRow(14, 5, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetDaysInMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int era)
     {
-        // Act
-        _ = _calendar.GetDaysInMonth(year, month, era);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetDaysInMonth(year, month, era));
     }
 
     #endregion
@@ -618,11 +607,10 @@ public class FrenchRepublicanCalendarTests
     [DataRow(0, 1)]
     [DataRow(1, 0)]
     [DataRow(15, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetDaysInYear_YearOutOfRange_ThrowsArgumentOutOfRangeException(int year, int era)
     {
-        // Act
-        _ = _calendar.GetDaysInYear(year, era);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetDaysInYear(year, era));
     }
 
     #endregion
@@ -663,14 +651,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetEra_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime date = new(year, month, day);
 
-        // Act
-        _ = _calendar.GetEra(date);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetEra(date));
     }
 
     #endregion
@@ -712,14 +699,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetMonth_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime date = new(year, month, day);
 
-        // Act
-        _ = _calendar.GetMonth(date);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetMonth(date));
     }
 
     #endregion
@@ -755,11 +741,10 @@ public class FrenchRepublicanCalendarTests
     [DataRow(0, 1)]
     [DataRow(1, 0)]
     [DataRow(15, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetMonthsInYear_YearOutOfRange_ThrowsArgumentOutOfRangeException(int year, int era)
     {
         // Act
-        _ = _calendar.GetMonthsInYear(year, era);
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetMonthsInYear(year, era));
     }
 
     #endregion
@@ -801,14 +786,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetWeekOfYear_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.GetWeekOfYear(time, 0, 0);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetWeekOfYear(time, 0, 0));
     }
 
     #endregion
@@ -850,14 +834,13 @@ public class FrenchRepublicanCalendarTests
     [TestMethod]
     [DataRow(1792, 9, 21)]
     [DataRow(1806, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetYear_DateOutOfRange_ThrowsArgumentOutOfRangeException(int year, int month, int day)
     {
         // Arrange
         DateTime time = new(year, month, day);
 
-        // Act
-        _ = _calendar.GetYear(time);
+        // Act and assert
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.GetYear(time));
     }
 
     #endregion
@@ -914,11 +897,10 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1, 1, 1, 0)]
     [DataRow(1, 1, 0, 1)]
     [DataRow(15, 1, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void IsLeapDay_InvalidDate_ThrowsArgumentOutOfRangeException(int year, int month, int day, int era)
     {
         // Act and assert
-        _ = _calendar.IsLeapDay(year, month, day, era);
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.IsLeapDay(year, month, day, era));
     }
 
     #endregion
@@ -973,11 +955,10 @@ public class FrenchRepublicanCalendarTests
     [DataRow(1, 1, 0)]
     [DataRow(1, 0, 1)]
     [DataRow(15, 1, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void IsLeapMonth_InvalidDate_ThrowsArgumentOutOfRangeException(int year, int month, int era)
     {
         // Act and assert
-        _ = _calendar.IsLeapMonth(year, month, era);
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.IsLeapMonth(year, month, era));
     }
 
     #endregion
@@ -1030,11 +1011,10 @@ public class FrenchRepublicanCalendarTests
     [DataRow(0, 1)]
     [DataRow(1, 0)]
     [DataRow(15, 1)]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void IsLeapYear_InvalidYear_Throws(int year, int era)
     {
         // Act and assert
-        _ = _calendar.IsLeapYear(year, era);
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = _calendar.IsLeapYear(year, era));
     }
 
     #endregion

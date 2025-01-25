@@ -27,7 +27,7 @@
 
 	<ItemGroup>
 		<None Include="../../assets/legalcode.txt" Pack="true" PackagePath="legalcode.txt" />
-		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="NumeriRomani.png" />
+		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="CalendrierRepublicain.png" />
 		<None Include="../../Readme.md" Pack="true" PackagePath="Readme.md" />
 	</ItemGroup>
 

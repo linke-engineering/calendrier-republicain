@@ -13,8 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalendrierRepublicain.UnitT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C8FD3AB-3DDF-4018-8C88-2F86BD4A9D99}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
+		.github\workflows\publish-to-nuget.yml = .github\workflows\publish-to-nuget.yml
 		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{CA07879C-4CDD-4504-B6E1-88CCA8D24DD5}"
+	ProjectSection(SolutionItems) = preProject
+		asset\CalendrierRepublicain.png = asset\CalendrierRepublicain.png
+		asset\legalcode.txt = asset\legalcode.txt
 	EndProjectSection
 EndProject
 Global

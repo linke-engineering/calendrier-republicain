@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<AssemblyName>Sinistrius.$(MSBuildProjectName)</AssemblyName>
-		<RootNamespace>Sinistrius.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<AssemblyName>LinkeEngineering.$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>LinkeEngineering.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Title>$(AssemblyName)</Title>
-		<Version>1.0.0</Version>
-		<Authors>Sinistrius</Authors>
-		<Company>Carsten Linke</Company>
+		<Version>1.0.1</Version>
+		<Authors>linke-engineering</Authors>
+		<Company>Linke Genealogical Engineering</Company>
 		<Description>A .NET library which integrates the French Republican calendar</Description>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/Sinistrius/CalendrierRepublicain.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/linke-engineering/calendrier-republicain.git</RepositoryUrl>
 		<PackageTags>calendar; French; Republican; Revolutionary</PackageTags>
 		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
 		<ApplicationIcon>CalendrierRepublicain.ico</ApplicationIcon>
@@ -22,32 +22,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Remove="C:\Users\carst\.nuget\packages\sinistrius.numeriromani\0.1.2\contentFiles\any\net6.0\NumeriRomani.ico" />
-	  <Content Remove="C:\Users\carst\.nuget\packages\sinistrius.numeriromani\1.0.0\contentFiles\any\net6.0\NumeriRomani.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Content Include="CalendrierRepublicain.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\legalcode.txt">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\..\.editorconfig" Link=".editorconfig" />
-	  <None Include="..\..\CalendrierRepublicain.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\..\Readme.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="..\..\assets\legalcode.txt" Pack="true" PackagePath="legalcode.txt" />
+		<None Include="..\..\assets\CalendrierRepublicain.png" Pack="true" PackagePath="NumeriRomani.png" />
+		<None Include="..\..\Readme.md" Pack="true" PackagePath="Readme.md" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Sinistrius.NumeriRomani" Version="1.0.0" />
+	  <PackageReference Include="LinkeEngineering.NumeriRomani" Version="1.0.2" />
 	</ItemGroup>
 
 </Project>

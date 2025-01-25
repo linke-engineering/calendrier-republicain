@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 
-namespace Sinistrius.CalendrierRepublicain;
+namespace LinkeEngineering.CalendrierRepublicain;
 
 
 /// <summary>

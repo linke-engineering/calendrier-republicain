@@ -1,4 +1,4 @@
-namespace Sinistrius.CalendrierRepublicain.UnitTests;
+namespace LinkeEngineering.CalendrierRepublicain.UnitTests;
 
 
 /// <summary>

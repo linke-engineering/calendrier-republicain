@@ -1,9 +1,9 @@
-﻿using Sinistrius.NumeriRomani;
+﻿using LinkeEngineering.NumeriRomani;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 
-namespace Sinistrius.CalendrierRepublicain;
+namespace LinkeEngineering.CalendrierRepublicain;
 
 
 /// <summary>

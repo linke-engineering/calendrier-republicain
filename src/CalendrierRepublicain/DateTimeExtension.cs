@@ -1,7 +1,7 @@
-﻿using static Sinistrius.CalendrierRepublicain.Constants;
+﻿using static LinkeEngineering.CalendrierRepublicain.Constants;
 
 
-namespace Sinistrius.CalendrierRepublicain;
+namespace LinkeEngineering.CalendrierRepublicain;
 
 
 /// <summary>

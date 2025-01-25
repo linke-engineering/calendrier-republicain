@@ -1,4 +1,4 @@
-# Sinistrius.CalendrierRepublicain
+# Calendrier Republicain
 
 A .NET library which integrates the French Republican calendar
 
@@ -20,7 +20,7 @@ The library sticks with the features that were officially adopted in France betw
 Instantiate a *DateTime* object with Republican date values using the calendar object:
 
 ```cs
-using Sinistrius.CalendrierRepublicain;
+using LinkeEngineering.CalendrierRepublicain;
 
 FrenchRepublicanCalendar() repCalendar = new();
 DateTime date = new(8, 2, 18, repCalendar);
@@ -34,7 +34,7 @@ Console.WriteLine(date.ToString("d", DateTimeFormatInfo.InvariantInfo));
 Get a string representation of a Republican date by using the *String.Format()* method with a format provider and format string. Please note that only a few date and time patterns are supported.
 
 ```cs
-using Sinistrius.CalendrierRepublicain;
+using LinkeEngineering.CalendrierRepublicain;
 
 FrenchRepublicanDateTimeFormatter provider = new();
 DateTime date = new(8, 2, 18, repCalendar);
@@ -52,7 +52,7 @@ Console.WriteLine(String.Format(provider, "{0:d MMM. 'an' yyyy}", date));
 The *FrenchRepublicanCalendar* class is derived from *System.Globalization.Calendar* and provides the same functionality.
 
 ```cs
-using Sinistrius.CalendrierRepublicain;
+using LinkeEngineering.CalendrierRepublicain;
 
 FrenchRepublicanCalendar calendar = new();
 FrenchRepublicanDateTimeFormatter provider = new();

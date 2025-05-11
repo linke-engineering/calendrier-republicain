@@ -22,7 +22,7 @@ Instantiate a *DateTime* object with Republican date values using the calendar o
 ```cs
 using LinkeEngineering.CalendrierRepublicain;
 
-FrenchRepublicanCalendar() repCalendar = new();
+FrenchRepublicanCalendar repCalendar = new();
 DateTime date = new(8, 2, 18, repCalendar);
 Console.WriteLine(date.ToString("d", DateTimeFormatInfo.InvariantInfo));
 // Displays 11/9/1799

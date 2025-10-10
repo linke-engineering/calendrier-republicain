@@ -17,6 +17,10 @@ env:
 jobs:
   Prepare:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+      packagePath: ${{ steps.set_vars.outputs.packagePath }}
+      packageName: ${{ steps.set_vars.outputs.packageName }}
 
     steps:
     - name: Extract version from release

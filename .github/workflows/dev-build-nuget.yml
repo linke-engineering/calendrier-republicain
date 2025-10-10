@@ -17,6 +17,9 @@ env:
 jobs:
   Prepare:
     runs-on: ubuntu-latest
+    outputs:
+      packagePath: ${{ steps.set_vars.outputs.packagePath }}
+      packageName: ${{ steps.set_vars.outputs.packageName }}
 
     steps:
     - name: Set package variables

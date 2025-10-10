@@ -43,7 +43,7 @@ jobs:
         run: dotnet pack --configuration Release --no-restore --output ${{ inputs.packagePath }} /p:Version=${{ inputs.version }}
 
       - name: Upload NuGet package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.packageName }}
           path: ${{ inputs.packagePath }}/*.nupkg

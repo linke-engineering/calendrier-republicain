@@ -8,8 +8,7 @@ The library is published as a NuGet package and designed for use in other .NET p
 
 ### Restrictions
 
-The library strictly implements the official features of the French Republican calendar, valid only between 1 Vendémiaire I (September 22, 1792) and 10 Nivôse XIV (December 31, 1805).  
-Dates outside this range and decimal time are not supported.
+The library strictly implements the official features of the French Republican calendar, valid only between 1 Vendémiaire I (September 22, 1792) and 10 Nivôse XIV (December 31, 1805). Dates outside this range and decimal time are not supported.
 
 ### Creating Republican Dates
 

@@ -2,8 +2,7 @@ name: Build NuGet package for Development
 
 on:
   push:
-    branches:
-      - development
+    branches: [ "development" ]
   workflow_dispatch:
     inputs:
       branch:

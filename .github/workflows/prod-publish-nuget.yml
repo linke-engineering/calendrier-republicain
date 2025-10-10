@@ -19,13 +19,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Extract version from release
-        id: get_version
-        run: |
-          VERSION=$(echo "${{ github.event.release.name }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+    - name: Extract version from release
+      id: get_version
+      run: |
+        VERSION=$(echo "${{ github.event.release.name }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
   Build:
+    needs: Prepare
     uses: ./.github/workflows/shared-build-nuget.yml
     with:
       version: ${{ env.VERSION }}
@@ -33,6 +34,7 @@ jobs:
       packageName: ${{ env.PACKAGE_NAME }}
 
   Publish:
+    needs: Build
     runs-on: ubuntu-latest
 
     steps:

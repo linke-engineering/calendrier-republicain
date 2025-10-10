@@ -15,8 +15,19 @@ env:
   PACKAGE_NAME: 'nuget-package'
 
 jobs:
+  Prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set package variables
+      id: set_vars
+      run: |
+        echo "packagePath=${{ env.PACKAGE_PATH }}" >> $GITHUB_OUTPUT
+        echo "packageName=${{ env.PACKAGE_NAME }}" >> $GITHUB_OUTPUT
+
   Build:
+    needs: Prepare
     uses: ./.github/workflows/shared-build-nuget.yml
     with:
-      packagePath: ${{ env.PACKAGE_PATH }}
-      packageName: ${{ env.PACKAGE_NAME }}
+      packagePath: ${{ needs.Prepare.outputs.packagePath }}
+      packageName: ${{ needs.Prepare.outputs.packageName }}

@@ -2,7 +2,7 @@ name: Build and Publish NuGet package for Production
 
 on:
   release:
-    types: [published]
+    types: [created]
   workflow_dispatch:
     inputs:
       branch:
@@ -23,15 +23,21 @@ jobs:
       id: get_version
       run: |
         VERSION=$(echo "${{ github.event.release.name }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Set package variables
+      id: set_vars
+      run: |
+        echo "packagePath=${{ env.PACKAGE_PATH }}" >> $GITHUB_OUTPUT
+        echo "packageName=${{ env.PACKAGE_NAME }}" >> $GITHUB_OUTPUT
 
   Build:
     needs: Prepare
     uses: ./.github/workflows/shared-build-nuget.yml
     with:
-      version: ${{ env.VERSION }}
-      packagePath: ${{ env.PACKAGE_PATH }}
-      packageName: ${{ env.PACKAGE_NAME }}
+      version: ${{ needs.Prepare.outputs.version }}
+      packagePath: ${{ needs.Prepare.outputs.packagePath }}
+      packageName: ${{ needs.Prepare.outputs.packageName }}
 
   Publish:
     needs: Build

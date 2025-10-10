@@ -26,6 +26,30 @@ internal static class Constants
 
 
     /// <summary>
+    /// The number of full months in a year of the Republican calendar.
+    /// </summary>
+    internal const int MonthsInYear = 12;
+
+
+    /// <summary>
+    /// The number of weeks in a month of the Republican calendar.
+    /// </summary>
+    internal const int WeeksInMonth = 3;
+
+
+    /// <summary>
+    /// The number of days in a week of the Republican calendar.
+    /// </summary>
+    internal const int DaysInWeek = 10;
+
+
+    /// <summary>
+    /// The number of complementary days in a common year of the Republican calendar.
+    /// </summary>
+    internal const int ComplementaryDays = 5;
+
+
+    /// <summary>
     /// The last year of the Republican calendar (XIV).
     /// </summary>
     internal const int LastYear = 14;
@@ -38,39 +62,9 @@ internal static class Constants
 
 
     /// <summary>
-    /// The number of days in a week of the Republican calendar.
-    /// </summary>
-    internal const int DaysInWeek = 10;
-
-
-    /// <summary>
-    /// The number of days in a month of the Republican calendar.
-    /// </summary>
-    internal const int DaysInMonth = WeeksInMonth * DaysInWeek;
-
-
-    /// <summary>
     /// The last day in the last month of the last year of the Republican calendar (10 Nivôse XIV).
     /// </summary>
     internal const int DaysInLastMonth = 10;
-
-
-    /// <summary>
-    /// The number of weeks in a month of the Republican calendar.
-    /// </summary>
-    internal const int WeeksInMonth = 3;
-
-
-    /// <summary>
-    /// The number of weeks in a year of the Republican calendar.
-    /// </summary>
-    internal const int WeeksInYear = MonthsInYear * WeeksInMonth;
-
-
-    /// <summary>
-    /// The number of full months in a year of the Republican calendar.
-    /// </summary>
-    internal const int MonthsInYear = 12;
 
 
     /// <summary>
@@ -80,14 +74,20 @@ internal static class Constants
 
 
     /// <summary>
-    /// The number of the last complementary day in a common year of the Republican calendar.
+    /// The number of weeks in a year of the Republican calendar.
     /// </summary>
-    internal const int LastComplementaryDay = 5;
+    internal const int WeeksInYear = MonthsInYear * WeeksInMonth;
 
 
     /// <summary>
-    /// The number of the last complementary day in a leap year of the Republican calendar.
+    /// The number of days in a month of the Republican calendar.
     /// </summary>
-    internal const int LastLeapComplementaryDay = LastComplementaryDay + 1;
+    internal const int DaysInMonth = WeeksInMonth * DaysInWeek;
+
+
+    /// <summary>
+    /// The number of complementary days in a leap year of the Republican calendar.
+    /// </summary>
+    internal const int LeapComplementaryDays = ComplementaryDays + 1;
 
 }

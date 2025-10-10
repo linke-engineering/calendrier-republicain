@@ -203,7 +203,7 @@ internal class FrenchRepublicanDateTime : IFormattable
         var newMonth = Month;
         var newDay = Day;
 
-        if (newMonth == C.ComplementaryMonth && newDay == C.LastLeapComplementaryDay && !IsLeapYear(newYear, Era))
+        if (newMonth == C.ComplementaryMonth && newDay == C.LeapComplementaryDays && !IsLeapYear(newYear, Era))
         {
             newYear++;
             newMonth = 1;
@@ -225,7 +225,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     internal static bool IsLeapDay(int year, int month, int day, int era)
     {
         ValidateDay(year, month, day, era);
-        return IsLeapMonth(year, month, era) && day == C.LastLeapComplementaryDay;
+        return IsLeapMonth(year, month, era) && day == C.LeapComplementaryDays;
     }
 
 
@@ -328,11 +328,11 @@ internal class FrenchRepublicanDateTime : IFormattable
 
         if (IsLeapMonth(year, month, era))
         {
-            ValidateValueInsideRange(nameof(day), day, 1, C.LastLeapComplementaryDay);
+            ValidateValueInsideRange(nameof(day), day, 1, C.LeapComplementaryDays);
         }
         else if (month == C.ComplementaryMonth)
         {
-            ValidateValueInsideRange(nameof(day), day, 1, C.LastComplementaryDay);
+            ValidateValueInsideRange(nameof(day), day, 1, C.ComplementaryDays);
         }
         else if (year == C.LastYear && month == C.LastMonth)
         {

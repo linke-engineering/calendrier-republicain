@@ -177,7 +177,7 @@ public class FrenchRepublicanCalendar : Calendar
 
         if (month == C.ComplementaryMonth)
         {
-            return IsLeapYear(year) ? C.LastLeapComplementaryDay : C.LastComplementaryDay;
+            return IsLeapYear(year) ? C.LeapComplementaryDays : C.ComplementaryDays;
         }
 
         // The Republican calendar was abolished after the 10th of Nivôse XIV.
@@ -209,11 +209,11 @@ public class FrenchRepublicanCalendar : Calendar
         }
         else if (IsLeapYear(year))
         {
-            return C.MonthsInYear * C.DaysInMonth + C.LastLeapComplementaryDay;
+            return C.MonthsInYear * C.DaysInMonth + C.LeapComplementaryDays;
         }
         else
         {
-            return C.MonthsInYear * C.DaysInMonth + C.LastComplementaryDay;
+            return C.MonthsInYear * C.DaysInMonth + C.ComplementaryDays;
         }
     }
 

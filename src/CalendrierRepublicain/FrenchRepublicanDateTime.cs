@@ -1,4 +1,7 @@
-﻿namespace LinkeEngineering.CalendrierRepublicain;
+﻿using C = LinkeEngineering.CalendrierRepublicain.Constants;
+
+
+namespace LinkeEngineering.CalendrierRepublicain;
 
 
 /// <summary>
@@ -144,13 +147,13 @@ internal class FrenchRepublicanDateTime : IFormattable
             return this;
         }
 
-        if (Month == 13)
+        if (Month == C.ComplementaryMonth)
         {
             throw new InvalidOperationException("Addition of months starting from complementary days is not supported.");
         }
 
-        int newYear = Year + (Month + months - (months > 0 ? 1 : 12)) / 12;
-        int newMonth = ((Month + months) % 12 <= 0 ? 12 : 0) + (Month + months) % 12;
+        var newYear = Year + (Month + months - (months > 0 ? 1 : 12)) / 12;
+        var newMonth = ((Month + months) % 12 <= 0 ? 12 : 0) + (Month + months) % 12;
 
         return new FrenchRepublicanDateTime(newYear, newMonth, Day, TimeOfDay, Era);
     }
@@ -168,17 +171,17 @@ internal class FrenchRepublicanDateTime : IFormattable
             return this;
         }
 
-        if (Month == 13)
+        if (Month == C.ComplementaryMonth)
         {
             throw new InvalidOperationException("Addition of weeks starting from complementary days is not supported.");
         }
 
-        int currentWeekOfYear = 3 * (Month - 1) + (Day - 1) / 10 + 1;
-        int currentDayOfWeek = (Day - 1) % 10 + 1;
-        int newWeekOfYear = ((currentWeekOfYear + weeks) % 36 <= 0 ? 36 : 0) + (currentWeekOfYear + weeks) % 36;
-        int newYear = Year + (currentWeekOfYear + weeks - (weeks > 0 ? 1 : 36)) / 36;
-        int newMonth = (newWeekOfYear - 1) / 3 + 1;
-        int newDay = 10 * ((newWeekOfYear - 1) % 3) + currentDayOfWeek;
+        var currentWeekOfYear = C.WeeksInMonth * (Month - 1) + (Day - 1) / C.DaysInWeek + 1;
+        var currentDayOfWeek = (Day - 1) % C.DaysInWeek + 1;
+        var newWeekOfYear = ((currentWeekOfYear + weeks) % C.WeeksInYear <= 0 ? C.WeeksInYear : 0) + (currentWeekOfYear + weeks) % C.WeeksInYear;
+        var newYear = Year + (currentWeekOfYear + weeks - (weeks > 0 ? 1 : C.WeeksInYear)) / C.WeeksInYear;
+        var newMonth = (newWeekOfYear - 1) / C.WeeksInMonth + 1;
+        var newDay = C.DaysInWeek * ((newWeekOfYear - 1) % C.WeeksInMonth) + currentDayOfWeek;
 
         return new FrenchRepublicanDateTime(newYear, newMonth, newDay, TimeOfDay, Era);
     }
@@ -196,11 +199,11 @@ internal class FrenchRepublicanDateTime : IFormattable
             return this;
         }
 
-        int newYear = Year + years;
-        int newMonth = Month;
-        int newDay = Day;
+        var newYear = Year + years;
+        var newMonth = Month;
+        var newDay = Day;
 
-        if (newMonth == 13 && newDay == 6 && !IsLeapYear(newYear, Era))
+        if (newMonth == C.ComplementaryMonth && newDay == C.LastLeapComplementaryDay && !IsLeapYear(newYear, Era))
         {
             newYear++;
             newMonth = 1;
@@ -222,7 +225,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     internal static bool IsLeapDay(int year, int month, int day, int era)
     {
         ValidateDay(year, month, day, era);
-        return IsLeapMonth(year, month, era) && day == 6;
+        return IsLeapMonth(year, month, era) && day == C.LastLeapComplementaryDay;
     }
 
 
@@ -236,7 +239,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     internal static bool IsLeapMonth(int year, int month, int era)
     {
         ValidateMonth(year, month, era);
-        return IsLeapYear(year, era) && month == 13;
+        return IsLeapYear(year, era) && month == C.ComplementaryMonth;
     }
 
 
@@ -259,9 +262,9 @@ internal class FrenchRepublicanDateTime : IFormattable
     /// <returns>The <see cref="DateTime"/> in the Gregorian Calendar.</returns>
     internal DateTime ToGregorianDateTime()
     {
-        int daysSinceEpoch = 365 * (Year - 1) + Year / 4 + 30 * Month + Day - 31;
-        TimeSpan timeSpan = new(daysSinceEpoch, Hour, Minute, Second, Millisecond);
-        return Constants.MinSupportedDateTime.Add(timeSpan);
+        var daysSinceEpoch = 365 * (Year - 1) + Year / 4 + 30 * Month + Day - 31;
+        var timeSpan = new TimeSpan(daysSinceEpoch, Hour, Minute, Second, Millisecond);
+        return C.MinSupportedDateTime.Add(timeSpan);
     }
 
 
@@ -285,7 +288,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     internal static void ValidateYear(int year, int era)
     {
         ValidateEra(era);
-        ValidateValueInsideRange(nameof(year), year, 1, 14);
+        ValidateValueInsideRange(nameof(year), year, 1, C.LastYear);
     }
 
 
@@ -300,13 +303,13 @@ internal class FrenchRepublicanDateTime : IFormattable
     {
         ValidateYear(year, era);
 
-        if (year == 14)
+        if (year == C.LastYear)
         {
-            ValidateValueInsideRange(nameof(month), month, 1, 4);
+            ValidateValueInsideRange(nameof(month), month, 1, C.LastMonth);
         }
         else
         {
-            ValidateValueInsideRange(nameof(month), month, 1, 13);
+            ValidateValueInsideRange(nameof(month), month, 1, C.ComplementaryMonth);
         }
     }
 
@@ -325,19 +328,19 @@ internal class FrenchRepublicanDateTime : IFormattable
 
         if (IsLeapMonth(year, month, era))
         {
-            ValidateValueInsideRange(nameof(day), day, 1, 6);
+            ValidateValueInsideRange(nameof(day), day, 1, C.LastLeapComplementaryDay);
         }
-        else if (month == 13)
+        else if (month == C.ComplementaryMonth)
         {
-            ValidateValueInsideRange(nameof(day), day, 1, 5);
+            ValidateValueInsideRange(nameof(day), day, 1, C.LastComplementaryDay);
         }
-        else if (year == 14 && month == 4)
+        else if (year == C.LastYear && month == C.LastMonth)
         {
-            ValidateValueInsideRange(nameof(day), day, 1, 10);
+            ValidateValueInsideRange(nameof(day), day, 1, C.DaysInLastMonth);
         }
         else
         {
-            ValidateValueInsideRange(nameof(day), day, 1, 30);
+            ValidateValueInsideRange(nameof(day), day, 1, C.DaysInMonth);
         }
     }
 

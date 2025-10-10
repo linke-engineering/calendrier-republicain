@@ -1,0 +1,46 @@
+name: Build and Publish NuGet package for Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to publish'
+        required: true
+        default: 'main'
+
+env:
+  PACKAGE_PATH: './nupkg'
+  PACKAGE_NAME: 'nuget-package'
+
+jobs:
+  Prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract version from release
+        id: get_version
+        run: |
+          VERSION=$(echo "${{ github.event.release.name }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+  Build:
+    uses: ./.github/workflows/shared-build-nuget.yml
+    with:
+      version: ${{ env.VERSION }}
+      packagePath: ${{ env.PACKAGE_PATH }}
+      packageName: ${{ env.PACKAGE_NAME }}
+
+  Publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download NuGet package
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.PACKAGE_NAME }}
+          path: ${{ env.PACKAGE_PATH }}
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ${{ PACKAGE_PATH }}/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

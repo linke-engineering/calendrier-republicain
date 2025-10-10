@@ -1,5 +1,6 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
+using C = LinkeEngineering.CalendrierRepublicain.Constants;
+
 
 
 namespace LinkeEngineering.CalendrierRepublicain;
@@ -31,15 +32,15 @@ public class FrenchRepublicanCalendar : Calendar
 
 
     /// <inheritdoc/>
-    public override int[] Eras => new[] { FrenchRepublicanEra };
+    public override int[] Eras => [FrenchRepublicanEra];
 
 
     /// <inheritdoc/>
-    public override DateTime MaxSupportedDateTime => Constants.MaxSupportedDateTime;
+    public override DateTime MaxSupportedDateTime => C.MaxSupportedDateTime;
 
 
     /// <inheritdoc/>
-    public override DateTime MinSupportedDateTime => Constants.MinSupportedDateTime;
+    public override DateTime MinSupportedDateTime => C.MinSupportedDateTime;
 
 
     /// <inheritdoc/>
@@ -71,16 +72,16 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize republican date
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
+        var repTime = time.ToFrenchRepublicanTime();
 
         // Reject addition from complementary days
-        if (repTime.Month == 13)
+        if (repTime.Month == C.ComplementaryMonth)
         {
             throw new ArgumentOutOfRangeException(nameof(time));
         }
 
         // Calculate new republican date
-        FrenchRepublicanDateTime newRepTime = repTime.AddMonths(months);
+        var newRepTime = repTime.AddMonths(months);
 
         // Convert result to Gregorian date
         return ToDateTime(newRepTime.Year, newRepTime.Month, repTime.Day, repTime.TimeOfDay);
@@ -99,16 +100,16 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize republican date
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
+        var repTime = time.ToFrenchRepublicanTime();
 
         // Reject addition from complementary days
-        if (repTime.Month == 13)
+        if (repTime.Month == C.ComplementaryMonth)
         {
             throw new ArgumentOutOfRangeException(nameof(time));
         }
 
         // Calculate new republican date
-        FrenchRepublicanDateTime newRepTime = repTime.AddWeeks(weeks);
+        var newRepTime = repTime.AddWeeks(weeks);
 
         // Convert result to Gregorian date
         return ToDateTime(newRepTime.Year, newRepTime.Month, newRepTime.Day, repTime.TimeOfDay);
@@ -125,10 +126,10 @@ public class FrenchRepublicanCalendar : Calendar
         }
 
         // Initialize Republican date
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
+        var repTime = time.ToFrenchRepublicanTime();
 
         // Calculate new republican date
-        FrenchRepublicanDateTime newRepTime = repTime.AddYears(years);
+        var newRepTime = repTime.AddYears(years);
 
         // Convert result to Gregorian date
         return ToDateTime(newRepTime.Year, newRepTime.Month, newRepTime.Day, repTime.TimeOfDay);
@@ -140,7 +141,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
+        var repTime = time.ToFrenchRepublicanTime();
         return repTime.Day;
     }
 
@@ -148,7 +149,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override DayOfWeek GetDayOfWeek(DateTime time)
     {
-        throw new InvalidOperationException("The function type GetDayOfWeek is not applicable for the Republican calendar.");
+        throw new NotSupportedException("The function type GetDayOfWeek is not supported for the Republican calendar.");
     }
 
 
@@ -157,8 +158,8 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
-        return 30 * (repTime.Month - 1) + repTime.Day;
+        var repTime = time.ToFrenchRepublicanTime();
+        return C.DaysInMonth * (repTime.Month - 1) + repTime.Day;
     }
 
 
@@ -174,19 +175,19 @@ public class FrenchRepublicanCalendar : Calendar
     {
         FrenchRepublicanDateTime.ValidateMonth(year,month, era);
 
-        if (month == 13)
+        if (month == C.ComplementaryMonth)
         {
-            return IsLeapYear(year) ? 6 : 5;
+            return IsLeapYear(year) ? C.LastLeapComplementaryDay : C.LastComplementaryDay;
         }
 
         // The Republican calendar was abolished after the 10th of Nivôse XIV.
-        if (year == Constants.LastRepublicanYear && month == Constants.LastRepublicanMonth)
+        if (year == C.LastYear && month == C.LastMonth)
         {
-            return 10;
+            return C.DaysInLastMonth;
         }
 
         // Normal month
-        return 30;
+        return C.DaysInMonth;
     }
 
 
@@ -202,17 +203,17 @@ public class FrenchRepublicanCalendar : Calendar
     {
         FrenchRepublicanDateTime.ValidateYear(year, era);
 
-        if (year == Constants.LastRepublicanYear)
+        if (year == C.LastYear)
         {
-            return 100;
+            return (C.LastMonth - 1) * C.DaysInMonth + C.DaysInLastMonth;
         }
         else if (IsLeapYear(year))
         {
-            return 366;
+            return C.MonthsInYear * C.DaysInMonth + C.LastLeapComplementaryDay;
         }
         else
         {
-            return 365;
+            return C.MonthsInYear * C.DaysInMonth + C.LastComplementaryDay;
         }
     }
 
@@ -230,7 +231,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
+        var repTime = time.ToFrenchRepublicanTime();
         return repTime.Month;
     }
 
@@ -247,13 +248,13 @@ public class FrenchRepublicanCalendar : Calendar
     {
         FrenchRepublicanDateTime.ValidateYear(year, era);
 
-        if (year == Constants.LastRepublicanYear)
+        if (year == C.LastYear)
         {
-            return Constants.LastRepublicanMonth;
+            return C.LastMonth;
         }
         else
         {
-            return 13;
+            return C.ComplementaryMonth;
         }
     }
 
@@ -261,8 +262,8 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override int GetWeekOfYear(DateTime time, CalendarWeekRule rule, DayOfWeek firstDayOfWeek)
     {
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
-        return 3 * (repTime.Month - 1) + (repTime.Day - 1) / 10 + 1;
+        var repTime = time.ToFrenchRepublicanTime();
+        return C.WeeksInMonth * (repTime.Month - 1) + (repTime.Day - 1) / C.DaysInWeek + 1;
     }
 
 
@@ -271,7 +272,7 @@ public class FrenchRepublicanCalendar : Calendar
     {
         time.Validate();
 
-        FrenchRepublicanDateTime repTime = time.ToFrenchRepublicanTime();
+        var repTime = time.ToFrenchRepublicanTime();
         return repTime.Year;
     }
 
@@ -351,6 +352,5 @@ public class FrenchRepublicanCalendar : Calendar
     }
 
     #endregion
-
 
 }

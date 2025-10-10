@@ -1,0 +1,23 @@
+name: Build NuGet package for Development
+
+on:
+  push:
+    branches:
+      - development
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to publish'
+        required: true
+        default: 'development'
+
+env:
+  PACKAGE_PATH: './nupkg'
+  PACKAGE_NAME: 'nuget-package'
+
+jobs:
+  Build:
+    uses: ./.github/workflows/shared-build-nuget.yml
+    with:
+      packagePath: ${{ env.PACKAGE_PATH }}
+      packageName: ${{ env.PACKAGE_NAME }}

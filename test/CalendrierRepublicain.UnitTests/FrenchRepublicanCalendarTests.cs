@@ -480,7 +480,7 @@ public class FrenchRepublicanCalendarTests
         DateTime time = new(1792, 9, 22);
 
         // Act and assert
-        Assert.ThrowsException<InvalidOperationException>(() => _ = _calendar.GetDayOfWeek(time));
+        Assert.ThrowsException<NotSupportedException>(() => _ = _calendar.GetDayOfWeek(time));
     }
 
     #endregion

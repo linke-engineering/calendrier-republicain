@@ -1,0 +1,36 @@
+name: Build NuGet package for Development
+
+on:
+  push:
+    branches: [ "development" ]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to publish'
+        required: true
+        default: 'development'
+
+env:
+  PACKAGE_PATH: './nupkg'
+  PACKAGE_NAME: 'nuget-package'
+
+jobs:
+  Prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      packagePath: ${{ steps.set_vars.outputs.packagePath }}
+      packageName: ${{ steps.set_vars.outputs.packageName }}
+
+    steps:
+    - name: Set package variables
+      id: set_vars
+      run: |
+        echo "packagePath=${{ env.PACKAGE_PATH }}" >> $GITHUB_OUTPUT
+        echo "packageName=${{ env.PACKAGE_NAME }}" >> $GITHUB_OUTPUT
+
+  Build:
+    needs: Prepare
+    uses: ./.github/workflows/shared-build-nuget.yml
+    with:
+      packagePath: ${{ needs.Prepare.outputs.packagePath }}
+      packageName: ${{ needs.Prepare.outputs.packageName }}

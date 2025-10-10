@@ -15,7 +15,7 @@ internal static class DateTimeExtension
     /// <summary>
     /// Array containing the JDN of the first day of each Republican year.
     /// </summary>
-    private static readonly int[] firstDayOfYearJdns = new int[LastRepublicanYear];
+    private static readonly int[] firstDayOfYearJdns = new int[LastYear];
 
     #endregion
 
@@ -27,7 +27,7 @@ internal static class DateTimeExtension
     /// </summary>
     static DateTimeExtension()
     {
-        for (int i = 0; i < LastRepublicanYear; i++)
+        for (int i = 0; i < LastYear; i++)
         {
             firstDayOfYearJdns[i] = 2375839 + 365 * i + (i + 1) / 4;
         }
@@ -49,8 +49,8 @@ internal static class DateTimeExtension
         gregTime.Validate();
 
         // Find year
-        int jdn = new JulianDayNumber(gregTime).Value;
-        int yearIndex = Array.BinarySearch(firstDayOfYearJdns, jdn);
+        var jdn = new JulianDayNumber(gregTime).Value;
+        var yearIndex = Array.BinarySearch(firstDayOfYearJdns, jdn);
 
         if (yearIndex < 0)
         {
@@ -58,10 +58,10 @@ internal static class DateTimeExtension
         }
 
         // Calculate Republican date
-        int dayOfYear = jdn - firstDayOfYearJdns[yearIndex];
-        int year = yearIndex + 1;
-        int month = dayOfYear / 30 + 1;
-        int day = dayOfYear % 30 + 1;
+        var dayOfYear = jdn - firstDayOfYearJdns[yearIndex];
+        var year = yearIndex + 1;
+        var month = dayOfYear / DaysInMonth + 1;
+        var day = dayOfYear % DaysInMonth + 1;
 
         return new FrenchRepublicanDateTime(year, month, day, gregTime.TimeOfDay, FrenchRepublicanCalendar.FrenchRepublicanEra);
     }

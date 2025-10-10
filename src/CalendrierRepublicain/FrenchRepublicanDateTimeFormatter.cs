@@ -36,13 +36,13 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
         // Check value and convert it to a Republican date.
         FrenchRepublicanDateTime time;
 
-        if (arg.GetType() == typeof(FrenchRepublicanDateTime))
+        if (arg is FrenchRepublicanDateTime republicanDateTime)
         {
-            time = (FrenchRepublicanDateTime)arg;
+            time = republicanDateTime;
         }
-        else if (arg.GetType() == typeof(DateTime))
+        else if (arg is DateTime dateTime)
         {
-            time = ((DateTime)arg).ToFrenchRepublicanTime();
+            time = dateTime.ToFrenchRepublicanTime();
         }
         else
         {
@@ -50,7 +50,7 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
         }
 
         // Format date according to format string
-        DateTimeFormatInfo standardFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
+        var standardFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
 
         return format switch
         {
@@ -69,9 +69,8 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
     /// <returns>The time string.</returns>
     private static string FillPattern(string pattern, FrenchRepublicanDateTime time)
     {
-        FrenchRepublicanDateTimeFormatInfo formatInfo = new();
-
-        Dictionary<string, string> replacements = [];
+        var formatInfo = new FrenchRepublicanDateTimeFormatInfo();
+        var replacements = new Dictionary<string, string>();
 
         if (FrenchRepublicanDateTime.IsLeapMonth(time.Year, time.Month, time.Era))
         {
@@ -79,7 +78,7 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
         }
         else
         {
-            replacements.Add(@"\bdddd\b", formatInfo.DayNames[(time.Day - 1) % 10]);
+            replacements.Add(@"\bdddd\b", formatInfo.DayNames[(time.Day - 1) % Constants.DaysInWeek]);
             replacements.Add(@"\bd\b", time.Day.ToString());
             replacements.Add(@"\bMMMM\b", formatInfo.MonthNames[time.Month - 1]);
             replacements.Add(@"\bMMM\b", formatInfo.AbbreviatedMonthNames[time.Month - 1]);
@@ -91,7 +90,7 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
         replacements.Add(@"\bmm\b", time.Minute.ToString("00"));
         replacements.Add(@"\bss\b", time.Second.ToString("00"));
 
-        string result = pattern;
+        var result = pattern;
 
         foreach (KeyValuePair<string, string> replacement in replacements)
         {

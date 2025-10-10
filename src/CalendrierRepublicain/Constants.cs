@@ -26,14 +26,68 @@ internal static class Constants
 
 
     /// <summary>
-    /// The last year of the Republican calendar.
+    /// The number of full months in a year of the Republican calendar.
     /// </summary>
-    internal static int LastRepublicanYear = 14;
+    internal const int MonthsInYear = 12;
 
 
     /// <summary>
-    /// The last month in the last year of the Republican calendar.
+    /// The number of weeks in a month of the Republican calendar.
     /// </summary>
-    internal static int LastRepublicanMonth = 4;
+    internal const int WeeksInMonth = 3;
+
+
+    /// <summary>
+    /// The number of days in a week of the Republican calendar.
+    /// </summary>
+    internal const int DaysInWeek = 10;
+
+
+    /// <summary>
+    /// The number of complementary days in a common year of the Republican calendar.
+    /// </summary>
+    internal const int ComplementaryDays = 5;
+
+
+    /// <summary>
+    /// The last year of the Republican calendar (XIV).
+    /// </summary>
+    internal const int LastYear = 14;
+
+
+    /// <summary>
+    /// The last month in the last year of the Republican calendar (Nivôse XIV).
+    /// </summary>
+    internal const int LastMonth = 4;
+
+
+    /// <summary>
+    /// The last day in the last month of the last year of the Republican calendar (10 Nivôse XIV).
+    /// </summary>
+    internal const int DaysInLastMonth = 10;
+
+
+    /// <summary>
+    /// The number of the complementary month of a year in the Republican calendar.
+    /// </summary>
+    internal const int ComplementaryMonth = MonthsInYear + 1;
+
+
+    /// <summary>
+    /// The number of weeks in a year of the Republican calendar.
+    /// </summary>
+    internal const int WeeksInYear = MonthsInYear * WeeksInMonth;
+
+
+    /// <summary>
+    /// The number of days in a month of the Republican calendar.
+    /// </summary>
+    internal const int DaysInMonth = WeeksInMonth * DaysInWeek;
+
+
+    /// <summary>
+    /// The number of complementary days in a leap year of the Republican calendar.
+    /// </summary>
+    internal const int LeapComplementaryDays = ComplementaryDays + 1;
 
 }

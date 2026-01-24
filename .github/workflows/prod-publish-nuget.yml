@@ -46,6 +46,8 @@ jobs:
   Publish:
     needs: Build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
 
     steps:
       - name: Download NuGet package
@@ -54,5 +56,11 @@ jobs:
           name: ${{ env.PACKAGE_NAME }}
           path: ${{ env.PACKAGE_PATH }}
 
+      - name: Loginto NuGet
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+          
       - name: Publish to NuGet
-        run: dotnet nuget push ${{ env.PACKAGE_PATH }}/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ${{ env.PACKAGE_PATH }}/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

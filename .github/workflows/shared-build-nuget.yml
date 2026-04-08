@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOTNET_VERSION: '8.0'
+      DOTNET_VERSION: '10.0'
 
     steps:
       - name: Checkout

@@ -11,7 +11,7 @@
 
 ## Libraries and Frameworks
 
-- Use .NET in version 8.0.x as basic framework.
+- Use .NET in version 10.0.x as basic framework.
 
 ## Coding Standards
 

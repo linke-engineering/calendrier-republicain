@@ -1,6 +1,6 @@
 # Calendrier Republicain
 
-A .NET 8 library for converting and formatting dates between the Gregorian and French Republican calendars. It provides a drop-in replacement for the standard calendar and formatting infrastructure, enabling seamless integration in .NET applications.
+A modern .NET library for converting and formatting dates between the Gregorian and French Republican calendars. It provides a drop-in replacement for the standard calendar and formatting infrastructure, enabling seamless integration in .NET applications.
 
 The library is published as a NuGet package and designed for use in other .NET projects.
 

@@ -1,0 +1,21 @@
+# -----------------------------------------------------------------------------
+# GitHub Actions Workflow: Invoke Auto Tag
+#
+# Purpose:
+#   This workflow triggers the reusable auto-tag workflow defined in the
+#   central repository. It passes the .csproj file path as input.
+# -----------------------------------------------------------------------------
+
+name: Invoke Auto Tag
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  auto-tag:
+    uses: linke-engineering/.github/workflows/reusable/release-auto-tag.yml@main
+    secrets: inherit
+    with:
+      project_file: 'src/CalendrierRepublicain/CalendrierRepublicain.csproj'

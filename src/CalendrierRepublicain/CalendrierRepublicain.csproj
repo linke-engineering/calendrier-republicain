@@ -16,18 +16,19 @@
 		<RepositoryUrl>https://github.com/linke-engineering/calendrier-republicain.git</RepositoryUrl>
 		<PackageTags>calendar;French;Republican;Revolutionary;date;datetime;formatter;gregorian;conversion;custom-calendar;history;culture;dotnet;net8</PackageTags>
 		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
-		<PackageLicenseFile>License.txt</PackageLicenseFile>
-		<Copyright>Copyright (c) 2023–2025 Linke Genealogical Engineering</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Copyright>Copyright (c) 2023–2026 Linke Genealogical Engineering</Copyright>
+		<Version>1.2.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../../assets/License.txt" Pack="true" PackagePath="License.txt" />
 		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="CalendrierRepublicain.png" />
 		<None Include="../../Readme.md" Pack="true" PackagePath="Readme.md" />
+		<None Include="../../LICENSE" Pack="true" PackagePath="LICENSE" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="LinkeEngineering.NumeriRomani" Version="1.1.4" />
+	  <PackageReference Include="LinkeEngineering.NumeriRomani" Version="1.1.5" />
 	</ItemGroup>
 
 </Project>

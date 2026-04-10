@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------------
+# GitHub Actions Workflow: Invoke NuGet Publish
+#
+# Purpose:
+#   This workflow triggers the reusable NuGet publish workflow defined in the
+#   central repository. It passes the release tag and .NET version as inputs.
+#
+# Prerequisites:
+#   - The reusable workflow must be defined in the central repository.
+#   - The release tag must follow the format: v<major>.<minor>.<patch> (e.g.,
+#     v1.2.3).
+# -----------------------------------------------------------------------------
+
+name: Invoke NuGet Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag (e.g., v1.2.3)'
+        required: true
+
+jobs:
+  publish:
+    uses: linke-engineering/.github/workflows/reusable/nuget-publish.yml@main
+    with:
+      release_tag: ${{ github.event.release.tag_name || github.event.inputs.tag_name }}
+      dotnet_version: '10.0.x'

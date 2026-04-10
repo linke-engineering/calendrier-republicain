@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Deterministic>true</Deterministic>
+		<Utf8Output>true</Utf8Output>
 		<AssemblyName>LinkeEngineering.$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>LinkeEngineering.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -21,7 +22,7 @@
 		<Version>1.2.1</Version>
 	</PropertyGroup>
 
-	<ItemGroup>
+  <ItemGroup>
 		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="CalendrierRepublicain.png" />
 		<None Include="../../Readme.md" Pack="true" PackagePath="Readme.md" />
 		<None Include="../../LICENSE" Pack="true" PackagePath="LICENSE" />

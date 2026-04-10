@@ -17,7 +17,8 @@
 		<PackageTags>calendar;French;Republican;Revolutionary;date;datetime;formatter;gregorian;conversion;custom-calendar;history;culture;dotnet;net8</PackageTags>
 		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
 		<PackageLicenseFile>License.txt</PackageLicenseFile>
-		<Copyright>Copyright (c) 2023–2025 Linke Genealogical Engineering</Copyright>
+		<Copyright>Copyright (c) 2023–2026 Linke Genealogical Engineering</Copyright>
+		<Version>1.2.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -27,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="LinkeEngineering.NumeriRomani" Version="1.1.4" />
+	  <PackageReference Include="LinkeEngineering.NumeriRomani" Version="1.1.5" />
 	</ItemGroup>
 
 </Project>

@@ -24,14 +24,7 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-
-    env:
-      DOTNET_VERSION: '10.0.x'
-
-    steps:
-      - name: Publish to NuGet
-        uses: linke-engineering/.github/workflows/reusable/nuget-publish.yml
-        with:
-          release_tag: ${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-          dotnet_version: ${{ env.DOTNET_VERSION }}
+    uses: linke-engineering/.github/workflows/reusable/nuget-publish.yml@main
+    with:
+      release_tag: ${{ github.event.release.tag_name || github.event.inputs.tag_name }}
+      dotnet_version: '10.0.x'

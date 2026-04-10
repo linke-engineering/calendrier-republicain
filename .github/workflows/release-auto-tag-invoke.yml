@@ -15,13 +15,7 @@ on:
 
 jobs:
   auto-tag:
-    runs-on: ubuntu-latest
-
-    env:
-      PROJECT_FILE: 'src/CalendrierRepublicain/CalendrierRepublicain.csproj'
-
-    steps:
-      - name: Invoke Auto Tag Workflow
-        uses: linke-engineering/.github/workflows/reusable/release-auto-tag.yml
-        with:
-          project_file: ${{ env.PROJECT_FILE }}
+    uses: linke-engineering/.github/workflows/reusable/release-auto-tag.yml@main
+    secrets: inherit
+    with:
+      project_file: 'src/CalendrierRepublicain/CalendrierRepublicain.csproj'

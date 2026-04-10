@@ -15,7 +15,7 @@ on:
 
 jobs:
   auto-tag:
-    uses: linke-engineering/.github/workflows/release-auto-tag.yml@v1.0.0
+    uses: linke-engineering/.github/.github/workflows/release-auto-tag.yml@v1.0.0
     secrets: inherit
     with:
       project_file: 'src/CalendrierRepublicain/CalendrierRepublicain.csproj'

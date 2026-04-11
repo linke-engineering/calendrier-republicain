@@ -23,7 +23,7 @@ on:
         required: true
 
 jobs:
-  publish:
+  publish-invoke:
     uses: linke-engineering/.github/.github/workflows/nuget-publish.yml@v1.0.0
     with:
       release_tag: ${{ github.event.release.tag_name || github.event.inputs.tag_name }}

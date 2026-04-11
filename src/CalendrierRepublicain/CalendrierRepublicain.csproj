@@ -5,7 +5,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Deterministic>true</Deterministic>
-		<CodePage>65001</CodePage>
 		<AssemblyName>LinkeEngineering.$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>LinkeEngineering.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>

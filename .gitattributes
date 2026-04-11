@@ -61,3 +61,9 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+*.cs text working-tree-encoding=UTF-8
+*.csproj text working-tree-encoding=UTF-8
+*.props text working-tree-encoding=UTF-8
+*.targets text working-tree-encoding=UTF-8
+*.resx text working-tree-encoding=UTF-8

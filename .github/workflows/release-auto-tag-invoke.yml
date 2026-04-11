@@ -14,7 +14,7 @@ on:
       - main
 
 jobs:
-  auto-tag:
+  tag-invoke:
     uses: linke-engineering/.github/.github/workflows/release-auto-tag.yml@v1.0.0
     secrets: inherit
     with:

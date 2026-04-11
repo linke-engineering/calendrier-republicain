@@ -4,6 +4,9 @@
 /// <summary>
 /// Tests the <see cref="String"/> class.
 /// </summary>
+/// <remarks>
+/// Save this file in "Unicode (UTF-8 with signature)" encoding to avoid issues with accented characters in the CI workflow.
+/// </remarks>
 [TestClass]
 public class StringTests
 {

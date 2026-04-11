@@ -7,6 +7,10 @@ namespace LinkeEngineering.CalendrierRepublicain;
 /// <summary>
 /// Provides some date/time format infos, based on <see cref="System.Globalization.DateTimeFormatInfo"/>.
 /// </summary>
+/// <remarks>
+/// Save this file in "Unicode (UTF-8 with signature)" encoding to avoid issues with accented characters in the CI workflow.
+/// </remarks>
+
 [ExcludeFromCodeCoverage]
 internal class FrenchRepublicanDateTimeFormatInfo
 {

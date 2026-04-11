@@ -1,6 +1,6 @@
-﻿using LinkeEngineering.NumeriRomani;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
+using LinkeEngineering.NumeriRomani;
 
 
 namespace LinkeEngineering.CalendrierRepublicain;
@@ -27,6 +27,11 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
 
 
     /// <inheritdoc/>
+    /// <param name="format">
+    /// The format string. Use "D" for the long date format (e.g., "Décadi, 10. Nivôse XIV"), "d" 
+    /// for the short date format (e.g., "10. Niv. XIV"), or custom patterns like "d. MMMM yyyy". 
+    /// Note: "d" can also represent the day of the month in custom patterns.
+    /// </param>
     public string Format(string? format, object? arg, IFormatProvider? formatProvider)
     {
         // Validate arguments.
@@ -49,7 +54,6 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
             throw new ArgumentException($"The argument must be of type {typeof(DateTime).Name} or {typeof(FrenchRepublicanDateTime).Name}.", nameof(arg));
         }
 
-        // Format date according to format string
         var standardFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
 
         return format switch
@@ -74,21 +78,27 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
 
         if (FrenchRepublicanDateTime.IsLeapMonth(time.Year, time.Month, time.Era))
         {
-            replacements.Add(@"(\b(d|dddd|MMMM?)\b)?(d|dddd|MMMM?|[ .,-])*\b(d|dddd|MMMM?)\b[.,-]?", formatInfo.ComplementaryDayNames[time.Day - 1]);
+            replacements.Add(@"\b((d+|M+)[., -]*)+(d+|M+)\.?", formatInfo.ComplementaryDayNames[time.Day - 1]);
         }
         else
         {
-            replacements.Add(@"\bdddd\b", formatInfo.DayNames[(time.Day - 1) % Constants.DaysInWeek]);
-            replacements.Add(@"\bd\b", time.Day.ToString());
             replacements.Add(@"\bMMMM\b", formatInfo.MonthNames[time.Month - 1]);
             replacements.Add(@"\bMMM\b", formatInfo.AbbreviatedMonthNames[time.Month - 1]);
+            replacements.Add(@"\bMM\b", time.Month.ToString("00"));
+            replacements.Add(@"\bM\b", time.Month.ToString());
+            replacements.Add(@"\bdddd\b", formatInfo.DayNames[(time.Day - 1) % Constants.DaysInWeek]);
+            replacements.Add(@"\bddd\b", formatInfo.DayNames[(time.Day - 1) % Constants.DaysInWeek]);
+            replacements.Add(@"\bdd\b", time.Day.ToString("00"));
+            replacements.Add(@"\bd\b", time.Day.ToString());
         }
 
-        replacements.Add(@"\byyyy\b", String.Format(new RomanNumeralsFormatter(), "{0:R}", time.Year));
+        replacements.Add(@"\by+\b", String.Format(new RomanNumeralsFormatter(), "{0:R}", time.Year));
         replacements.Add(@"\bHH\b", time.Hour.ToString("00"));
         replacements.Add(@"\bH\b", time.Hour.ToString());
         replacements.Add(@"\bmm\b", time.Minute.ToString("00"));
+        replacements.Add(@"\bm\b", time.Minute.ToString());
         replacements.Add(@"\bss\b", time.Second.ToString("00"));
+        replacements.Add(@"\bs\b", time.Second.ToString());
 
         var result = pattern;
 

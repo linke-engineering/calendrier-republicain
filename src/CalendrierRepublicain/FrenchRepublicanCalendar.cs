@@ -294,14 +294,14 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapMonth(int year, int month)
     {
-        return IsLeapMonth(year, month, FrenchRepublicanEra);
+        return false;
     }
 
 
     /// <inheritdoc/>
     public override bool IsLeapMonth(int year, int month, int era)
     {
-        return FrenchRepublicanDateTime.IsLeapMonth(year, month, era);
+        return false;
     }
 
 

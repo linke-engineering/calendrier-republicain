@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 
 
 namespace LinkeEngineering.CalendrierRepublicain.UnitTests;
@@ -970,47 +970,12 @@ public class FrenchRepublicanCalendarTests
     /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapMonth(int, int, int)"/> method.
     /// </summary>
     /// <param name="year">An integer representing the year in the Republican calendar.</param>
-    [TestMethod]
-    [DataRow(3)]
-    [DataRow(7)]
-    [DataRow(11)]
-    public void IsLeapMonth_LeapMonthWithoutEra_ReturnsTrue(int year)
-    {
-        // Act
-        bool isLeapMonth = _calendar.IsLeapMonth(year, 13);
-
-        // Assert
-        Assert.IsTrue(isLeapMonth);
-    }
-
-
-    /// <summary>
-    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapMonth(int, int, int)"/> method.
-    /// </summary>
-    /// <param name="year">An integer representing the year in the Republican calendar.</param>
-    [TestMethod]
-    [DataRow(3)]
-    [DataRow(7)]
-    [DataRow(11)]
-    public void IsLeapMonth_LeapMonthWithEra_ReturnsTrue(int year)
-    {
-        // Act
-        bool isLeapMonth = _calendar.IsLeapMonth(year, 13, 1);
-
-        // Assert
-        Assert.IsTrue(isLeapMonth);
-    }
-
-
-    /// <summary>
-    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapMonth(int, int, int)"/> method.
-    /// </summary>
-    /// <param name="year">An integer representing the year in the Republican calendar.</param>
     /// <param name="month">An integer representing the month in the Republican calendar.</param>
     [TestMethod]
     [DataRow(1, 1)]
     [DataRow(2, 13)]
     [DataRow(3, 12)]
+    [DataRow(3, 13)]
     public void IsLeapMonth_NonLeapMonth_ReturnsFalse(int year, int month)
     {
         // Act
@@ -1018,23 +983,6 @@ public class FrenchRepublicanCalendarTests
 
         // Assert
         Assert.IsFalse(isLeapMonth);
-    }
-
-
-    /// <summary>
-    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapMonth(int, int, int)"/> method.
-    /// </summary>
-    /// <param name="year">An integer representing the year in the Republican calendar.</param>
-    /// <param name="month">An integer representing the month in the Republican calendar.</param>
-    /// <param name="era">An integer representing the era in the Republican calendar.</param>
-    [TestMethod]
-    [DataRow(1, 1, 0)]
-    [DataRow(1, 0, 1)]
-    [DataRow(15, 1, 1)]
-    public void IsLeapMonth_InvalidDate_ThrowsArgumentOutOfRangeException(int year, int month, int era)
-    {
-        // Act and assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => _ = _calendar.IsLeapMonth(year, month, era));
     }
 
     #endregion

@@ -230,7 +230,7 @@ internal class FrenchRepublicanDateTime : IFormattable
 
 
     /// <summary>
-    /// Determines whether the provided month is a leap month.
+    /// Determines whether the provided month is a leap month, i.e. the date range at the end of the year that contains the complementary days.
     /// </summary>
     /// <param name="year">An integer that represents a year in the Republican calendar.</param>
     /// <param name="month">An integer that represents a month in the Republican calendar.</param>

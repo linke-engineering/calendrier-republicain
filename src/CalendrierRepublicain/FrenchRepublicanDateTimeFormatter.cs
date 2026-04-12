@@ -83,7 +83,7 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
         else
         {
             replacements.Add(@"\bMMMM\b", formatInfo.MonthNames[time.Month - 1]);
-            replacements.Add(@"\bMMM\b", formatInfo.AbbreviatedMonthNames[time.Month - 1]);
+            replacements.Add(@"\bMMM\b", String.Empty);
             replacements.Add(@"\bMM\b", time.Month.ToString("00"));
             replacements.Add(@"\bM\b", time.Month.ToString());
             replacements.Add(@"\bdddd\b", formatInfo.DayNames[(time.Day - 1) % Constants.DaysInWeek]);

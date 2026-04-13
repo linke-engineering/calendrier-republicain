@@ -1,4 +1,4 @@
-# Calendrier Republicain
+﻿# Calendrier Républicain
 
 A modern .NET library for converting and formatting dates between the Gregorian and French Republican calendars. It provides a drop-in replacement for the standard calendar and formatting infrastructure, enabling seamless integration in .NET applications.
 
@@ -8,7 +8,7 @@ The library is published as a NuGet package and designed for use in other .NET p
 
 ### Restrictions
 
-The library strictly implements the official features of the French Republican calendar, valid only between 1 Vendémiaire I (September 22, 1792) and 10 Nivôse XIV (December 31, 1805). Dates outside this range and decimal time are not supported.
+The library strictly implements the official features of the French Republican calendar, valid only between Vendémiaire 1, I (September 22, 1792) and Nivôse 10, XIV (December 31, 1805). Dates outside this range and decimal time are not supported.
 
 ### Creating Republican Dates
 

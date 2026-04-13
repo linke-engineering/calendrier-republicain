@@ -976,7 +976,7 @@ public class FrenchRepublicanCalendarTests
     [DataRow(2, 13)]
     [DataRow(3, 12)]
     [DataRow(3, 13)]
-    public void IsLeapMonth_NonLeapMonth_ReturnsFalse(int year, int month)
+    public void IsLeapMonth_ReturnsFalse(int year, int month)
     {
         // Act
         bool isLeapMonth = _calendar.IsLeapMonth(year, month, 1);

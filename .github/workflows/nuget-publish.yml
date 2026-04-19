@@ -1,0 +1,66 @@
+﻿# -------------------------------------------------------------------------------------------------
+# GitHub Actions Workflow: Publish NuGet Package
+#
+# Purpose:
+#   This workflow builds, tests, and publishes a .NET library to NuGet when a new release is 
+#   published in the main branch.
+#
+# Prerequisites:
+#   - The release tag must follow the format: v<major>.<minor>.<patch> (e.g.,  v1.2.3).
+#   - The NuGet API key must be stored in the repository or organization secrets as NUGET_API_KEY.
+# -------------------------------------------------------------------------------------------------
+
+name: NuGet Publish
+
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag (e.g., v1.2.3)'
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{ inputs.dotnet_version }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Set encoding to UTF-8
+        run: export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test --configuration Release --no-build --verbosity normal
+
+      - name: Extract version from release tag
+        run: |
+          VERSION=$(echo "${{ inputs.release_tag }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Validate version
+        run: |
+          if [ -z "${{ env.VERSION }}" ]; then
+            echo "Error: Failed to extract version from release tag. Ensure the tag follows the format v<major>.<minor>.<patch>."
+            exit 1
+          fi
+
+      - name: Pack
+        run: dotnet pack --configuration Release --no-build --output ./nupkg /p:Version=${{ env.VERSION }}
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

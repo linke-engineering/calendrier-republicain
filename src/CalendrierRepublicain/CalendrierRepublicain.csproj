@@ -25,7 +25,7 @@
 		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="CalendrierRepublicain.png" />
 		<None Include="../../Readme.md" Pack="true" PackagePath="Readme.md" />
 		<None Include="../../LICENSE" Pack="true" PackagePath="LICENSE">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

@@ -294,6 +294,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapMonth(int year, int month)
     {
+        FrenchRepublicanDateTime.ValidateMonth(year, month, FrenchRepublicanEra);
         return false;
     }
 
@@ -301,6 +302,7 @@ public class FrenchRepublicanCalendar : Calendar
     /// <inheritdoc/>
     public override bool IsLeapMonth(int year, int month, int era)
     {
+        FrenchRepublicanDateTime.ValidateMonth(year, month, era);
         return false;
     }
 

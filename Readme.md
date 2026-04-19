@@ -98,7 +98,7 @@ Console.WriteLine(String.Format(repFormatter, "{0:dddd, dd MMMM 'an' yyyy}", com
 | `D`              | Long date pattern       | fr-FR: `Octidi 18 Brumaire VIII`<br>en-US: `Octidi, Brumaire 18, VIII`                    |
 | `f`              | Long date + short time  | fr-FR: `Octidi, 18 Brumaire VIII 14:30`<br>en-US: `Octidi, Brumaire 18, VIII 14:30`       |
 | `F`              | Full date/time pattern  | fr-FR: `Octidi, 18 Brumaire VIII 14:30:00`<br>en-US: `Octidi, Brumaire 18, VIII 14:30:00` |
-| `g`              | Short date + short time | fr-FR: `18/02/08 14:30`<br>en-US: `2/18/08 2:30 PM`                                       |
+| `g`              | Short date + short time | fr-FR: `18/02/08 14:30`<br>en-US: `2/18/08 14:30`                                         |
 | `G`              | Short date + long time  | fr-FR: `18/02/08 14:30:00`<br>en-US: `2/18/08 14:30:00`                                   |
 | `m`, `M`         | Month/day pattern       | fr-FR: `18 Brumaire`<br>en-US: `Brumaire 18`                                              |
 | `t`              | Short time pattern      | fr-FR: `14:30`<br>en-US: `14:30`                                                          |

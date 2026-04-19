@@ -985,6 +985,23 @@ public class FrenchRepublicanCalendarTests
         Assert.IsFalse(isLeapMonth);
     }
 
+
+    /// <summary>
+    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapYear(int, int)"/> method.
+    /// </summary>
+    /// <param name="year">An integer representing the year in the Republican calendar.</param>
+    /// <param name="month">An integer representing the month in the Republican calendar.</param>
+    /// <param name="era">An integer representing the era in the Republican calendar.</param>
+    [TestMethod]
+    [DataRow(1, 1, 0)]
+    [DataRow(1, 0, 1)]
+    [DataRow(15, 1, 1)]
+    public void IsLeapMonth_InvalidDate_ThrowsArgumentOutOfRangeException(int year, int month, int era)
+    {
+        // Act and assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => _ = _calendar.IsLeapMonth(year, month, era));
+    }
+
     #endregion
 
 

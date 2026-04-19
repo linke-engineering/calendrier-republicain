@@ -22,11 +22,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="CalendrierRepublicain.png" />
-		<None Include="../../Readme.md" Pack="true" PackagePath="Readme.md" />
-		<None Include="../../LICENSE" Pack="true" PackagePath="LICENSE">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+		<None Include="../../assets/CalendrierRepublicain.png" Pack="true" PackagePath="" />
+		<None Include="../../Readme.md" Pack="true" PackagePath="" />
+		<None Include="../../LICENSE" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -10,8 +10,145 @@ namespace LinkeEngineering.CalendrierRepublicain;
 /// <summary>
 /// A formatter for a <see cref="FrenchRepublicanDateTime"/>.
 /// </summary>
-public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatter
+public partial class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatter
 {
+
+    #region Precompiled Regular Expressions
+
+    /// <summary>
+    /// Returns a regular expression that matches a long year pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?y{3,5}")]
+    private static partial Regex LongYearRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a two-digit year pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?yy")]
+    private static partial Regex TwoDigitYearRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a one-digit year pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?y")]
+    private static partial Regex OneDigitYearRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a month name pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?MMM(M|\\.?)")]
+    private static partial Regex MonthNameRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a two-digit month pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?MM")]
+    private static partial Regex TwoDigitMonthRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a one-digit month pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?M")]
+    private static partial Regex OneDigitMonthRegex();
+    [GeneratedRegex("^%?ddd(d|\\.?)")]
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a day name pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    private static partial Regex DayNameRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a two-digit day pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?dd")]
+    private static partial Regex TwoDigitDayRegex();
+    [GeneratedRegex("^%?d")]
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a one-digit day pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    private static partial Regex OneDigitDayRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a two-digit hour pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?(hh|HH)")]
+    private static partial Regex TwoDigitHourRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a one-digit hour pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?(h|H)")]
+    private static partial Regex OneDigitHourRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a two-digit minute pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?mm")]
+    private static partial Regex TwoDigitMinuteRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a one-digit minute pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?m")]
+    private static partial Regex OneDigitMinuteRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a two-digit second pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?ss")]
+    private static partial Regex TwoDigitSecondRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a one-digit second pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?s")]
+    private static partial Regex OneDigitSecondRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a date separator pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?/")]
+    private static partial Regex DateSeparatorRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a time separator pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?:")]
+    private static partial Regex TimeSeparatorRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches an unsupported format string.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?([fF]{1,7}|g{1,2}|K|t{1,2}|z{1,3})")]
+    private static partial Regex UnsupportedFormatStringRegex();
+
+
+    /// <summary>
+    /// Returns a regular expression that matches a complementary day pattern.
+    /// <returns>A <see cref="Regex"/> instance.</returns>
+    [GeneratedRegex("^%?d{1,4}.*M{3,4}(.*d{1,4})?|M{3,4}.*d{1,4}(.*M{3,4})?|dddd.*M{1,3}|M{1,3}.*dddd")]
+    private static partial Regex ComplementaryDayRegex();
+
+    #endregion
+
 
     /// <inheritdoc/>
     public object? GetFormat(Type? formatType)
@@ -158,49 +295,39 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
     /// <returns>A list of regex patterns and their corresponding replacement functions.</returns>
     private IReadOnlyList<(Regex Key, Func<FrenchRepublicanDateTime, string> Replacement)> GetReplacementRules(FrenchRepublicanDateTime time)
     {
-        const string CommonPrefix = "^%?";
         var formatInfo = new FrenchRepublicanDateTimeFormatInfo();
 
         var rules = new List<(Regex Key, Func<FrenchRepublicanDateTime, string> Replacement)>
         {
-            (new Regex(CommonPrefix + "y{3,5}"), t => String.Format(new RomanNumeralsFormatter(), "{0:}", t.Year)),
-            (new Regex(CommonPrefix + "yy"), t => (t.Year % 100).ToString("00")),
-            (new Regex(CommonPrefix + "y"), t => (t.Year % 100).ToString())
+            (LongYearRegex(), t => String.Format(new RomanNumeralsFormatter(), "{0:}", t.Year)),
+            (TwoDigitYearRegex(), t => (t.Year % 100).ToString("00")),
+            (OneDigitYearRegex(), t => (t.Year % 100).ToString())
         };
 
         // Special handling for the complementary days, which have their own day names and no month name.
         if (time.Month == Constants.ComplementaryMonth)
         {
-            rules.Add((new Regex(CommonPrefix + "d{1,4}.*M{3,4}(.*d{1,4})?|M{3,4}.*d{1,4}(.*M{3,4})?|dddd.*M{1,3}|M{1,3}.*dddd"), t => formatInfo.ComplementaryDayNames[t.Day - 1]));
+            rules.Add((ComplementaryDayRegex(), t => formatInfo.ComplementaryDayNames[t.Day - 1]));
         }
 
         // Standard handling for date and time placeholders.
-        rules.Add((new Regex(CommonPrefix + "MMMM"), t => formatInfo.MonthNames[t.Month - 1]));
-        rules.Add((new Regex(CommonPrefix + "MMM\\.?"), t => formatInfo.MonthNames[t.Month - 1]));
-        rules.Add((new Regex(CommonPrefix + "MM"), t => t.Month.ToString("00")));
-        rules.Add((new Regex(CommonPrefix + "M"), t => t.Month.ToString()));
-        rules.Add((new Regex(CommonPrefix + "dddd"), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]));
-        rules.Add((new Regex(CommonPrefix + "ddd\\.?"), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]));
-        rules.Add((new Regex(CommonPrefix + "dd"), t => t.Day.ToString("00")));
-        rules.Add((new Regex(CommonPrefix + "d"), t => t.Day.ToString()));
-        rules.Add((new Regex(CommonPrefix + "hh"), t => t.Hour.ToString("00")));  // 12-hour clock is not supported, so "hh"
-        rules.Add((new Regex(CommonPrefix + "h"), t => t.Hour.ToString()));       // and "h" will be treated as "HH" and "H"
-        rules.Add((new Regex(CommonPrefix + "HH"), t => t.Hour.ToString("00")));
-        rules.Add((new Regex(CommonPrefix + "H"), t => t.Hour.ToString()));
-        rules.Add((new Regex(CommonPrefix + "mm"), t => t.Minute.ToString("00")));
-        rules.Add((new Regex(CommonPrefix + "m"), t => t.Minute.ToString()));
-        rules.Add((new Regex(CommonPrefix + "ss"), t => t.Second.ToString("00")));
-        rules.Add((new Regex(CommonPrefix + "s"), t => t.Second.ToString()));
-        rules.Add((new Regex(CommonPrefix + "/"), _ => CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator));
-        rules.Add((new Regex(CommonPrefix + ":"), _ => CultureInfo.CurrentCulture.DateTimeFormat.TimeSeparator));
+        rules.Add((MonthNameRegex(), t => formatInfo.MonthNames[t.Month - 1]));
+        rules.Add((TwoDigitMonthRegex(), t => t.Month.ToString("00")));
+        rules.Add((OneDigitMonthRegex(), t => t.Month.ToString()));
+        rules.Add((DayNameRegex(), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]));
+        rules.Add((TwoDigitDayRegex(), t => t.Day.ToString("00")));
+        rules.Add((OneDigitDayRegex(), t => t.Day.ToString()));
+        rules.Add((TwoDigitHourRegex(), t => t.Hour.ToString("00")));
+        rules.Add((OneDigitHourRegex(), t => t.Hour.ToString()));    
+        rules.Add((TwoDigitMinuteRegex(), t => t.Minute.ToString("00")));
+        rules.Add((OneDigitMinuteRegex(), t => t.Minute.ToString()));
+        rules.Add((TwoDigitSecondRegex(), t => t.Second.ToString("00")));
+        rules.Add((OneDigitSecondRegex(), t => t.Second.ToString()));
+        rules.Add((DateSeparatorRegex(), _ => CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator));
+        rules.Add((TimeSeparatorRegex(), _ => CultureInfo.CurrentCulture.DateTimeFormat.TimeSeparator));
 
         // Unsupported placeholders will be replaced with an empty string.
-        rules.Add((new Regex(CommonPrefix + "f{1,7}"), t => String.Empty));
-        rules.Add((new Regex(CommonPrefix + "F{1,7}"), t => String.Empty));
-        rules.Add((new Regex(CommonPrefix + "g{1,2}"), t => String.Empty));
-        rules.Add((new Regex(CommonPrefix + "K"), t => String.Empty));
-        rules.Add((new Regex(CommonPrefix + "t{1,2}"), t => String.Empty));
-        rules.Add((new Regex(CommonPrefix + "z{1,3}"), t => String.Empty));
+        rules.Add((UnsupportedFormatStringRegex(), t => String.Empty));
 
         return rules;
     }

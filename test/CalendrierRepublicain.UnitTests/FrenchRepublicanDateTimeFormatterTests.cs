@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using Newtonsoft.Json.Bson;
+﻿using System.Globalization;
 
 
 namespace LinkeEngineering.CalendrierRepublicain.UnitTests;
@@ -64,17 +62,26 @@ public class FrenchRepublicanDateTimeFormatterTests
     [TestMethod]
     public void Format_SupportedFormatString_ReturnsExpectedPattern()
     {
-        foreach (var (FormatString, time, culture, expected) in TestData.Data)
+        var originalCulture = CultureInfo.CurrentCulture;
+
+        try
         {
-            // Arrange
-            var format = $"{{0:{FormatString}}}";
-            CultureInfo.CurrentCulture = new CultureInfo(culture);
+            foreach (var (FormatString, time, culture, expected) in TestData.Data)
+            {
+                // Arrange
+                var format = $"{{0:{FormatString}}}";
+                CultureInfo.CurrentCulture = new CultureInfo(culture);
 
-            // Act
-            var actual = String.Format(_provider, format, time);
+                // Act
+                var actual = String.Format(_provider, format, time);
 
-            // Assert
-            Assert.AreEqual(expected, actual, $"Failed for FormatString: {FormatString}, Culture: {culture}");
+                // Assert
+                Assert.AreEqual(expected, actual, $"Failed for FormatString: {FormatString}, Culture: {culture}");
+            }
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
         }
     }
 

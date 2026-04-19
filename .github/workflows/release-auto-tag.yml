@@ -33,7 +33,13 @@ jobs:
 
       - name: Extract version from project file
         run: |
-          VERSION=$(grep -oPm1 '(?<=<Version>)[^<]+' ${{ env.PROJECT_FILE }} || echo "0.0.0")
+          VERSION=$(grep -oPm1 '(?<=<Version>)[^<]+' ${{ env.PROJECT_FILE }})
+
+          if [ -z "$VERSION" ]; then
+            echo "Error: Unable to extract a non-empty <Version> value from '${{ env.PROJECT_FILE }}'."
+            exit 1
+          fi
+
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create Git tag

@@ -77,7 +77,6 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
             "t" => FillPattern(standardFormatInfo.ShortTimePattern, time),
             "T" => FillPattern(standardFormatInfo.LongTimePattern, time),
             "y" or "Y" => FillPattern(standardFormatInfo.YearMonthPattern, time),
-            "o" or "O" or "r" or "R" or "s" or "u" or "U" => String.Empty,
             _ => FillPattern(format, time),
         };
     }

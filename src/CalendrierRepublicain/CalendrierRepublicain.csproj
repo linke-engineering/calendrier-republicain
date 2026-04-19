@@ -11,7 +11,7 @@
 		<Title>$(AssemblyName)</Title>
 		<Authors>linke-engineering</Authors>
 		<Company>Linke Genealogical Engineering</Company>
-		<Description>A modern .NET library for converting, calculating, and formatting dates in the French Republican calendar. Includes a custom calendar implementation and formatter for seamless integration with .NET date and time APIs.</Description>
+		<Description>A modern .NET library for converting and formatting dates between the Gregorian and French Republican calendars. It provides a drop-in replacement for the standard calendar and formatting infrastructure, enabling seamless integration into .NET applications.</Description>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/linke-engineering/calendrier-republicain.git</RepositoryUrl>
 		<PackageTags>calendar;French;Republican;Revolutionary;date;datetime;formatter;gregorian;conversion;custom-calendar;history;culture;dotnet;net8</PackageTags>

@@ -178,11 +178,11 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
 
         // Standard handling for date and time placeholders.
         rules.Add(new Regex(CommonPrefix + "MMMM"), t => formatInfo.MonthNames[t.Month - 1]);
-        rules.Add(new Regex(CommonPrefix + "MMM"), t => formatInfo.MonthNames[t.Month - 1]);
+        rules.Add(new Regex(CommonPrefix + "MMM\\.?"), t => formatInfo.MonthNames[t.Month - 1]);
         rules.Add(new Regex(CommonPrefix + "MM"), t => t.Month.ToString("00"));
         rules.Add(new Regex(CommonPrefix + "M"), t => t.Month.ToString());
         rules.Add(new Regex(CommonPrefix + "dddd"), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]);
-        rules.Add(new Regex(CommonPrefix + "ddd"), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]);
+        rules.Add(new Regex(CommonPrefix + "ddd\\.?"), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]);
         rules.Add(new Regex(CommonPrefix + "dd"), t => t.Day.ToString("00"));
         rules.Add(new Regex(CommonPrefix + "d"), t => t.Day.ToString());
         rules.Add(new Regex(CommonPrefix + "hh"), t => t.Hour.ToString("00"));  // 12-hour clock is not supported, so "hh"

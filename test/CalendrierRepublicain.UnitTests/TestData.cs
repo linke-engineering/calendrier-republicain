@@ -515,8 +515,8 @@ internal class TestData
         ("MMMM an yyyy", Time1, FR, "Vendémiaire an I"),
         ("MMMM an yyyy", Time2, DE, "Jours complémentaires an III"),
         ("MMMM an yyyy", Time3, US, "Nivôse an XIV"),
-        ("MMM dd", Time2, FR, "Jour de la révolution"),
-        ("'Born' d MMMM, 'year' yyyy", Time3, US, "Born 10 Nivôse, year XIV"),
+        ("ddd, dd. MMMM yyyy", Time2, FR, "Jour de la révolution III"),
+        ("'Born' d MMM., 'year' yyyy", Time3, US, "Born 10 Nivôse, year XIV"),
         ("dddd \\y hh:mm tt", Time3, FR, "Décadi y 23:59"),
 
         #endregion

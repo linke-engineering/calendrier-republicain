@@ -225,21 +225,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     internal static bool IsLeapDay(int year, int month, int day, int era)
     {
         ValidateDay(year, month, day, era);
-        return IsLeapMonth(year, month, era) && day == C.LeapComplementaryDays;
-    }
-
-
-    /// <summary>
-    /// Determines whether the provided month is a leap month.
-    /// </summary>
-    /// <param name="year">An integer that represents a year in the Republican calendar.</param>
-    /// <param name="month">An integer that represents a month in the Republican calendar.</param>
-    /// <param name="era">An integer that represents an era in the Republican calendar.</param>
-    /// <returns>True if the month is a leap month, otherwise false.</returns>
-    internal static bool IsLeapMonth(int year, int month, int era)
-    {
-        ValidateMonth(year, month, era);
-        return IsLeapYear(year, era) && month == C.ComplementaryMonth;
+        return IsLeapYear(year, era) && month == C.ComplementaryMonth && day == C.LeapComplementaryDays;
     }
 
 
@@ -326,7 +312,7 @@ internal class FrenchRepublicanDateTime : IFormattable
     {
         ValidateMonth(year, month, era);
 
-        if (IsLeapMonth(year, month, era))
+        if (IsLeapYear(year, era) && month == C.ComplementaryMonth)
         {
             ValidateValueInsideRange(nameof(day), day, 1, C.LeapComplementaryDays);
         }

@@ -4,6 +4,14 @@
 namespace LinkeEngineering.CalendrierRepublicain.UnitTests;
 
 
+/// <summary>
+/// Defines a collection of test cases for verifying the correct formatting of date and time values in the French 
+/// Republican calendar, including standard and custom format strings across different cultures.
+/// </summary>
+/// <remarks>
+/// Save this file in "Unicode (UTF-8 with signature)" encoding to avoid issues with accented characters in the CI 
+/// workflow.
+/// </remarks>
 internal class TestData
 {
 

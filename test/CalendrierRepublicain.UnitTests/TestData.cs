@@ -54,7 +54,7 @@ internal class TestData
     /// <summary>
     /// The collection of test cases for date formatting.
     /// </summary>
-    internal static List<(string FormatString, DateTime Time, string Culture, string Expected)> Data { get; set; } =
+    internal static IReadOnlyList<(string FormatString, DateTime Time, string Culture, string Expected)> Data { get; } =
     [
 
         #region Standard format strings

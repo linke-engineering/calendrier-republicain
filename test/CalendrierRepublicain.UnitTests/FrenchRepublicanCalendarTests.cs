@@ -987,7 +987,7 @@ public class FrenchRepublicanCalendarTests
 
 
     /// <summary>
-    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapYear(int, int)"/> method.
+    /// Tests the <see cref="FrenchRepublicanCalendar.IsLeapMonth(int, int, int)"/> method.
     /// </summary>
     /// <param name="year">An integer representing the year in the Republican calendar.</param>
     /// <param name="month">An integer representing the month in the Republican calendar.</param>

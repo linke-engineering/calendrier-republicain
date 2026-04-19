@@ -1,8 +1,8 @@
 ﻿# -------------------------------------------------------------------------------------------------
-# GitHub Actions Reusable Workflow: Auto Tag on Merge to Main
+# GitHub Actions Workflow: Auto Tag on Merge to Main
 #
 # Purpose:
-#   Automatically create a Git tag based on the version in the specified project file when a merge
+#   Automatically create a Git tag based on the version in the specified project file when a push
 #   occurs on the main branch.
 #
 # Prerequisites:

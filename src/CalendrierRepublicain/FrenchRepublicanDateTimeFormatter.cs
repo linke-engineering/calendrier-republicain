@@ -55,25 +55,30 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
             throw new ArgumentException($"The argument must be of type {typeof(DateTime).Name} or {typeof(FrenchRepublicanDateTime).Name}.", nameof(arg));
         }
 
-        // Check for invalid format strings (single-character formats other than "d" and "D")
-        if (format.Length == 1 && format != "d" && format != "D")
+        // Check for invalid format strings (single-character formats other than the supported standard format strings).
+        const string supportedStandardFormats = "dDfFgGmMtTyY";
+
+        if (format.Length == 1 && !supportedStandardFormats.Contains(format))
         {
             throw new FormatException($"The format string '{format}' is not supported.");
         }
 
         var standardFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
 
-        switch (format)
+        return format switch
         {
-            case "D":
-                return FillPattern(standardFormatInfo.LongDatePattern, time);
-
-            case "d":
-                string shortDatePattern = Regex.Replace(standardFormatInfo.ShortDatePattern, "y{1,4}", "yy");
-                return FillPattern(shortDatePattern, time);
-
-            default:
-                return FillPattern(format, time);
+            "d" => FillPattern(Regex.Replace(standardFormatInfo.ShortDatePattern, "y{3,4}", "yy"), time),
+            "D" => FillPattern(standardFormatInfo.LongDatePattern, time),
+            "f" => FillPattern(standardFormatInfo.LongDatePattern + " " + standardFormatInfo.ShortTimePattern, time),
+            "F" => FillPattern(standardFormatInfo.FullDateTimePattern, time),
+            "g" => FillPattern(Regex.Replace(standardFormatInfo.ShortDatePattern, "y{3,4}", "yy") + " " + standardFormatInfo.ShortTimePattern, time),
+            "G" => FillPattern(Regex.Replace(standardFormatInfo.ShortDatePattern, "y{3,4}", "yy") + " " + standardFormatInfo.LongTimePattern, time),
+            "m" or "M" => FillPattern(standardFormatInfo.MonthDayPattern, time),
+            "t" => FillPattern(standardFormatInfo.ShortTimePattern, time),
+            "T" => FillPattern(standardFormatInfo.LongTimePattern, time),
+            "y" or "Y" => FillPattern(standardFormatInfo.YearMonthPattern, time),
+            "o" or "O" or "r" or "R" or "s" or "u" or "U" => String.Empty,
+            _ => FillPattern(format, time),
         };
     }
 
@@ -84,54 +89,12 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
     /// <param name="pattern">The pattern</param>
     /// <param name="time">The time in the Republican calendar.</param>
     /// <returns>The time string.</returns>
-    private static string FillPattern(string pattern, FrenchRepublicanDateTime time)
+    private string FillPattern(string pattern, FrenchRepublicanDateTime time)
     {
-        const string CommonPrefix = "^%?";
-
-        FrenchRepublicanDateTimeFormatInfo formatInfo = new();
         StringBuilder result = new();
 
-        // Define regex patterns for known placeholders
-        var replacements = new Dictionary<Regex, Func<FrenchRepublicanDateTime, string>>()
-        {
-            [new Regex(CommonPrefix + "y{3,5}")] = t => String.Format(new RomanNumeralsFormatter(), "{0:}", t.Year),
-            [new Regex(CommonPrefix + "yy")] = t => (t.Year % 100).ToString("00"),
-            [new Regex(CommonPrefix + "y")] = t => (t.Year % 100).ToString(),
-            [new Regex(CommonPrefix + "MMMM")] = t => formatInfo.MonthNames[t.Month - 1],
-            [new Regex(CommonPrefix + "MMM")] = t => String.Empty,
-            [new Regex(CommonPrefix + "MM")] = t => t.Month.ToString("00"),
-            [new Regex(CommonPrefix + "M")] = t => t.Month.ToString(),
-            [new Regex(CommonPrefix + "dddd")] = t => formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek],
-            [new Regex(CommonPrefix + "ddd")] = t => String.Empty,
-            [new Regex(CommonPrefix + "dd")] = t => t.Day.ToString("00"),
-            [new Regex(CommonPrefix + "d")] = t => t.Day.ToString(),
-
-            [new Regex(CommonPrefix + "hh")] = t => (t.Hour % 12 == 0 ? 12 : t.Hour % 12).ToString("00"),
-            [new Regex(CommonPrefix + "h")] = t => (t.Hour % 12 == 0 ? 12 : t.Hour % 12).ToString(),
-            [new Regex(CommonPrefix + "HH")] = t => t.Hour.ToString("00"),
-            [new Regex(CommonPrefix + "H")] = t => t.Hour.ToString(),
-            [new Regex(CommonPrefix + "mm")] = t => t.Minute.ToString("00"),
-            [new Regex(CommonPrefix + "m")] = t => t.Minute.ToString(),
-            [new Regex(CommonPrefix + "ss")] = t => t.Second.ToString("00"),
-            [new Regex(CommonPrefix + "s")] = t => t.Second.ToString(),
-
-            [new Regex(CommonPrefix + "/")] = _ => CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator,
-            [new Regex(CommonPrefix + ":")] = _ => CultureInfo.CurrentCulture.DateTimeFormat.TimeSeparator,
-
-            [new Regex(CommonPrefix + "f{1,7}")] = t => String.Empty,
-            [new Regex(CommonPrefix + "F{1,7}")] = t => String.Empty,
-            [new Regex(CommonPrefix + "g{1,2}")] = t => String.Empty,
-            [new Regex(CommonPrefix + "K")] = t => String.Empty,
-            [new Regex(CommonPrefix + "t{1,2}")] = t => String.Empty,
-            [new Regex(CommonPrefix + "z{1,3}")] = t => String.Empty,
-        };
-
-        // If the date is in the complementary month, remove month and day names from the pattern since they don't apply.
-        if (time.Month == Constants.ComplementaryMonth)
-        {
-            replacements[new Regex(CommonPrefix + "MMMM")] = t => String.Empty;
-            replacements[new Regex(CommonPrefix + "dddd")] = t => String.Empty;
-        }
+        // Define replacement rules for known placeholders
+        var rules = GetReplacementRules(time);
 
         // Process the pattern from left to right
         while (pattern.Length > 0)
@@ -160,17 +123,17 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
             }
 
             // Check for known placeholders
-            foreach (var replacement in replacements)
+            foreach (var rule in rules)
             {
-                var match = replacement.Key.Match(pattern);
+                var match = rule.Key.Match(pattern);
 
                 if (match.Success)
                 {
                     // Append the replacement result
-                    result.Append(replacement.Value(time));
+                    result.Append(rule.Value(time));
 
                     // Remove the matched part from the pattern
-                    pattern = pattern.Substring(match.Length);
+                    pattern = pattern[match.Length..];
                     matched = true;
                     break;
                 }
@@ -180,11 +143,68 @@ public class FrenchRepublicanDateTimeFormatter : IFormatProvider, ICustomFormatt
             {
                 // Append the first character as-is and move to the next
                 result.Append(pattern[0]);
-                pattern = pattern.Substring(1);
+                pattern = pattern[1..];
             }
         }
 
-        return result.ToString();
+        return result.ToString().Trim();
+    }
+
+
+    /// <summary>
+    /// Defines the replacement rules for date and time patterns. The keys of the returned dictionary are regex 
+    /// patterns that match the placeholders in the format string, and the values are functions that take a 
+    /// <see cref="FrenchRepublicanDateTime"/> and return the corresponding string representation for that placeholder.
+    /// </summary>
+    /// <param name="time">The time in the Republican calendar.</param>
+    /// <returns>A dictionary of regex patterns and their corresponding replacement functions.</returns>
+    private Dictionary<Regex, Func<FrenchRepublicanDateTime, string>> GetReplacementRules(FrenchRepublicanDateTime time)
+    {
+        const string CommonPrefix = "^%?";
+        var formatInfo = new FrenchRepublicanDateTimeFormatInfo();
+
+        var rules = new Dictionary<Regex, Func<FrenchRepublicanDateTime, string>>
+        {
+            { new Regex(CommonPrefix + "y{3,5}"), t => String.Format(new RomanNumeralsFormatter(), "{0:}", t.Year) },
+            { new Regex(CommonPrefix + "yy"), t => (t.Year % 100).ToString("00") },
+            { new Regex(CommonPrefix + "y"), t => (t.Year % 100).ToString() }
+        };
+
+        // Special handling for the complementary days, which have their own day names and no month name.
+        if (time.Month == Constants.ComplementaryMonth)
+        {
+            rules.Add(new Regex(CommonPrefix + "d{1,4}.*M{3,4}(.*d{1,4})?|M{3,4}.*d{1,4}(.*M{3,4})?|dddd.*M{1,3}|M{1,3}.*dddd"), t => formatInfo.ComplementaryDayNames[t.Day - 1]);
+        }
+
+        // Standard handling for date and time placeholders.
+        rules.Add(new Regex(CommonPrefix + "MMMM"), t => formatInfo.MonthNames[t.Month - 1]);
+        rules.Add(new Regex(CommonPrefix + "MMM"), t => formatInfo.MonthNames[t.Month - 1]);
+        rules.Add(new Regex(CommonPrefix + "MM"), t => t.Month.ToString("00"));
+        rules.Add(new Regex(CommonPrefix + "M"), t => t.Month.ToString());
+        rules.Add(new Regex(CommonPrefix + "dddd"), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]);
+        rules.Add(new Regex(CommonPrefix + "ddd"), t => t.Month == Constants.ComplementaryMonth ? String.Empty : formatInfo.DayNames[(t.Day - 1) % Constants.DaysInWeek]);
+        rules.Add(new Regex(CommonPrefix + "dd"), t => t.Day.ToString("00"));
+        rules.Add(new Regex(CommonPrefix + "d"), t => t.Day.ToString());
+        rules.Add(new Regex(CommonPrefix + "hh"), t => t.Hour.ToString("00"));  // 12-hour clock is not supported, so "hh"
+        rules.Add(new Regex(CommonPrefix + "h"), t => t.Hour.ToString());       // and "h" will be treated as "HH" and "H"
+        rules.Add(new Regex(CommonPrefix + "HH"), t => t.Hour.ToString("00"));
+        rules.Add(new Regex(CommonPrefix + "H"), t => t.Hour.ToString());
+        rules.Add(new Regex(CommonPrefix + "mm"), t => t.Minute.ToString("00"));
+        rules.Add(new Regex(CommonPrefix + "m"), t => t.Minute.ToString());
+        rules.Add(new Regex(CommonPrefix + "ss"), t => t.Second.ToString("00"));
+        rules.Add(new Regex(CommonPrefix + "s"), t => t.Second.ToString());
+        rules.Add(new Regex(CommonPrefix + "/"), _ => CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator);
+        rules.Add(new Regex(CommonPrefix + ":"), _ => CultureInfo.CurrentCulture.DateTimeFormat.TimeSeparator);
+
+        // Unsupported placeholders will be replaced with an empty string.
+        rules.Add(new Regex(CommonPrefix + "f{1,7}"), t => String.Empty);
+        rules.Add(new Regex(CommonPrefix + "F{1,7}"), t => String.Empty);
+        rules.Add(new Regex(CommonPrefix + "g{1,2}"), t => String.Empty);
+        rules.Add(new Regex(CommonPrefix + "K"), t => String.Empty);
+        rules.Add(new Regex(CommonPrefix + "t{1,2}"), t => String.Empty);
+        rules.Add(new Regex(CommonPrefix + "z{1,3}"), t => String.Empty);
+
+        return rules;
     }
 
 }

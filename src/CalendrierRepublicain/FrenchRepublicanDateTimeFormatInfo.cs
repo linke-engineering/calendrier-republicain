@@ -38,18 +38,19 @@ internal class FrenchRepublicanDateTimeFormatInfo
     /// </summary>
     internal string[] MonthNames =
     [
-        "Vendémiaire",  // month 1
-        "Brumaire",     // month 2
-        "Frimaire",     // month 3
-        "Nivôse",       // month 4
-        "Pluviôse",     // month 5
-        "Ventôse",      // month 6
-        "Germinal",     // month 7
-        "Floréal",      // month 8
-        "Prairial",     // month 9
-        "Messidor",     // month 10
-        "Thermidor",    // month 11
-        "Fructidor"     // month 12
+        "Vendémiaire",           // month 1
+        "Brumaire",              // month 2
+        "Frimaire",              // month 3
+        "Nivôse",                // month 4
+        "Pluviôse",              // month 5
+        "Ventôse",               // month 6
+        "Germinal",              // month 7
+        "Floréal",               // month 8
+        "Prairial",              // month 9
+        "Messidor",              // month 10
+        "Thermidor",             // month 11
+        "Fructidor",             // month 12
+        "Jours complémentaires"  // complementary days
     ];
 
 

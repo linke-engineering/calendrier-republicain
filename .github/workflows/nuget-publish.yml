@@ -3,7 +3,7 @@
 #
 # Purpose:
 #   This workflow builds, tests, and publishes a .NET library to NuGet when a new release is 
-#   published in the main branch.
+#   published in the main branch or manually triggered.
 #
 # Prerequisites:
 #   - The release tag must follow the format: v<major>.<minor>.<patch> (e.g.,  v1.2.3).
@@ -17,11 +17,6 @@ on:
     types: [published]
 
   workflow_dispatch:
-    inputs:
-      release_tag:
-        description: 'Release tag (e.g., v1.2.3)'
-        required: true
-        type: string
 
 jobs:
   publish:
@@ -36,6 +31,21 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+      - name: Get version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            RELEASE=$(gh release list --limit 1 --json tagName --jq '.[0].tagName')
+          else
+            RELEASE=${GITHUB_REF_NAME}
+          fi
+
+          VERSION=$(echo "$RELEASE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          if [ -z "$VERSION" ]; then
+            echo "Error: Failed to determine version. Ensure the tag follows the format v<major>.<minor>.<patch>."
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Restore dependencies
         run: dotnet restore
 
@@ -44,18 +54,6 @@ jobs:
 
       - name: Run tests
         run: dotnet test --configuration Release --no-build --verbosity normal
-
-      - name: Extract version from release tag
-        run: |
-          VERSION=$(echo "${GITHUB_REF_NAME}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Validate version
-        run: |
-          if [ -z "${{ env.VERSION }}" ]; then
-            echo "Error: Failed to extract version from release tag. Ensure the tag follows the format v<major>.<minor>.<patch>."
-            exit 1
-          fi
 
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output ./nupkg /p:Version=${{ env.VERSION }}

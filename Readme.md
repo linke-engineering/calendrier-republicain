@@ -94,36 +94,38 @@ Console.WriteLine(String.Format(repFormatter, "{0:dddd, dd MMMM 'an' yyyy}", com
 
 | Format specifier | Description             | Examples                                                                                  |
 |------------------|-------------------------|-------------------------------------------------------------------------------------------|
-| `d`              | Short date pattern      | fr-FR: `18/02/08`<br>en-US: `2/18/08`                                                     |
-| `D`              | Long date pattern       | fr-FR: `Octidi 18 Brumaire VIII`<br>en-US: `Octidi, Brumaire 18, VIII`                    |
-| `f`              | Long date + short time  | fr-FR: `Octidi, 18 Brumaire VIII 14:30`<br>en-US: `Octidi, Brumaire 18, VIII 14:30`       |
-| `F`              | Full date/time pattern  | fr-FR: `Octidi, 18 Brumaire VIII 14:30:00`<br>en-US: `Octidi, Brumaire 18, VIII 14:30:00` |
-| `g`              | Short date + short time | fr-FR: `18/02/08 14:30`<br>en-US: `2/18/08 14:30`                                         |
-| `G`              | Short date + long time  | fr-FR: `18/02/08 14:30:00`<br>en-US: `2/18/08 14:30:00`                                   |
-| `m`, `M`         | Month/day pattern       | fr-FR: `18 Brumaire`<br>en-US: `Brumaire 18`                                              |
-| `t`              | Short time pattern      | fr-FR: `14:30`<br>en-US: `14:30`                                                          |
-| `T`              | Long time pattern       | fr-FR: `14:30:00`<br>en-US: `14:30:00`                                                    |
-| `y`, `Y`         | Year/month pattern      | fr-FR: `Nivôse XIV`<br>en-US: `Nivôse XIV`                                                |
+| `d`              | Short date pattern      | `18/02/08` (fr-FR), `2/18/08` (en-US)                                                     |
+| `D`              | Long date pattern       | `Octidi 18 Brumaire VIII` (fr-FR), `Octidi, Brumaire 18, VIII` (en-US)                    |
+| `f`              | Long date + short time  | `Octidi, 18 Brumaire VIII 14:30` (fr-FR), `Octidi, Brumaire 18, VIII 14:30` (en-US)       |
+| `F`              | Full date/time pattern  | `Octidi, 18 Brumaire VIII 14:30:00` (fr-FR), `Octidi, Brumaire 18, VIII 14:30:00` (en-US) |
+| `g`              | Short date + short time | `18/02/08 14:30` (fr-FR), `2/18/08 14:30` (en-US)                                         |
+| `G`              | Short date + long time  | `18/02/08 14:30:00` (fr-FR), `2/18/08 14:30:00` (en-US)                                   |
+| `m`, `M`         | Month/day pattern       | `18 Brumaire` (fr-FR), `Brumaire 18` (en-US)                                              |
+| `t`              | Short time pattern      | `14:30` (fr-FR), `14:30` (en-US)                                                          |
+| `T`              | Long time pattern       | `14:30:00` (fr-FR), `14:30:00` (en-US)                                                    |
+| `y`, `Y`         | Year/month pattern      | `Nivôse XIV` (fr-FR), `Nivôse XIV` (en-US)                                                |
 
 #### Supported Custom Format Strings
 
-| Format specifier       | Description                          | Examples       |
-|------------------------|--------------------------------------|----------------|
-| `d`                    | Day of month (1 or 2 digits)         | `1`, `18`      |
-| `dd`                   | Day of month (2 digits)              | `01`, `18`     |
-| `ddd`, `dddd`          | Name of the day of the decade        | `Octidi`       |
-| `h`, `H`               | Hour, 24-hour format (1 or 2 digits) | `0`, `14`      |
-| `hh`, `HH`             | Hour, 24-hour format (2 digits)      | `00`, `14`     |
-| `m`                    | Minute (1 or 2 digits)               | `0`, `30`      |
-| `mm`                   | Minute (2 digits)                    | `00`, `30`     |
-| `M`                    | Month of year (1 or 2 digits)        | `2`, `10`      |
-| `MM`                   | Month of year (2 digits)             | `02`, `10`     |
-| `MMM`, `MMMM`          | Name of the month                    | `Brumaire`     |
-| `s`                    | Second (1 or 2 digits)               | `0`, `45`      |
-| `ss`                   | Second (2 digits)                    | `00`, `45`     |
-| `y`                    | Year (1 or 2 digits)                 | `8`, `12`      |
-| `yy`                   | Year (2 digits)                      | `08`, `12`     |
-| `yyy`, `yyyy`, `yyyyy` | Year (Roman numerals)                | `VIII`         |
+| Format specifier       | Description                          | Examples                 |
+|------------------------|--------------------------------------|--------------------------|
+| `d`                    | Day of month (1 or 2 digits)         | `1`, `18`                |
+| `dd`                   | Day of month (2 digits)              | `01`, `18`               |
+| `ddd`, `dddd`          | Name of the day of the decade        | `Octidi`                 |
+| `h`, `H`               | Hour, 24-hour format (1 or 2 digits) | `0`, `14`                |
+| `hh`, `HH`             | Hour, 24-hour format (2 digits)      | `00`, `14`               |
+| `m`                    | Minute (1 or 2 digits)               | `0`, `30`                |
+| `mm`                   | Minute (2 digits)                    | `00`, `30`               |
+| `M`                    | Month of year (1 or 2 digits)        | `2`, `10`                |
+| `MM`                   | Month of year (2 digits)             | `02`, `10`               |
+| `MMM`, `MMMM`          | Name of the month                    | `Brumaire`               |
+| `s`                    | Second (1 or 2 digits)               | `0`, `45`                |
+| `ss`                   | Second (2 digits)                    | `00`, `45`               |
+| `y`                    | Year (1 or 2 digits)                 | `8`, `12`                |
+| `yy`                   | Year (2 digits)                      | `08`, `12`               |
+| `yyy`, `yyyy`, `yyyyy` | Year (Roman numerals)                | `VIII`                   |
+| `/`                    | Date separator                       | `/` (fr-FR), `.` (de-DE) |
+| `:`                    | Time separator                       | `:` (fr-FR)              |
 
 ## License
 

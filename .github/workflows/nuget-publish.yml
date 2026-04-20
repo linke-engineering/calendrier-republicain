@@ -3,7 +3,7 @@
 #
 # Purpose:
 #   This workflow builds, tests, and publishes a .NET library to NuGet when a new release is 
-#   published and the tag is associated with the main branch.
+#   published and the release is associated with the main branch.
 #
 # Prerequisites:
 #   - The .csproj file must contain a valid <Version> element specifying the version of the
@@ -16,11 +16,11 @@ name: NuGet Publish
 on:
   release:
     types: [published]
-    branches:
-      - main
 
 jobs:
   publish:
+    if: github.event.release.target_commitish == 'main'
+
     runs-on: ubuntu-latest
 
     steps:

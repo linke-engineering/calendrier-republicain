@@ -18,7 +18,7 @@
 		<PackageIcon>CalendrierRepublicain.png</PackageIcon>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<Copyright>Copyright (c) 2023–2026 Linke Genealogical Engineering</Copyright>
-		<Version>2.0.0</Version>
+		<Version>2.0.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
